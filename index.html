@@ -1,12 +1,3 @@
-Tushundim. Sizga ikkita muhim funksiyani qo'shib beraman:
-1. **Mijozlar uchun "Buyurtmalarim" (Tarix)** bo'limi qaytariladi. U yerda mijoz o'zining barcha zakazlarini ko'radi va xohlasa **o'chirib tashlashi** mumkin.
-2. **Status tizimi**: Sotuvchi panelida buyurtma qabul qilingach, sotuvchi uni **"✅ Yakunlash"** tugmasini bosib yakunlaydi. Shunda mijozning tarixida bu buyurtma yonida **yashil rangda "Yakunlangan"** degan yozuv paydo bo'ladi.
-
-Tizimni yangilash uchun versiyani **13.0** ga ko'tardim.
-
-Mana to'liq va barcha funksiyalar ishlaydigan yakuniy HTML kodi:
-
-```html
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -20,35 +11,27 @@ Mana to'liq va barcha funksiyalar ishlaydigan yakuniy HTML kodi:
   --primary: #f97316;
   --primary-hover: #ea580c;
   --bg-dark: #0f172a;
-  --bg-card: rgba(255, 255, 255, 0.98);
   --text-main: #1e293b;
   --text-muted: #64748b;
   --border-color: #e2e8f0;
   --glass-bg: rgba(15, 23, 42, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.1);
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
-  --success: #10b981;
-  --danger: #ef4444;
 }
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  margin: 0; padding: 0; color: var(--text-main);
+  font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; color: var(--text-main);
   background: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
-  background-size: cover; min-height: 100vh;
-  -webkit-tap-highlight-color: transparent;
+  background-size: cover; min-height: 100vh; -webkit-tap-highlight-color: transparent;
 }
-body::before {
-  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
-  z-index: -1;
+body::before { 
+  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)); 
+  z-index: -1; 
 }
-*{box-sizing:border-box;}
-a{text-decoration:none;color:inherit;}
-button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;}
-.header { background: var(--glass-bg); color: #fff; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); box-shadow: var(--shadow-sm); }
+*{box-sizing:border-box;} a{text-decoration:none;color:inherit;} button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;}
+.header { background: var(--glass-bg); color: #fff; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: var(--shadow-sm); }
 .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; flex-wrap: wrap; gap: 10px;}
-.logo { font-size: 1.3rem; font-weight: 900; display: flex; align-items: center; gap: 10px; color:#fff; letter-spacing: 0.5px;}
+.logo { font-size: 1.3rem; font-weight: 900; display: flex; align-items: center; gap: 10px; color:#fff; }
 .logo-img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
 .logo span { color: #fbbf24; }
 .nav-btns { display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 10px;}
@@ -66,16 +49,15 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .main-container { max-width: 1100px; margin: 25px auto; background: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2000&auto=format&fit=crop') no-repeat center center; background-size: cover; border-radius: 24px; padding: 25px; box-shadow: var(--shadow-lg); min-height: 80vh; position: relative; }
 .search-bar { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--border-color); font-size: 0.95rem; margin-bottom: 25px; outline: none; background: rgba(255,255,255,0.95); transition: all 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);}
 .search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249,115,22,0.15); background: #fff; }
-.section-title { font-size: 1.25rem; font-weight: 800; margin: 30px 0 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);}
+.section-title { font-size: 1.25rem; font-weight: 800; margin: 30px 0 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
 .section-title::before { content: ""; display: block; width: 6px; height: 24px; background: var(--primary); border-radius: 4px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-.product { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.product { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s; }
 .product:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-color: #fdba74; }
-.product:active { transform: scale(0.98); }
 .product-media { width: 100%; height: 130px; border-radius: 12px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border: 1px solid #f1f5f9;}
 .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;}
 .product:hover .product-img { transform: scale(1.05); }
-.product-icon { font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+.product-icon { font-size: 3.5rem; }
 .product-name { font-size: 0.9rem; font-weight: 700; margin: 4px 0 0 0; line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
 .stock { font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; align-self: flex-start; background: #dcfce7; color: #15803d; }
 .stock.low { background: #fef3c7; color: #b45309; }
@@ -83,8 +65,8 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px;}
 .price { font-size: 1rem; font-weight: 900; color: #b91c1c; }
 .price small { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
-.btn-add { background: var(--text-main); color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2); display:flex; align-items:center; justify-content:center;}
-.btn-add:hover { background: var(--primary); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4); }
+.btn-add { background: var(--text-main); color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; }
+.btn-add:hover { background: var(--primary); }
 .history-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-sm); position: relative;}
 .history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 15px;}
 .history-title { font-weight: 800; color: var(--text-main); font-size: 1.1rem;}
@@ -96,104 +78,84 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; margin-bottom: 10px;}
 .status-new { background: #fef3c7; color: #b45309; }
 .status-done { background: #dcfce7; color: #15803d; }
-.mdf-box { background: var(--bg-dark); color: #fff; border-radius: 20px; padding: 25px; margin-top: 40px; box-shadow: var(--shadow-lg);}
+.mdf-box { background: var(--bg-dark); color: #fff; border-radius: 20px; padding: 25px; margin-top: 40px; }
 .mdf-box h2 { margin-top: 0; color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px;}
 .mdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.mdf-form input, .mdf-form select { width: 100%; padding: 10px 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #fff; outline: none; font-size: 0.9rem; transition: 0.2s;}
-.mdf-form input:focus { border-color: var(--primary); }
+.mdf-form input, .mdf-form select { width: 100%; padding: 10px 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #fff; outline: none; font-size: 0.9rem; }
 .mdf-form label { font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 5px; font-weight: 600;}
-.btn-calc { background: var(--primary); color: #fff; width: 100%; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 10px; box-shadow: 0 4px 15px rgba(249,115,22,0.3);}
-.btn-calc:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-calc { background: var(--primary); color: #fff; width: 100%; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 10px; }
+.btn-calc:hover { background: var(--primary-hover); }
 .mdf-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid #475569; font-size: 0.9rem; display: flex; flex-direction: column; justify-content: center;}
 .res-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #475569; }
 .res-row:last-child { border: none; }
 .res-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; color: #fbbf24; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary); }
 .about-box { text-align: center; padding: 30px 10px; }
 .contact-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top:30px;}
-.contact-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; min-width: 220px; box-shadow: var(--shadow-sm); transition: 0.3s;}
-.contact-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary);}
+.contact-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; min-width: 220px; box-shadow: var(--shadow-sm); }
 .contact-card .icon { font-size: 2.5rem; margin-bottom: 15px; }
 .contact-card h3 { margin: 0 0 8px 0; color: var(--text-main); font-size: 1.1rem; }
 .contact-card p { margin: 0; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
 #sellerView { display: none; background: rgba(255,255,255,0.95); padding: 20px; border-radius: 16px;}
 .seller-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; flex-wrap: wrap; }
 .seller-tab { background: transparent; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); padding: 10px 20px; border-radius: 10px;}
-.seller-tab:hover { background: #f1f5f9; }
-.seller-tab.active { background: var(--text-main); color: #fff; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);}
+.seller-tab.active { background: var(--text-main); color: #fff; }
 .order-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #ef4444; box-shadow: var(--shadow-sm); position: relative;}
 .order-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;}
 .order-client { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px;}
 .order-details { font-size: 0.9rem; color: #475569; margin: 5px 0 15px 0; line-height: 1.5;}
 .order-items { background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 0.9rem; border: 1px solid #e2e8f0;}
 .order-total { font-weight: 900; font-size: 1.1rem; color: var(--primary); text-align: right; margin-top: 10px; }
-.btn-complete { background: #10b981; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: inline-block; border: none;}
-.btn-complete:hover { background: #059669; }
-.btn-receipt { background: #3b82f6; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: inline-block; border: none; margin-left: 10px;}
-.btn-receipt:hover { background: #2563eb; }
+.btn-complete { background: #10b981; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; margin-top: 10px; display: inline-block; border: none;}
+.btn-receipt { background: #3b82f6; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; margin-top: 10px; display: inline-block; border: none; margin-left: 10px;}
 .product-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem;}
 .product-table th, .product-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle;}
 .product-table th { background: #f8fafc; font-weight: 700; color: var(--text-main); position: sticky; top: 0;}
-.product-table tr:hover { background: #f8fafc; }
 .product-table input[type="number"] { width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; outline:none;}
 .product-table input[type="text"] { width: 100%; min-width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.8rem; outline:none;}
-.product-table input:focus { border-color: var(--primary); }
-.btn-save-edits { background: #10b981; color: #fff; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; margin-top: 20px; display: block; width: 100%; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);}
-.btn-save-edits:hover { background: #059669; transform: translateY(-2px); }
+.btn-save-edits { background: #10b981; color: #fff; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; margin-top: 20px; display: block; width: 100%; }
 .add-product-box { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 25px; margin-top: 30px; }
 .add-product-box h3 { margin-top: 0; color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;}
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; }
 .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text-main); }
 .form-group input, .form-group select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline:none; background: #fff;}
-.form-group input:focus { border-color: var(--primary); }
-.btn-add-new { background: var(--primary); color: #fff; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 15px; grid-column: span 2; box-shadow: 0 4px 15px rgba(249,115,22,0.3);}
-.btn-add-new:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-add-new { background: var(--primary); color: #fff; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 15px; grid-column: span 2; }
 .cat-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.cat-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
+.cat-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); }
 .cat-item span { font-weight: 700; font-size: 1rem; color: var(--text-main);}
 .btn-del-cat { background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor:pointer;}
-.btn-del-cat:hover { background: #fca5a5; }
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 100; opacity: 0; transition: opacity 0.3s;}
-.modal.open { display: flex; opacity: 1; }
-.modal-content { background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.3s;}
-.modal.open .modal-content { transform: scale(1); }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 100; }
+.modal.open { display: flex; }
+.modal-content { background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; }
 .modal-content input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.95rem; outline:none;}
-.modal-content input:focus { border-color: var(--primary); }
-.btn-primary { background: var(--text-main); color: #fff; width: 100%; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);}
-.btn-primary:hover { background: #0f172a; transform: translateY(-2px); }
-.btn-close { background: #f1f5f9; color: var(--text-muted); margin-top: 10px; box-shadow: none;}
-.btn-close:hover { background: #e2e8f0; }
+.btn-primary { background: var(--text-main); color: #fff; width: 100%; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; }
+.btn-close { background: #f1f5f9; color: var(--text-muted); margin-top: 10px; }
 .err-msg { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; background: #fee2e2; padding: 10px; border-radius: 8px;}
 .detail-media { width: 100%; height: 220px; border-radius: 16px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border-color);}
 .detail-img { width: 100%; height: 100%; object-fit: cover; }
-.detail-icon { font-size: 7rem; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
-.detail-title { font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin-bottom: 5px; text-align: left; line-height:1.2;}
-.detail-cat { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+.detail-icon { font-size: 7rem; }
+.detail-title { font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin-bottom: 5px; text-align: left; }
+.detail-cat { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: left; font-weight: 600; text-transform: uppercase; }
 .detail-desc { font-size: 0.95rem; color: #475569; margin-bottom: 20px; line-height: 1.5; text-align: left; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;}
 .detail-price { font-size: 1.5rem; font-weight: 900; color: #b91c1c; margin-bottom: 10px; }
 .receipt-box { font-family: 'Courier New', Courier, monospace; text-align: left; color: #000; background: #fff; padding: 20px; border-radius: 8px; border: 1px dashed #cbd5e1;}
 .receipt-header { text-align: center; margin-bottom: 10px;}
-.receipt-header h2 { margin: 0; font-size: 1.2rem;}
 .receipt-divider { border-top: 1px dashed #000; margin: 10px 0;}
 .receipt-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;}
 .receipt-total { font-weight: bold; font-size: 1rem; text-align: right; margin-top: 10px;}
-.cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 90; display: flex; flex-direction: column; }
+.cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.15); transition: right 0.4s; z-index: 90; display: flex; flex-direction: column; }
 .cart-panel.open { right: 0; }
 .cart-head { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-.cart-head h3 { margin:0; font-size:1.2rem; color: var(--text-main); font-weight:800;}
 .cart-close-btn { background: #f1f5f9; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; font-size: 1.2rem; color: var(--text-muted); cursor:pointer;}
-.cart-close-btn:hover { background: #fee2e2; color: #dc2626;}
 .cart-items { flex-grow: 1; overflow-y: auto; padding: 20px; background: #f8fafc;}
-.cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 0.9rem; background: #fff; padding: 15px; border-radius: 12px; box-shadow: var(--shadow-sm);}
+.cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 0.9rem; background: #fff; padding: 15px; border-radius: 12px; }
 .cart-foot { padding: 20px; border-top: 1px solid var(--border-color); background: #fff;}
-.btn-checkout { background: #25D366; color: #fff; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);}
-.btn-checkout:hover { background: #1eb954; transform: translateY(-2px);}
+.btn-checkout { background: #25D366; color: #fff; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
 @media (max-width: 768px) {
-  .main-container { margin: 10px; padding: 15px; border-radius: 16px; }
+  .main-container { margin: 10px; padding: 15px; }
   .mdf-grid, .form-grid { grid-template-columns: 1fr; }
   .header-inner { flex-direction: column; align-items: stretch; gap: 15px;}
   .nav-btns { justify-content: center; }
-  .header-actions { justify-content: space-between; }
   .btn-add-new { grid-column: span 1; }
   .cart-panel { width: 100%; }
 }
@@ -422,8 +384,28 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
   </div>
 </div>
 
+<!-- ===== FIREBASE SDK ===== -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
 <script>
-const APP_VERSION = "13.0";
+// =========================================================
+// 🔥 FIREBASE KONFIGURATSIYASI (BU YERGA O'ZINGIZNING KALITLARINGIZNI QO'YING)
+// =========================================================
+const firebaseConfig = { npm install firebase
+  apiKey: "AIzaSyAmSVuVe9EJw_dFUOFgHiF48kgGpbSBayI",
+  authDomain: "albaraka-store-d6ad5.firebaseapp.com",
+  projectId: "albaraka-store-d6ad5",
+  storageBucket: "albaraka-store-d6ad5.firebasestorage.app",
+  messagingSenderId: "640115480155",
+  appId: "1:640115480155:web:c2bd0e01e2385d5188117e"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+// =========================================================
+
+const APP_VERSION = "14.0";
 if (localStorage.getItem('app_version') !== APP_VERSION) {
     localStorage.removeItem('albaraka_products'); 
     localStorage.removeItem('albaraka_categories'); 
@@ -501,7 +483,6 @@ const DEFAULT_CATEGORIES = [
 ];
 
 const DEFAULT_PRODUCTS = [
-  // SANTEXNIKA
   { id:'m1', cat_id:'c1', name_uz:'Smesitel oshxona ekonom', name_ru:'Смеситель для кухни эконом', desc_uz:'Silumin korpus, xrom qoplama, 360° aylanadigan suv chiqargich.', desc_ru:'Корпус из силумина, хромированное покрытие, поворотный излив 360°.', price:150000, stock:15, icon:'🚰', image:'' },
   { id:'m2', cat_id:'c1', name_uz:'Smesitel vannaxona', name_ru:'Смеситель для ванной', desc_uz:'Bir tutqichli, keramik kartrijli, dush leyksasi bilan.', desc_ru:'Однорычажный, с керамическим картриджем и душевой лейкой.', price:200000, stock:15, icon:'💧', image:'' },
   { id:'m3', cat_id:'c1', name_uz:'Smesitel uzun chiqargichli', name_ru:'Смеситель с длинным изливом', desc_uz:'Oshxona uchun uzun va aylanadigan suv chiqargich.', desc_ru:'Длинный поворотный излив для кухонной мойки.', price:250000, stock:20, icon:'🚰', image:'' },
@@ -516,54 +497,40 @@ const DEFAULT_PRODUCTS = [
   { id:'p2', cat_id:'c1', name_uz:'Metall-plastik quvur 16mm', name_ru:'Металлопластиковая труба 16мм', desc_uz:'Isitish tizimlari uchun, egiluvchan.', desc_ru:'Для систем отопления, гибкая.', price:12000, stock:150, icon:'🧪', image:'' },
   { id:'p3', cat_id:'c1', name_uz:'Kran sharli 1/2', name_ru:'Кран шаровый 1/2', desc_uz:'Latun, suvni to\'liq to\'sish uchun.', desc_ru:'Латунный, для полного перекрытия воды.', price:45000, stock:80, icon:'🔧', image:'' },
   { id:'p4', cat_id:'c1', name_uz:'Gofra (shlang) 1.5m', name_ru:'Гофра (шланг) 1.5м', desc_uz:'Unitaz yoki rakovina uchun.', desc_ru:'Для унитаза или раковины.', price:25000, stock:100, icon:'〰️', image:'' },
-
-  // ELEKTROTEXNIKA
   { id:'e1', cat_id:'c2', name_uz:'Kabel VVG 3x2.5', name_ru:'Кабель ВВГ 3x2.5', desc_uz:'Mis o\'tkazgichli, 3 yadroli (1 metr).', desc_ru:'Медный, 3-жильный (1 метр).', price:25000, stock:150, icon:'🔌', image:'' },
   { id:'e2', cat_id:'c2', name_uz:'Rozetka 2x (yashirin)', name_ru:'Розетка двойная (скрытая)', desc_uz:'16A, yerga ulash kontaktli, oq.', desc_ru:'16A, с заземлением, белая.', price:35000, stock:100, icon:'🔌', image:'' },
   { id:'e3', cat_id:'c2', name_uz:'LED lampa 12W', name_ru:'LED лампа 12Вт', desc_uz:'E27 sokol, tejamkor, 4000K tiniq oq.', desc_ru:'Цоколь E27, экономная, 4000K белый свет.', price:18000, stock:150, icon:'💡', image:'' },
   { id:'e4', cat_id:'c2', name_uz:'Avtomat 16A (C tipi)', name_ru:'Автомат 16А (Тип C)', desc_uz:'Qisqa tutashuvdan himoya, DIN reykaga.', desc_ru:'Защита от КЗ, на DIN-рейку.', price:48000, stock:120, icon:'⚡', image:'' },
   { id:'e5', cat_id:'c2', name_uz:'Vyklyuchatel 1 klavishali', name_ru:'Выключатель одноклавишный', desc_uz:'Yashirin o\'rnatish uchun.', desc_ru:'Для скрытой установки.', price:22000, stock:130, icon:'🎚️', image:'' },
   { id:'e6', cat_id:'c2', name_uz:'Kabel VVG 2x1.5', name_ru:'Кабель ВВГ 2x1.5', desc_uz:'Yorug\'lik uchun mis kabel (1 metr).', desc_ru:'Медный кабель для освещения (1 метр).', price:15000, stock:200, icon:'🔌', image:'' },
-
-  // XO'JALIK MOLLARI
   { id:'h1', cat_id:'c3', name_uz:'Qo\'lqop paxta', name_ru:'Перчатки х/б', desc_uz:'5 ipli, qurilish va xo\'jalik uchun (juft).', desc_ru:'5 нитей, для строительных и хозяйственных работ (пара).', price:2000, stock:150, icon:'🧤', image:'' },
   { id:'h2', cat_id:'c3', name_uz:'Qo\'lqop PVX (nuqtali)', name_ru:'Перчатки с ПВХ (в точку)', desc_uz:'Sirg\'anmaydigan, ish paytida qulay.', desc_ru:'Нескользящие, удобные при работе.', price:6000, stock:120, icon:'🧤', image:'' },
   { id:'h3', cat_id:'c3', name_uz:'Chelak 12L', name_ru:'Ведро 12л', desc_uz:'Plastik, qopqoqli, mustahkam tutqichli.', desc_ru:'Пластиковое, с крышкой, прочная ручка.', price:45000, stock:50, icon:'🪣', image:'' },
   { id:'h4', cat_id:'c3', name_uz:'Shvabra (siqishli)', name_ru:'Швабра (с отжимом)', desc_uz:'Mikrofibra, polni yuvish uchun.', desc_ru:'Микрофибра, для мытья полов.', price:85000, stock:40, icon:'🧹', image:'' },
   { id:'h5', cat_id:'c3', name_uz:'Axlat paketlari 120L', name_ru:'Мусорные пакеты 120Л', desc_uz:'Zich, 10 dona bir o\'ramda.', desc_ru:'Плотные, 10 штук в упаковке.', price:18000, stock:100, icon:'🗑️', image:'' },
   { id:'h6', cat_id:'c3', name_uz:'Respirator (niqob)', name_ru:'Респиратор (маска)', desc_uz:'Changdan himoya qiluvchi, FFP1.', desc_ru:'Защита от пыли, FFP1.', price:12000, stock:80, icon:'😷', image:'' },
-
-  // BO'YOQ VA KIMYOVIY MODDALAR
   { id:'k1', cat_id:'c4', name_uz:'Bo\'yoq 3kg (Oq)', name_ru:'Краска 3кг (Белая)', desc_uz:'Suv-emulsiyali, devor va shiftlar uchun.', desc_ru:'Водоэмульсионная, для стен и потолков.', price:35000, stock:100, icon:'🎨', image:'' },
   { id:'k2', cat_id:'c4', name_uz:'Bo\'yoq 10kg (Oq)', name_ru:'Краска 10кг (Белая)', desc_uz:'Yuviladigan, yuqori yopish xususiyati.', desc_ru:'Моющаяся, высокая укрывистость.', price:110000, stock:60, icon:'🎨', image:'' },
   { id:'k3', cat_id:'c4', name_uz:'Emal PF-115 (Oq)', name_ru:'Эмаль ПФ-115 (Белая)', desc_uz:'Metall va yog\'och uchun, 2kg.', desc_ru:'Для металла и дерева, 2кг.', price:95000, stock:50, icon:'🖌️', image:'' },
   { id:'k4', cat_id:'c4', name_uz:'Grunt (10L)', name_ru:'Грунтовка (10Л)', desc_uz:'Chuqur singdiruvchi, devorni mustahkamlaydi.', desc_ru:'Глубокого проникновения, укрепляет стену.', price:120000, stock:45, icon:'🧴', image:'' },
   { id:'k5', cat_id:'c4', name_uz:'Valik (Molyar)', name_ru:'Валик (Малярный)', desc_uz:'Bo\'yash uchun, tuklari to\'kilmaydi.', desc_ru:'Для покраски, не оставляет ворса.', price:25000, stock:70, icon:'🧹', image:'' },
   { id:'k6', cat_id:'c4', name_uz:'Cho\'tka 50mm', name_ru:'Кисть 50мм', desc_uz:'Yog\'och yoki metall bo\'yash uchun.', desc_ru:'Для покраски дерева или металла.', price:10000, stock:90, icon:'🖌️', image:'' },
-
-  // SEMENT VA QORISHMALAR
   { id:'c1', cat_id:'c5', name_uz:'Sement M400 (50kg)', name_ru:'Цемент М400 (50кг)', desc_uz:'Conch firmasi, umumiy qurilish ishlari uchun.', desc_ru:'Фирма Conch, для общестроительных работ.', price:35000, stock:150, icon:'🧱', image:'' },
   { id:'c2', cat_id:'c5', name_uz:'Sement M500 (50kg)', name_ru:'Цемент М500 (50кг)', desc_uz:'Mustahkam, yuk ko\'taruvchi konstruksiyalar uchun.', desc_ru:'Прочный, для несущих конструкций.', price:45000, stock:100, icon:'🧱', image:'' },
   { id:'c3', cat_id:'c5', name_uz:'Kafel yelimi 25kg', name_ru:'Клей для плитки 25кг', desc_uz:'Universal, ichki va tashqi ishlar uchun.', desc_ru:'Универсальный, для внутренних и наружных работ.', price:40000, stock:80, icon:'🪣', image:'' },
   { id:'c4', cat_id:'c5', name_uz:'Shpatlyovka (25kg)', name_ru:'Шпатлевка (25кг)', desc_uz:'Devorlarni tekislash uchun.', desc_ru:'Для выравнивания стен.', price:55000, stock:60, icon:'🪣', image:'' },
   { id:'c5', cat_id:'c5', name_uz:'Gips (alabastr) 5kg', name_ru:'Гипс (алебастр) 5кг', desc_uz:'Tez qotuvchi, mayda ishlar uchun.', desc_ru:'Быстротвердеющий, для мелких работ.', price:15000, stock:90, icon:'⚪', image:'' },
-
-  // BLOKLAR VA GIPSOKARTON
   { id:'b1', cat_id:'c6', name_uz:'Shlakoblok 20x20x40', name_ru:'Шлакоблок 20x20x40', desc_uz:'Devor terish uchun, mustahkam.', desc_ru:'Для кладки стен, прочный.', price:3500, stock:500, icon:'🧱', image:'' },
   { id:'b2', cat_id:'c6', name_uz:'Qumblok 20x20x40', name_ru:'Пескоблок 20x20x40', desc_uz:'Ekologik toza, issiqlikni yaxshi saqlaydi.', desc_ru:'Экологичный, хорошо сохраняет тепло.', price:5500, stock:400, icon:'🧱', image:'' },
   { id:'b3', cat_id:'c6', name_uz:'Gipsokarton (Devor)', name_ru:'Гипсокартон (Стеновой)', desc_uz:'2.5x1.2 metr, 12.5mm qalinlik.', desc_ru:'2.5x1.2 метра, толщина 12.5мм.', price:45000, stock:60, icon:'📄', image:'' },
   { id:'b4', cat_id:'c6', name_uz:'Profil (CD 60)', name_ru:'Профиль (CD 60)', desc_uz:'Gipsokarton uchun metall profil, 3 metr.', desc_ru:'Металлический профиль для ГКЛ, 3 метра.', price:28000, stock:100, icon:'📏', image:'' },
   { id:'b5', cat_id:'c6', name_uz:'Penaplast (Penoplex) 5sm', name_ru:'Пенопласт 5см', desc_uz:'Issiqlik izolyatsiyasi uchun list.', desc_ru:'Лист для теплоизоляции.', price:35000, stock:50, icon:'🟦', image:'' },
-
-  // QURILISH ASBOBLARI
   { id:'i1', cat_id:'c7', name_uz:'Bolg\'a (Molotok)', name_ru:'Молоток', desc_uz:'Yog\'och dastali, 500 gramm.', desc_ru:'С деревянной ручкой, 500 грамм.', price:35000, stock:40, icon:'🔨', image:'' },
   { id:'i2', cat_id:'c7', name_uz:'Ruletka 5m', name_ru:'Рулетка 5м', desc_uz:'O\'lchash uchun, avtomatik tortiladi.', desc_ru:'Для измерений, с автоподмоткой.', price:20000, stock:60, icon:'📏', image:'' },
   { id:'i3', cat_id:'c7', name_uz:'Otvyortka to\'plami', name_ru:'Набор отверток', desc_uz:'6 xil uchli, magnitli.', desc_ru:'6 разных насадок, магнитные.', price:65000, stock:35, icon:'🪛', image:'' },
   { id:'i4', cat_id:'c7', name_uz:'Drel (Perforator)', name_ru:'Дрель (Перфоратор)', desc_uz:'Beton va devorga teshik ochish uchun.', desc_ru:'Для сверления бетона и стен.', price:850000, stock:15, icon:'🔫', image:'' },
   { id:'i5', cat_id:'c7', name_uz:'Sath (Uroven)', name_ru:'Уровень', desc_uz:'Tekislikni tekshirish uchun, 60 sm.', desc_ru:'Для проверки ровности, 60 см.', price:55000, stock:40, icon:'📐', image:'' },
   { id:'i6', cat_id:'c7', name_uz:'Keskich (Zubilo)', name_ru:'Зубило', desc_uz:'Metall yoki tosh uchun.', desc_ru:'Для металла или камня.', price:25000, stock:50, icon:'⛏️', image:'' },
-
-  // METIZ VA MAHKAMLAGICHLAR
   { id:'mt1', cat_id:'c8', name_uz:'Samo rez 3.5x25', name_ru:'Саморез 3.5x25', desc_uz:'Yog\'och yoki gipsokarton uchun (1 kg).', desc_ru:'Для дерева или ГКЛ (1 кг).', price:25000, stock:150, icon:'🔩', image:'' },
   { id:'mt2', cat_id:'c8', name_uz:'Dübel (Pochka)', name_ru:'Дюбель (Пачка)', desc_uz:'6x40 o\'lcham, 100 dona.', desc_ru:'Размер 6x40, 100 штук.', price:15000, stock:100, icon:'📍', image:'' },
   { id:'mt3', cat_id:'c8', name_uz:'Mix (Plomba)', name_ru:'Дюбель-гвоздь (Пломба)', desc_uz:'Tez o\'rnatish uchun, 100 dona.', desc_ru:'Для быстрого монтажа, 100 штук.', price:18000, stock:120, icon:'📌', image:'' },
@@ -589,13 +556,33 @@ let products = JSON.parse(localStorage.getItem('albaraka_products')) || [...DEFA
 let sellerAuth = JSON.parse(localStorage.getItem('albaraka_seller_auth')) || DEFAULT_AUTH;
 let contactInfo = JSON.parse(localStorage.getItem('albaraka_contact_info')) || DEFAULT_CONTACT;
 
-// Mijozning shaxsiy buyurtmalari tarixi
-let clientOrders = JSON.parse(localStorage.getItem('albaraka_client_orders')) || [];
+let allOrders = [];
+let clientOrders = [];
 let currentReceiptData = null;
 
 let currentClientSearch = '';
 let currentSellerSearch = '';
 let currentOpenProductId = null;
+
+function listenOrders() {
+  db.collection("orders").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+    allOrders = [];
+    snapshot.forEach((doc) => {
+      allOrders.push({ firebaseId: doc.id, ...doc.data() });
+    });
+    
+    if (isSeller) {
+      loadSellerOrders();
+    }
+    
+    let myOrderIds = JSON.parse(localStorage.getItem('my_order_ids') || '[]');
+    clientOrders = allOrders.filter(o => myOrderIds.includes(o.id));
+    
+    if (document.getElementById('historyView').style.display === 'block') {
+      renderHistory();
+    }
+  });
+}
 
 function setLang(lang) {
   currentLang = lang;
@@ -617,15 +604,16 @@ function setLang(lang) {
 
   renderContactInfo();
   renderCatalog();
-  renderHistory();
-  updateCartUI();
-  
   if (isSeller) {
-    loadSellerOrders();
     renderSellerProductsTable();
     renderCategoriesList();
     loadSettingsForm();
+    loadSellerOrders();
   }
+  if (document.getElementById('historyView').style.display === 'block') {
+    renderHistory();
+  }
+  updateCartUI();
 }
 
 function renderContactInfo() {
@@ -755,7 +743,6 @@ function addToCartFromModal() {
   }
 }
 
-// ===== MIJOZ TARIXI =====
 function renderHistory() {
   const container = document.getElementById('clientHistoryContainer');
   const t = TRANSLATIONS[currentLang];
@@ -773,7 +760,7 @@ function renderHistory() {
 
     return `
     <div class="history-card">
-      <button class="btn-del-history" onclick="deleteHistoryOrder('${o.id}')" title="${t.btn_del}">🗑</button>
+      <button class="btn-del-history" onclick="deleteHistoryOrder('${o.firebaseId}')" title="${t.btn_del}">🗑</button>
       <div class="history-header">
         <div>
           <div class="history-title" style="margin-bottom:5px;">ID: ${o.id}</div>
@@ -789,16 +776,20 @@ function renderHistory() {
   `}).join('');
 }
 
-function deleteHistoryOrder(id) {
-  if (!confirm(currentLang === 'uz' ? 'Ushbu buyurtmani tarixdan o\'chirmoqchimisiz?' : 'Удалить этот заказ из истории?')) return;
+function deleteHistoryOrder(firebaseId) {
+  if (!confirm(currentLang === 'uz' ? 'Ushbu buyurtmani shaxsiy tarixingizdan o\'chirmoqchimisiz? (Sotuvchida qoladi)' : 'Удалить этот заказ из вашей истории? (У продавца останется)')) return;
   
-  // Faqat mijozning shaxsiy tarixidan o'chiramiz (sotuvchinikidan emas)
-  clientOrders = clientOrders.filter(o => o.id !== id);
-  localStorage.setItem('albaraka_client_orders', JSON.stringify(clientOrders));
+  const order = clientOrders.find(o => o.firebaseId === firebaseId);
+  if(!order) return;
+
+  let myOrderIds = JSON.parse(localStorage.getItem('my_order_ids') || '[]');
+  myOrderIds = myOrderIds.filter(id => id !== order.id);
+  localStorage.setItem('my_order_ids', JSON.stringify(myOrderIds));
+  
+  clientOrders = clientOrders.filter(o => o.firebaseId !== firebaseId);
   renderHistory();
 }
 
-// ===== SOTUVCHI MANTIG'I =====
 function loadSettingsForm() {
   document.getElementById('setPhone').value = contactInfo.phone;
   document.getElementById('setAddressUz').value = contactInfo.address_uz;
@@ -1067,19 +1058,18 @@ function switchSellerTab(tab) {
 
 function loadSellerOrders() {
   const list = document.getElementById('sellerOrdersList');
-  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
   const t = TRANSLATIONS[currentLang];
   
-  if (orders.length === 0) {
+  if (allOrders.length === 0) {
     list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:1rem; padding: 30px;">${t.orders_empty}</p>`;
     return;
   }
   
-  list.innerHTML = orders.map(o => {
+  list.innerHTML = allOrders.map(o => {
     const isDone = o.status === 'done';
     const completeBtn = isDone 
       ? `<span class="status-badge status-done" style="margin-top:10px;">${t.status_done}</span>` 
-      : `<button class="btn-complete" onclick="completeOrder('${o.id}')">${t.btn_complete}</button>`;
+      : `<button class="btn-complete" onclick="completeOrder('${o.firebaseId}')">${t.btn_complete}</button>`;
 
     return `
     <div class="order-card">
@@ -1091,38 +1081,22 @@ function loadSellerOrders() {
       
       <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
         ${completeBtn}
-        <button class="btn-receipt" onclick="showSellerReceipt('${o.id}')">🖨 ${t.btn_print}</button>
+        <button class="btn-receipt" onclick="showSellerReceipt('${o.firebaseId}')">🖨 ${t.btn_print}</button>
       </div>
     </div>
   `}).join('');
 }
 
-// Sotuvchi buyurtmani yakunlaydi
-function completeOrder(id) {
-  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
-  const order = orders.find(o => o.id === id);
-  
-  if(order) {
-    order.status = 'done';
-    localStorage.setItem('albaraka_orders', JSON.stringify(orders));
-    
-    // Mijozning shaxsiy tarixidagi statusni ham yangilash
-    let clientOrds = JSON.parse(localStorage.getItem('albaraka_client_orders') || '[]');
-    const cOrder = clientOrds.find(o => o.id === id);
-    if(cOrder) {
-      cOrder.status = 'done';
-      localStorage.setItem('albaraka_client_orders', JSON.stringify(clientOrds));
-      clientOrders = clientOrds; // Lokal o'zgaruvchini yangilash
-    }
-    
-    loadSellerOrders();
-    renderHistory();
-  }
+function completeOrder(firebaseId) {
+  db.collection("orders").doc(firebaseId).update({
+    status: 'done'
+  }).catch((error) => {
+    alert("Xatolik yuz berdi: " + error.message);
+  });
 }
 
-function showSellerReceipt(orderId) {
-  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
-  const order = orders.find(o => o.id === orderId);
+function showSellerReceipt(firebaseId) {
+  const order = allOrders.find(o => o.firebaseId === firebaseId);
   if(!order) return;
   
   currentReceiptData = order;
@@ -1232,40 +1206,36 @@ function submitOrder() {
     return { name: pName, qty: cart[k].qty, price: p.price };
   });
   
-  const order = { 
-    id: 'ZAK-' + Date.now(), 
+  const newOrder = { 
+    id: 'ZAK-' + Math.floor(Math.random() * 1000000), 
     date: new Date().toLocaleString(), 
     clientName: name, 
     phone, 
     address, 
     items, 
     total,
-    status: 'new' // Boshlang'ich status
+    status: 'new',
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
   };
   
-  // Sotuvchi bazasiga saqlash
-  const allOrders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
-  allOrders.unshift(order);
-  localStorage.setItem('albaraka_orders', JSON.stringify(allOrders));
-  
-  // Mijoz shaxsiy tarixiga saqlash
-  clientOrders.unshift(order);
-  localStorage.setItem('albaraka_client_orders', JSON.stringify(clientOrders));
-  
-  // Ombordagi qoldiqni kamaytirish
-  Object.keys(cart).forEach(k => {
-    const p = products.find(x => x.id === k);
-    p.stock -= cart[k].qty;
+  db.collection("orders").add(newOrder).then((docRef) => {
+    Object.keys(cart).forEach(k => {
+      const p = products.find(x => x.id === k);
+      p.stock -= cart[k].qty;
+    });
+    localStorage.setItem('albaraka_products', JSON.stringify(products));
+    
+    let myOrderIds = JSON.parse(localStorage.getItem('my_order_ids') || '[]');
+    myOrderIds.push(newOrder.id);
+    localStorage.setItem('my_order_ids', JSON.stringify(myOrderIds));
+    
+    cart = {}; updateCartUI(); closeCart(); renderCatalog();
+    
+    alert(t.order_success);
+    sendToWhatsApp(newOrder); 
+  }).catch((error) => {
+    alert("Xatolik yuz berdi. Internet aloqasini tekshiring.\n" + error.message);
   });
-  localStorage.setItem('albaraka_products', JSON.stringify(products));
-  
-  cart = {}; updateCartUI(); closeCart(); renderCatalog();
-  
-  // Mijozga muvaffaqiyatli xabar
-  alert(t.order_success);
-  
-  // WhatsApp ga yuborish
-  sendToWhatsApp(order); 
 }
 
 function sendToWhatsApp(order) {
@@ -1329,7 +1299,7 @@ function calcMDF() {
 function formatMoney(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
 
 setLang(currentLang);
+listenOrders();
 </script>
 </body>
 </html>
-```
