@@ -1,3 +1,12 @@
+Tushundim. Sizga ikkita muhim funksiyani qo'shib beraman:
+1. **Mijozlar uchun "Buyurtmalarim" (Tarix)** bo'limi qaytariladi. U yerda mijoz o'zining barcha zakazlarini ko'radi va xohlasa **o'chirib tashlashi** mumkin.
+2. **Status tizimi**: Sotuvchi panelida buyurtma qabul qilingach, sotuvchi uni **"✅ Yakunlash"** tugmasini bosib yakunlaydi. Shunda mijozning tarixida bu buyurtma yonida **yashil rangda "Yakunlangan"** degan yozuv paydo bo'ladi.
+
+Tizimni yangilash uchun versiyani **13.0** ga ko'tardim.
+
+Mana to'liq va barcha funksiyalar ishlaydigan yakuniy HTML kodi:
+
+```html
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -7,7 +16,6 @@
 <meta name="theme-color" content="#0f172a">
 <title>Al Baraka — Virtual Do'kon</title>
 <style>
-/* ZAMONAVIY RANGLAR PALITRASI */
 :root {
   --primary: #f97316;
   --primary-hover: #ea580c;
@@ -20,9 +28,9 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  --success: #10b981;
+  --danger: #ef4444;
 }
-
-/* ORQA FON */
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   margin: 0; padding: 0; color: var(--text-main);
@@ -35,18 +43,10 @@ body::before {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
   z-index: -1;
 }
-
 *{box-sizing:border-box;}
 a{text-decoration:none;color:inherit;}
 button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;}
-
-/* HEADER */
-.header { 
-  background: var(--glass-bg); color: #fff; position: sticky; top: 0; z-index: 50; 
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-sm);
-}
+.header { background: var(--glass-bg); color: #fff; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); box-shadow: var(--shadow-sm); }
 .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; flex-wrap: wrap; gap: 10px;}
 .logo { font-size: 1.3rem; font-weight: 900; display: flex; align-items: center; gap: 10px; color:#fff; letter-spacing: 0.5px;}
 .logo-img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
@@ -56,43 +56,26 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .btn-nav:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .btn-nav.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
 .header-actions { display: flex; gap: 8px; align-items: center; }
-
-/* TIL TANLASH */
 .lang-switch { display: flex; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 2px; margin-right: 5px;}
 .lang-btn { background: transparent; color: #cbd5e1; padding: 6px 10px; border-radius: 6px; font-weight: 800; font-size: 0.8rem;}
 .lang-btn.active { background: #fff; color: var(--bg-dark); }
-
 .login-btn { background: rgba(239, 68, 68, 0.9); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); }
 .login-btn:hover { background: #dc2626; transform: translateY(-2px); }
 .cart-btn-hdr { background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: none; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);}
 .cart-btn-hdr:hover { background: var(--primary-hover); transform: translateY(-2px); }
-
-/* ASOSIY KONTEYNER */
-.main-container { max-width: 1100px; margin: 25px auto; background: var(--bg-card); border-radius: 24px; padding: 25px; box-shadow: var(--shadow-lg); min-height: 80vh; }
-
-/* QIDIRUV */
-.search-bar { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--border-color); font-size: 0.95rem; margin-bottom: 25px; outline: none; background: #fff; transition: all 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);}
-.search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249,115,22,0.15); }
-
-/* KATALOG */
-.section-title { font-size: 1.25rem; font-weight: 800; margin: 30px 0 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px;}
+.main-container { max-width: 1100px; margin: 25px auto; background: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2000&auto=format&fit=crop') no-repeat center center; background-size: cover; border-radius: 24px; padding: 25px; box-shadow: var(--shadow-lg); min-height: 80vh; position: relative; }
+.search-bar { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--border-color); font-size: 0.95rem; margin-bottom: 25px; outline: none; background: rgba(255,255,255,0.95); transition: all 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);}
+.search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249,115,22,0.15); background: #fff; }
+.section-title { font-size: 1.25rem; font-weight: 800; margin: 30px 0 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);}
 .section-title::before { content: ""; display: block; width: 6px; height: 24px; background: var(--primary); border-radius: 4px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-
-/* Tovar Kartochkasi */
-.product { 
-  background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; 
-  display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer;
-  box-shadow: var(--shadow-sm); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.product:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: #fdba74; }
+.product { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.product:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-color: #fdba74; }
 .product:active { transform: scale(0.98); }
-
 .product-media { width: 100%; height: 130px; border-radius: 12px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border: 1px solid #f1f5f9;}
 .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;}
 .product:hover .product-img { transform: scale(1.05); }
 .product-icon { font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
-
 .product-name { font-size: 0.9rem; font-weight: 700; margin: 4px 0 0 0; line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
 .stock { font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; align-self: flex-start; background: #dcfce7; color: #15803d; }
 .stock.low { background: #fef3c7; color: #b45309; }
@@ -102,8 +85,17 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .price small { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
 .btn-add { background: var(--text-main); color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2); display:flex; align-items:center; justify-content:center;}
 .btn-add:hover { background: var(--primary); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4); }
-
-/* MDF KALKULYATORI */
+.history-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-sm); position: relative;}
+.history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 15px;}
+.history-title { font-weight: 800; color: var(--text-main); font-size: 1.1rem;}
+.history-date { font-size: 0.8rem; color: var(--text-muted);}
+.history-items { font-size: 0.9rem; color: #475569; margin-bottom: 15px;}
+.history-total { font-weight: 900; color: var(--primary); font-size: 1.2rem; text-align: right;}
+.btn-del-history { background: #fee2e2; color: #dc2626; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; position: absolute; top: 15px; right: 15px; z-index: 2;}
+.btn-del-history:hover { background: #fca5a5; }
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; margin-bottom: 10px;}
+.status-new { background: #fef3c7; color: #b45309; }
+.status-done { background: #dcfce7; color: #15803d; }
 .mdf-box { background: var(--bg-dark); color: #fff; border-radius: 20px; padding: 25px; margin-top: 40px; box-shadow: var(--shadow-lg);}
 .mdf-box h2 { margin-top: 0; color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px;}
 .mdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -116,8 +108,6 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .res-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #475569; }
 .res-row:last-child { border: none; }
 .res-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; color: #fbbf24; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary); }
-
-/* KONTAKTLAR */
 .about-box { text-align: center; padding: 30px 10px; }
 .contact-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top:30px;}
 .contact-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; min-width: 220px; box-shadow: var(--shadow-sm); transition: 0.3s;}
@@ -125,31 +115,30 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .contact-card .icon { font-size: 2.5rem; margin-bottom: 15px; }
 .contact-card h3 { margin: 0 0 8px 0; color: var(--text-main); font-size: 1.1rem; }
 .contact-card p { margin: 0; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
-
-/* SOTUVCHI PANELI */
-#sellerView { display: none; }
+#sellerView { display: none; background: rgba(255,255,255,0.95); padding: 20px; border-radius: 16px;}
 .seller-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; flex-wrap: wrap; }
 .seller-tab { background: transparent; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); padding: 10px 20px; border-radius: 10px;}
 .seller-tab:hover { background: #f1f5f9; }
 .seller-tab.active { background: var(--text-main); color: #fff; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);}
-.order-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #ef4444; box-shadow: var(--shadow-sm);}
+.order-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #ef4444; box-shadow: var(--shadow-sm); position: relative;}
 .order-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;}
 .order-client { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px;}
 .order-details { font-size: 0.9rem; color: #475569; margin: 5px 0 15px 0; line-height: 1.5;}
 .order-items { background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 0.9rem; border: 1px solid #e2e8f0;}
 .order-total { font-weight: 900; font-size: 1.1rem; color: var(--primary); text-align: right; margin-top: 10px; }
-
-/* JADVAL VA FORMA */
+.btn-complete { background: #10b981; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: inline-block; border: none;}
+.btn-complete:hover { background: #059669; }
+.btn-receipt { background: #3b82f6; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: inline-block; border: none; margin-left: 10px;}
+.btn-receipt:hover { background: #2563eb; }
 .product-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem;}
 .product-table th, .product-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle;}
 .product-table th { background: #f8fafc; font-weight: 700; color: var(--text-main); position: sticky; top: 0;}
 .product-table tr:hover { background: #f8fafc; }
 .product-table input[type="number"] { width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; outline:none;}
-.product-table input[type="text"] { width: 160px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.8rem; outline:none;}
+.product-table input[type="text"] { width: 100%; min-width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.8rem; outline:none;}
 .product-table input:focus { border-color: var(--primary); }
 .btn-save-edits { background: #10b981; color: #fff; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; margin-top: 20px; display: block; width: 100%; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);}
 .btn-save-edits:hover { background: #059669; transform: translateY(-2px); }
-
 .add-product-box { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 25px; margin-top: 30px; }
 .add-product-box h3 { margin-top: 0; color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;}
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
@@ -159,9 +148,12 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .form-group input:focus { border-color: var(--primary); }
 .btn-add-new { background: var(--primary); color: #fff; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 15px; grid-column: span 2; box-shadow: 0 4px 15px rgba(249,115,22,0.3);}
 .btn-add-new:hover { background: var(--primary-hover); transform: translateY(-2px); }
-
-/* MODAL OYNALAR */
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 100; opacity: 0; transition: opacity 0.3s;}
+.cat-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.cat-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
+.cat-item span { font-weight: 700; font-size: 1rem; color: var(--text-main);}
+.btn-del-cat { background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor:pointer;}
+.btn-del-cat:hover { background: #fca5a5; }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 100; opacity: 0; transition: opacity 0.3s;}
 .modal.open { display: flex; opacity: 1; }
 .modal-content { background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.3s;}
 .modal.open .modal-content { transform: scale(1); }
@@ -172,8 +164,6 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .btn-close { background: #f1f5f9; color: var(--text-muted); margin-top: 10px; box-shadow: none;}
 .btn-close:hover { background: #e2e8f0; }
 .err-msg { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; background: #fee2e2; padding: 10px; border-radius: 8px;}
-
-/* BATAFSIL MODAL DIZAYNI */
 .detail-media { width: 100%; height: 220px; border-radius: 16px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border-color);}
 .detail-img { width: 100%; height: 100%; object-fit: cover; }
 .detail-icon { font-size: 7rem; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
@@ -181,8 +171,12 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .detail-cat { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
 .detail-desc { font-size: 0.95rem; color: #475569; margin-bottom: 20px; line-height: 1.5; text-align: left; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;}
 .detail-price { font-size: 1.5rem; font-weight: 900; color: #b91c1c; margin-bottom: 10px; }
-
-/* SAVAT */
+.receipt-box { font-family: 'Courier New', Courier, monospace; text-align: left; color: #000; background: #fff; padding: 20px; border-radius: 8px; border: 1px dashed #cbd5e1;}
+.receipt-header { text-align: center; margin-bottom: 10px;}
+.receipt-header h2 { margin: 0; font-size: 1.2rem;}
+.receipt-divider { border-top: 1px dashed #000; margin: 10px 0;}
+.receipt-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;}
+.receipt-total { font-weight: bold; font-size: 1rem; text-align: right; margin-top: 10px;}
 .cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 90; display: flex; flex-direction: column; }
 .cart-panel.open { right: 0; }
 .cart-head { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
@@ -194,8 +188,6 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 .cart-foot { padding: 20px; border-top: 1px solid var(--border-color); background: #fff;}
 .btn-checkout { background: #25D366; color: #fff; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);}
 .btn-checkout:hover { background: #1eb954; transform: translateY(-2px);}
-
-/* MOBIL */
 @media (max-width: 768px) {
   .main-container { margin: 10px; padding: 15px; border-radius: 16px; }
   .mdf-grid, .form-grid { grid-template-columns: 1fr; }
@@ -209,21 +201,18 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
     <div class="logo">
       <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=100&auto=format&fit=crop" class="logo-img" alt="Santexnika">
       Al <span>Baraka</span>
     </div>
-    
     <div class="nav-btns">
       <button class="btn-nav active" id="btnClient" onclick="switchView('client')" data-i18n="nav_catalog">🛒 Katalog</button>
+      <button class="btn-nav" id="btnHistory" onclick="switchView('history')" data-i18n="nav_history">📋 Buyurtmalarim</button>
       <button class="btn-nav" id="btnAbout" onclick="switchView('about')" data-i18n="nav_about">📞 Aloqa</button>
     </div>
-    
     <div class="header-actions">
-      <!-- TIL ALMASHTIRGICH -->
       <div class="lang-switch">
         <button class="lang-btn active" id="btnUz" onclick="setLang('uz')">UZ</button>
         <button class="lang-btn" id="btnRu" onclick="setLang('ru')">RU</button>
@@ -234,15 +223,11 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
   </div>
 </header>
 
-<!-- ASOSIY KONTENT -->
 <div class="main-container">
-  
-  <!-- MIJOZ KATALOGI VA MDF -->
   <div id="catalogView">
     <input type="text" id="clientSearch" class="search-bar" placeholder="🔍 Mahsulot nomini yozing..." oninput="searchClient()" data-i18n-ph="search_ph">
     <div id="catalogContainer"></div>
     
-    <!-- MDF KALKULYATORI -->
     <div class="mdf-box" id="mdfSection">
       <h2 data-i18n="mdf_title">✂️ MDF Kesish (CNC Router)</h2>
       <div class="mdf-grid">
@@ -271,25 +256,28 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
     </div>
   </div>
 
-  <!-- KONTAKTLAR -->
+  <div id="historyView" style="display:none;">
+    <h2 class="section-title" data-i18n="history_title">Mening buyurtmalarim</h2>
+    <div id="clientHistoryContainer"></div>
+  </div>
+
   <div id="aboutView" style="display:none;">
     <div class="about-box">
       <h2 data-i18n="contact_title">Biz bilan bog'laning</h2>
       <div class="contact-cards">
         <div class="contact-card">
-          <div class="icon">📞</div><h3 data-i18n="contact_phone">Telefon</h3><p>+998 88 616 17 00</p>
+          <div class="icon">📞</div><h3 data-i18n="contact_phone">Telefon</h3><p id="view-phone">+998 88 616 17 00</p>
         </div>
         <div class="contact-card">
-          <div class="icon">📍</div><h3 data-i18n="contact_addr">Manzil</h3><p data-i18n="contact_addr_val">Andijon, Qo'rg'ontepa</p>
+          <div class="icon">📍</div><h3 data-i18n="contact_addr">Manzil</h3><p id="view-address"></p>
         </div>
         <div class="contact-card">
-          <div class="icon">🕒</div><h3 data-i18n="contact_time">Ish vaqti</h3><p data-i18n="contact_time_val">Har kuni: 08:00 - 20:00</p>
+          <div class="icon">🕒</div><h3 data-i18n="contact_time">Ish vaqti</h3><p id="view-time"></p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SOTUVCHI PANELI -->
   <div id="sellerView">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
       <h2 style="margin:0; font-size:1.3rem; color: var(--text-main); font-weight:900;" data-i18n="seller_panel">Sotuvchi Paneli</h2>
@@ -299,14 +287,14 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
     <div class="seller-tabs">
       <button class="seller-tab active" id="tabOrders" onclick="switchSellerTab('orders')" data-i18n="tab_orders">📋 Zakazlar</button>
       <button class="seller-tab" id="tabProducts" onclick="switchSellerTab('products')" data-i18n="tab_products">📦 Mahsulotlar</button>
+      <button class="seller-tab" id="tabCategories" onclick="switchSellerTab('categories')" data-i18n="tab_categories">📑 Qatorlar</button>
+      <button class="seller-tab" id="tabSettings" onclick="switchSellerTab('settings')" data-i18n="tab_settings">⚙️ Sozlamalar</button>
     </div>
 
-    <!-- Zakazlar -->
     <div id="sellerTabContentOrders">
       <div id="sellerOrdersList"></div>
     </div>
 
-    <!-- Mahsulotlar -->
     <div id="sellerTabContentProducts" style="display:none;">
       <input type="text" id="sellerSearch" class="search-bar" placeholder="🔍 Bazadan qidirish..." oninput="searchSeller()" data-i18n-ph="search_ph">
       
@@ -315,7 +303,9 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
           <thead>
             <tr>
               <th data-i18n="tbl_img">Rasm</th>
+              <th data-i18n="tbl_icon">Ikonka</th>
               <th data-i18n="tbl_name">Nomi</th>
+              <th data-i18n="tbl_cat">Qator</th>
               <th data-i18n="tbl_price">Narxi</th>
               <th data-i18n="tbl_stock">Soni</th>
               <th data-i18n="tbl_url">Rasm URL</th>
@@ -330,31 +320,56 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
         <h3 data-i18n="add_title">➕ Yangi mahsulot qo'shish</h3>
         <div class="form-grid">
           <div class="form-group"><label data-i18n="tbl_name">Nomi</label><input type="text" id="newProdName" placeholder="Masalan: Kafel 30x30"></div>
-          <div class="form-group"><label data-i18n="tbl_cat">Kategoriya</label>
-            <select id="newProdCat">
-              <option value="Santexnika">Santexnika</option>
-              <option value="Elektrotexnika">Elektrotexnika</option>
-              <option value="Xo'jalik">Xo'jalik</option>
-              <option value="Bo'yoq">Bo'yoq</option>
-              <option value="Sement">Sement</option>
-              <option value="Bloklar">Bloklar</option>
-            </select>
+          <div class="form-group"><label data-i18n="tbl_cat">Qator (Kategoriya)</label>
+            <select id="newProdCat"></select>
           </div>
+          <div class="form-group"><label data-i18n="tbl_icon">Ikonka (Emoji)</label><input type="text" id="newProdIcon" placeholder="📦" value="📦"></div>
           <div class="form-group"><label data-i18n="tbl_price">Narxi</label><input type="number" id="newProdPrice" placeholder="100000"></div>
           <div class="form-group"><label data-i18n="tbl_stock">Soni</label><input type="number" id="newProdStock" placeholder="50"></div>
-          <div class="form-group" style="grid-column: span 2;">
-            <label data-i18n="tbl_url">Rasm URL (Internet havolasi)</label>
-            <input type="text" id="newProdImage" placeholder="https://example.com/rasm.jpg">
-          </div>
+          <div class="form-group"><label data-i18n="tbl_url">Rasm URL (Internet havolasi)</label><input type="text" id="newProdImage" placeholder="https://example.com/rasm.jpg"></div>
           <button class="btn-add-new" onclick="addNewProduct()" data-i18n="btn_add">Qo'shish</button>
         </div>
       </div>
     </div>
-  </div>
 
+    <div id="sellerTabContentCategories" style="display:none;">
+      <div class="add-product-box" style="margin-top: 0; margin-bottom: 20px; border-style: solid; background: #fff;">
+        <h3 data-i18n="add_cat">➕ Yangi qator qo'shish</h3>
+        <div class="form-grid" style="grid-template-columns: 1fr auto;">
+          <div class="form-group"><label data-i18n="cat_name">Qator nomi (UZ / RU)</label><input type="text" id="newCatName" placeholder="Masalan: Elektr tovarlari"></div>
+          <button class="btn-add-new" style="margin-top: 24px;" onclick="addNewCategory()" data-i18n="btn_add">Qo'shish</button>
+        </div>
+      </div>
+      
+      <div class="cat-list" id="categoriesList"></div>
+    </div>
+
+    <div id="sellerTabContentSettings" style="display:none;">
+      <div class="add-product-box" style="margin-top: 0; border-style: solid; background: #fff; margin-bottom: 20px;">
+        <h3 data-i18n="set_auth_title">🔐 Login va Parolni o'zgartirish</h3>
+        <div class="form-grid">
+          <div class="form-group"><label data-i18n="set_login">Yangi Login</label><input type="text" id="setNewLogin"></div>
+          <div class="form-group"><label data-i18n="set_pass">Yangi Parol</label><input type="password" id="setNewPass"></div>
+          <button class="btn-add-new" onclick="saveSellerAuth()" data-i18n="btn_save_auth">Kirish ma'lumotlarini saqlash</button>
+        </div>
+      </div>
+
+      <div class="add-product-box" style="margin-top: 0; border-style: solid; background: #fff;">
+        <h3 data-i18n="set_contact_title">📞 Aloqa (Kontakt) ma'lumotlarini o'zgartirish</h3>
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: span 2;"><label data-i18n="contact_phone">Telefon</label><input type="text" id="setPhone"></div>
+          <div class="form-group"><label>Manzil (UZ)</label><input type="text" id="setAddressUz"></div>
+          <div class="form-group"><label>Адрес (RU)</label><input type="text" id="setAddressRu"></div>
+          <div class="form-group"><label>Ish vaqti (UZ)</label><input type="text" id="setTimeUz"></div>
+          <div class="form-group"><label>Время работы (RU)</label><input type="text" id="setTimeRu"></div>
+          <button class="btn-add-new" onclick="saveContactInfo()" data-i18n="btn_save_contact">Kontaktlarni saqlash</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- LOGIN MODAL -->
 <div class="modal" id="loginModal">
   <div class="modal-content">
     <h2 style="margin-top:0; font-size:1.4rem; font-weight:900; color:var(--text-main);" data-i18n="login_title">Sotuvchi Kirish</h2>
@@ -367,27 +382,29 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
   </div>
 </div>
 
-<!-- TOVAR HAQIDA BATAFSIL MA'LUMOT MODALI -->
 <div class="modal" id="productDetailModal">
   <div class="modal-content" style="text-align: left; padding: 25px;">
     <button onclick="closeProductDetail()" style="position:absolute; top:15px; right:15px; background:#f1f5f9; border-radius:50%; width:36px; height:36px; font-size:1.2rem; color:#64748b; cursor:pointer; display:grid; place-items:center;">×</button>
-    
     <div class="detail-media" id="detailMediaContainer"></div>
-    
     <div class="detail-title" id="detailName"></div>
     <div class="detail-cat" id="detailCat"></div>
     <div class="detail-desc" id="detailDesc"></div>
-    
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
       <div class="detail-price" id="detailPrice"></div>
       <div id="detailStock" class="stock"></div>
     </div>
-    
     <button class="btn-primary" onclick="addToCartFromModal()" id="detailAddBtn" style="background:var(--primary); box-shadow:0 4px 15px rgba(249,115,22,0.3);" data-i18n="btn_to_cart">Savatga qo'shish</button>
   </div>
 </div>
 
-<!-- SAVAT -->
+<div class="modal" id="receiptModal">
+  <div class="modal-content" style="padding: 15px;">
+    <div class="receipt-box" id="receiptBox"></div>
+    <button class="btn-primary" style="background: #25D366; margin-top: 15px;" onclick="sendToWhatsApp()">WhatsApp ga yuborish</button>
+    <button class="btn-primary btn-close" onclick="document.getElementById('receiptModal').classList.remove('open')" data-i18n="btn_close">Yopish</button>
+  </div>
+</div>
+
 <div class="cart-panel" id="cartPanel">
   <div class="cart-head">
     <h3 data-i18n="cart_title">🛍 Savat</h3>
@@ -400,141 +417,186 @@ button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;
     </div>
     <button class="btn-checkout" onclick="submitOrder()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.304.014.39-.086c.087-.1.448-.521.568-.699.12-.178.239-.148.404-.087.166.061 1.054.497 1.234.588.18.092.301.136.345.214.043.078.043.451-.101.856z"/></svg>
-      <span data-i18n="btn_checkout">WhatsApp orqali Buyurtma</span>
+      <span data-i18n="btn_checkout">Buyurtma berish</span>
     </button>
   </div>
 </div>
 
 <script>
-// ==========================================
-// VERSIYA NAZORATI (Eski xotirani tozalash)
-// ==========================================
-const APP_VERSION = "4.1";
+const APP_VERSION = "13.0";
 if (localStorage.getItem('app_version') !== APP_VERSION) {
     localStorage.removeItem('albaraka_products'); 
+    localStorage.removeItem('albaraka_categories'); 
     localStorage.setItem('app_version', APP_VERSION);
 }
 
-// ==========================================
-// TARJIMALAR LUG'ATI (UZ / RU)
-// ==========================================
 const TRANSLATIONS = {
   uz: {
     nav_catalog: "🛒 Katalog", nav_about: "📞 Aloqa", nav_seller: "🔐 Sotuvchi", nav_cart: "🛍 Savat",
+    nav_history: "📋 Buyurtmalarim", history_title: "Mening buyurtmalarim", history_empty: "Sizda hali buyurtmalar yo'q.",
     search_ph: "🔍 Mahsulot nomini yozing...",
     mdf_title: "✂️ MDF Kesish (CNC Router)", mdf_w: "Kengligi (sm)", mdf_h: "Uzunligi (sm)", mdf_qty: "Soni (dona)",
     mdf_sheet: "List turi", mdf_sheet_1: "Standart — 190 000", mdf_sheet_2: "Premium — 230 000", mdf_sheet_3: "Maxsus — 270 000",
     mdf_cut: "Murakkablik", mdf_cut_1: "To'g'ri — 50 000", mdf_cut_2: "Egri — 85 000", mdf_cut_3: "ArtCam — 120 000",
     mdf_btn: "Hisoblash", mdf_res_ph: "Natija...", 
     mdf_res_list: "Kerakli listlar:", mdf_res_per: "1 listga sig'adi:", mdf_res_price: "List narxi:", mdf_res_cut: "Kesish narxi:", mdf_res_total: "Jami:",
-    contact_title: "Biz bilan bog'laning", contact_phone: "Telefon", contact_addr: "Manzil", contact_addr_val: "Andijon, Qo'rg'ontepa", contact_time: "Ish vaqti", contact_time_val: "Har kuni: 08:00 - 20:00",
-    seller_panel: "Sotuvchi Paneli", btn_exit: "Chiqish", tab_orders: "📋 Zakazlar", tab_products: "📦 Mahsulotlar",
-    tbl_img: "Rasm", tbl_name: "Nomi", tbl_price: "Narxi", tbl_stock: "Soni", tbl_url: "Rasm URL", tbl_cat: "Kategoriya",
+    contact_title: "Biz bilan bog'laning", contact_phone: "Telefon", contact_addr: "Manzil", contact_time: "Ish vaqti",
+    seller_panel: "Sotuvchi Paneli", btn_exit: "Chiqish", tab_orders: "📋 Zakazlar", tab_products: "📦 Mahsulotlar", tab_categories: "📑 Qatorlar", tab_settings: "⚙️ Sozlamalar",
+    tbl_img: "Rasm", tbl_icon: "Ikonka", tbl_name: "Nomi", tbl_price: "Narxi", tbl_stock: "Soni", tbl_url: "Rasm URL", tbl_cat: "Qator",
     btn_save: "💾 O'zgarishlarni Saqlash", add_title: "➕ Yangi mahsulot qo'shish", btn_add: "Qo'shish",
-    login_title: "Sotuvchi Kirish", login_sub: "Tizimga kirish uchun login va parolni kiriting.", login_err: "Login yoki parol xato!", login_btn: "Kirish", btn_cancel: "Bekor qilish",
-    btn_to_cart: "Savatga qo'shish", cart_title: "🛍 Savat", cart_total: "Jami:", btn_checkout: "WhatsApp orqali Buyurtma",
+    add_cat: "➕ Yangi qator qo'shish", cat_name: "Qator nomi", btn_del: "O'chirish",
+    login_title: "Sotuvchi Kirish", login_sub: "Tizimga kirish uchun login va parolni kiriting.", login_err: "Login yoki parol xato!", login_btn: "Kirish", btn_cancel: "Bekor qilish", btn_close: "Yopish",
+    btn_to_cart: "Savatga qo'shish", cart_title: "🛍 Savat", cart_total: "Jami:", btn_checkout: "Buyurtma berish",
     stock_left: "Soni:", stock_out: "Tugagan", stock_ombor: "Omborda:", stock_shosh: "Shoshiling! Qoldi:",
     cart_empty_title: "Savat bo'sh", cart_empty_desc: "Xarid qilish uchun katalogdan tovar tanlang",
-    order_success: "✅ Buyurtma qabul qilindi va sotuvchiga yuborildi!",
+    order_success: "✅ Buyurtma qabul qilindi!",
     prompt_name: "Ismingizni kiriting:", prompt_phone: "Telefon raqamingizni kiriting:", prompt_addr: "Manzilingizni kiriting:",
-    orders_empty: "Hozircha zakazlar yo'q.", order_total: "Jami:", currency: "so'm"
+    orders_empty: "Hozircha zakazlar yo'q.", order_total: "Jami:", currency: "so'm",
+    cat_del_confirm: "Rostdan ham bu qatorni o'chirmoqchisiz? Undagi barcha tovarlar 'Boshqa' qatoriga o'tadi.",
+    set_auth_title: "🔐 Login va Parolni o'zgartirish", set_login: "Yangi Login", set_pass: "Yangi Parol", btn_save_auth: "Kirish ma'lumotlarini saqlash",
+    set_contact_title: "📞 Aloqa (Kontakt) ma'lumotlarini o'zgartirish", btn_save_contact: "Kontaktlarni saqlash",
+    save_success: "✅ Muvaffaqiyatli saqlandi!",
+    receipt_title: "Xarid cheki", receipt_date: "Sana:", receipt_item: "Mahsulot", receipt_qty: "Soni", receipt_total: "JAMI:", receipt_thanks: "Xaridingiz uchun rahmat!", 
+    btn_print: "🖨 Chek chiqarish", btn_complete: "✅ Yakunlash", status_new: "⏳ Yangi", status_done: "✅ Yakunlangan"
   },
   ru: {
     nav_catalog: "🛒 Каталог", nav_about: "📞 Контакты", nav_seller: "🔐 Продавец", nav_cart: "🛍 Корзина",
+    nav_history: "📋 Мои заказы", history_title: "Мои заказы", history_empty: "У вас пока нет заказов.",
     search_ph: "🔍 Введите название товара...",
     mdf_title: "✂️ Резка МДФ (CNC Router)", mdf_w: "Ширина (см)", mdf_h: "Длина (см)", mdf_qty: "Количество (шт)",
     mdf_sheet: "Тип листа", mdf_sheet_1: "Стандарт — 190 000", mdf_sheet_2: "Премиум — 230 000", mdf_sheet_3: "Особый — 270 000",
     mdf_cut: "Сложность", mdf_cut_1: "Прямой — 50 000", mdf_cut_2: "Кривой — 85 000", mdf_cut_3: "ArtCam — 120 000",
     mdf_btn: "Рассчитать", mdf_res_ph: "Результат...", 
     mdf_res_list: "Нужно листов:", mdf_res_per: "На 1 лист:", mdf_res_price: "Цена листа:", mdf_res_cut: "Цена резки:", mdf_res_total: "Итого:",
-    contact_title: "Свяжитесь с нами", contact_phone: "Телефон", contact_addr: "Адрес", contact_addr_val: "Андижан, Кургантепа", contact_time: "Время работы", contact_time_val: "Ежедневно: 08:00 - 20:00",
-    seller_panel: "Панель продавца", btn_exit: "Выйти", tab_orders: "📋 Заказы", tab_products: "📦 Товары",
-    tbl_img: "Фото", tbl_name: "Название", tbl_price: "Цена", tbl_stock: "Кол-во", tbl_url: "URL фото", tbl_cat: "Категория",
+    contact_title: "Свяжитесь с нами", contact_phone: "Телефон", contact_addr: "Адрес", contact_time: "Время работы",
+    seller_panel: "Панель продавца", btn_exit: "Выйти", tab_orders: "📋 Заказы", tab_products: "📦 Товары", tab_categories: "📑 Категории", tab_settings: "⚙️ Настройки",
+    tbl_img: "Фото", tbl_icon: "Иконка", tbl_name: "Название", tbl_price: "Цена", tbl_stock: "Кол-во", tbl_url: "URL фото", tbl_cat: "Категория",
     btn_save: "💾 Сохранить изменения", add_title: "➕ Добавить новый товар", btn_add: "Добавить",
-    login_title: "Вход для продавца", login_sub: "Введите логин и пароль для входа.", login_err: "Неверный логин или пароль!", login_btn: "Войти", btn_cancel: "Отмена",
-    btn_to_cart: "В корзину", cart_title: "🛍 Корзина", cart_total: "Итого:", btn_checkout: "Заказать через WhatsApp",
+    add_cat: "➕ Добавить новую категорию", cat_name: "Название категории", btn_del: "Удалить",
+    login_title: "Вход для продавца", login_sub: "Введите логин и пароль для входа.", login_err: "Неверный логин или пароль!", login_btn: "Войти", btn_cancel: "Отмена", btn_close: "Закрыть",
+    btn_to_cart: "В корзину", cart_title: "🛍 Корзина", cart_total: "Итого:", btn_checkout: "Оформить заказ",
     stock_left: "Кол-во:", stock_out: "Нет в наличии", stock_ombor: "На складе:", stock_shosh: "Спешите! Осталось:",
     cart_empty_title: "Корзина пуста", cart_empty_desc: "Выберите товары из каталога",
-    order_success: "✅ Заказ принят и отправлен продавцу!",
+    order_success: "✅ Заказ принят!",
     prompt_name: "Введите ваше имя:", prompt_phone: "Введите ваш номер телефона:", prompt_addr: "Введите ваш адрес:",
-    orders_empty: "Заказов пока нет.", order_total: "Итого:", currency: "сум"
+    orders_empty: "Заказов пока нет.", order_total: "Итого:", currency: "сум",
+    cat_del_confirm: "Вы действительно хотите удалить эту категорию? Все товары из нее перейдут в 'Другое'.",
+    set_auth_title: "🔐 Изменить логин и пароль", set_login: "Новый Логин", set_pass: "Новый Пароль", btn_save_auth: "Сохранить данные для входа",
+    set_contact_title: "📞 Изменить контактные данные", btn_save_contact: "Сохранить контакты",
+    save_success: "✅ Успешно сохранено!",
+    receipt_title: "Чек покупки", receipt_date: "Дата:", receipt_item: "Товар", receipt_qty: "Кол-во", receipt_total: "ИТОГО:", receipt_thanks: "Спасибо за покупку!", 
+    btn_print: "🖨 Напечатать чек", btn_complete: "✅ Завершить", status_new: "⏳ Новый", status_done: "✅ Завершен"
   }
 };
 
-// ==========================================
-// MAHSULOTLAR BAZASI (TO'LIQ, IKKI TILDA)
-// ==========================================
-const DEFAULT_PRODUCTS = [
-  // Santexnika
-  { id:'m1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel oshxona ekonom', name_ru:'Смеситель для кухни эконом', desc_uz:'Silumin korpus, xrom qoplama, 360° aylanadigan suv chiqargich.', desc_ru:'Корпус из силумина, хромированное покрытие, поворотный излив 360°.', price:150000, stock:15, icon:'🚰', image:'' },
-  { id:'m2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel vannaxona', name_ru:'Смеситель для ванной', desc_uz:'Bir tutqichli, keramik kartrijli, dush leyksasi bilan.', desc_ru:'Однорычажный, с керамическим картриджем и душевой лейкой.', price:200000, stock:15, icon:'💧', image:'' },
-  { id:'m3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel uzun chiqargichli', name_ru:'Смеситель с длинным изливом', desc_uz:'Oshxona uchun uzun va aylanadigan suv chiqargich.', desc_ru:'Длинный поворотный излив для кухонной мойки.', price:250000, stock:20, icon:'🚰', image:'' },
-  { id:'m4', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel gigiyenik dushli', name_ru:'Смеситель с гигиенической лейкой', desc_uz:'Rakovina uchun, 1.2 metrli metall shlangli gigiyenik dush.', desc_ru:'Для раковины, с гигиеническим душем и шлангом 1.2 м.', price:300000, stock:5, icon:'🚿', image:'' },
-  { id:'m5', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel rakovina uchun', name_ru:'Смеситель для раковины', desc_uz:'Klassik dizayn, keramik kartrij, suv tejovchi aerator.', desc_ru:'Классический дизайн, керамический картридж, аэратор.', price:350000, stock:10, icon:'💧', image:'' },
-  { id:'m6', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel termostatli', name_ru:'Смеситель с термостатом', desc_uz:'Haroratni avtomatik ushlab turadi, xavfsizlik uchun.', desc_ru:'Автоматически поддерживает температуру, для безопасности.', price:400000, stock:10, icon:'🌡️', image:'' },
-  { id:'m7', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel yashirin montaj', name_ru:'Смеситель скрытого монтажа', desc_uz:'Devorga o\'rnatiladigan, keramik kartrij Ø35.', desc_ru:'Встраиваемый в стену, керамический картридж Ø35.', price:450000, stock:15, icon:'🚰', image:'' },
-  { id:'m8', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel premium', name_ru:'Смеситель премиум', desc_uz:'Yuqori sifatli xrom, zamonaviy dizayn, 5 yillik kafolat.', desc_ru:'Высококачественный хром, современный дизайн, гарантия 5 лет.', price:500000, stock:20, icon:'✨', image:'' },
-  { id:'m9', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel latun kuchaytirilgan', name_ru:'Смеситель латунный усиленный', desc_uz:'Korroziyaga chidamli qalin latun, 10 yillik kafolat.', desc_ru:'Толстая латунь, устойчивая к коррозии, гарантия 10 лет.', price:600000, stock:5, icon:'💎', image:'' },
-  { id:'m10', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel dizaynerlik', name_ru:'Смеситель дизайнерский', desc_uz:'Oltin va mis qoplamali, eksklyuziv kolleksiya.', desc_ru:'С золотым и медным покрытием, эксклюзивная коллекция.', price:700000, stock:5, icon:'👑', image:'' },
-  
-  { id:'t1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz kompakt ekonom', name_ru:'Унитаз-компакт эконом', desc_uz:'Oq keramika, polga o\'rnatiladigan, iqtisodiy suv sarfi.', desc_ru:'Белая керамика, напольный, с экономным расходом воды.', price:300000, stock:100, icon:'🚽', image:'' },
-  { id:'t2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz kompakt', name_ru:'Унитаз-компакт', desc_uz:'Standart o\'lcham, qulay o\'rindiq, yuqori sifatli keramika.', desc_ru:'Стандартный размер, удобное сиденье, качественная керамика.', price:400000, stock:120, icon:'🚽', image:'' },
-  { id:'t3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz 2 rejimli', name_ru:'Унитаз с 2 режимами', desc_uz:'Iqtisodiy va to\'liq yuvish rejimlari, suvni tejaydi.', desc_ru:'Экономный и полный режимы смыва, экономит воду.', price:500000, stock:80, icon:'🚽', image:'' },
-  { id:'t4', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz yondashuvchi', name_ru:'Унитаз приставной', desc_uz:'Zamonaviy dizayn, devorga yaqin turadi, tozalash oson.', desc_ru:'Современный дизайн, прилегает к стене, легко мыть.', price:600000, stock:55, icon:'🚽', image:'' },
-  { id:'t5', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz osma', name_ru:'Унитаз подвесной', desc_uz:'Devorga o\'rnatiladigan, polni tozalash juda oson.', desc_ru:'Навесной, очень легко мыть пол.', price:700000, stock:40, icon:'🚽', image:'' },
-  { id:'t6', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz mikroliftli', name_ru:'Унитаз с микролифтом', desc_uz:'O\'rindiq mikrolift mexanizmi bilan, shovqinsiz yopiladi.', desc_ru:'С сиденьем-микролифт, закрывается бесшумно.', price:800000, stock:30, icon:'🚽', image:'' },
-  { id:'t7', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz premium', name_ru:'Унитаз премиум', desc_uz:'Ramkasiz dizayn, antibakterial qoplama.', desc_ru:'Безободковый дизайн, антибактериальное покрытие.', price:900000, stock:24, icon:'✨', image:'' },
-  { id:'t8', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz dizaynerlik', name_ru:'Унитаз дизайнерский', desc_uz:'Eksklyuziv dizayn, oltin bezaklar, lyuks uchun.', desc_ru:'Эксклюзивный дизайн, золотые элементы, для люкса.', price:1000000, stock:15, icon:'👑', image:'' },
-  
-  { id:'r1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina ustma-ust', name_ru:'Раковина накладная', desc_uz:'Keramikadan ishlangan, 50x40 sm o\'lchamda.', desc_ru:'Из керамики, размер 50x40 см.', price:350000, stock:90, icon:'🪠', image:'' },
-  { id:'r2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina osma', name_ru:'Раковина подвесная', desc_uz:'Devorga o\'rnatiladigan, joyni tejaydi.', desc_ru:'Настенная, экономит место.', price:400000, stock:110, icon:'💧', image:'' },
-  { id:'r3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina taglikli', name_ru:'Раковина с пьедесталом', desc_uz:'Poldan tik turuvchi, barqaror va mustahkam.', desc_ru:'Напольная с пьедесталом, устойчивая и прочная.', price:450000, stock:70, icon:'🚰', image:'' },
-  { id:'r4', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina tumbali', name_ru:'Раковина с тумбой', desc_uz:'Mebel shkafchasi bilan, qulay saqlash joyi.', desc_ru:'С мебельным шкафчиком, удобное место для хранения.', price:500000, stock:50, icon:'🪠', image:'' },
-  { id:'r5', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina burchakli', name_ru:'Раковина угловая', desc_uz:'Kichik vannaxonalar uchun ixcham dizayn.', desc_ru:'Компактный дизайн для маленьких ванных комнат.', price:550000, stock:35, icon:'📐', image:'' },
-  { id:'r6', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina 2 kosali', name_ru:'Раковина с 2 чашами', desc_uz:'Katta vannaxona uchun, ikki kishiga qulay.', desc_ru:'Для большой ванной, удобно для двоих.', price:600000, stock:25, icon:'💧', image:'' },
-  { id:'r7', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina keramogranit', name_ru:'Раковина керамогранит', desc_uz:'Chidamli keramogranit, matovyy effekt.', desc_ru:'Прочный керамогранит, матовый эффект.', price:650000, stock:20, icon:'🔷', image:'' },
-  { id:'r8', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina dizaynerlik', name_ru:'Раковина дизайнерская', desc_uz:'Qo\'lda ishlangan, premium seriya.', desc_ru:'Ручная работа, премиум серия.', price:700000, stock:12, icon:'👑', image:'' },
-  
-  { id:'d1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Dush burchagi', name_ru:'Душевой уголок', desc_uz:'90x90 o\'lcham, 5 mm qalinlikdagi shisha.', desc_ru:'Размер 90x90, стекло 5 мм.', price:3200000, stock:60, icon:'🚿', image:'' },
-  { id:'d2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Dush kabinasi patnisli', name_ru:'Душевая кабина с поддоном', desc_uz:'Akril patnis, egri eshiklar, muhrlar.', desc_ru:'Акриловый поддон, распашные двери, уплотнители.', price:5000000, stock:45, icon:'🛁', image:'' },
-  { id:'d3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Dush kabinasi gidromassajli', name_ru:'Душевая кабина с гидромассажем', desc_uz:'Ko\'p funksiyali, yorug\'lik, radio.', desc_ru:'Многофункциональная, подсветка, радио.', price:7500000, stock:30, icon:'♨️', image:'' },
-
-  // Elektrotexnika
-  { id:'e1', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'Kabel VVG 3x2.5', name_ru:'Кабель ВВГ 3x2.5', desc_uz:'Mis o\'tkazgichli, 3 yadroli (1 metr).', desc_ru:'Медный, 3-жильный (1 метр).', price:25000, stock:150, icon:'🔌', image:'' },
-  { id:'e2', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'Rozetka 2x', name_ru:'Розетка двойная', desc_uz:'Yashirin o\'rnatish uchun, 16A, yerga ulash.', desc_ru:'Скрытая установка, 16A, с заземлением.', price:35000, stock:100, icon:'🔌', image:'' },
-  { id:'e3', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'LED lampa 12W', name_ru:'LED лампа 12Вт', desc_uz:'E27 sokol, tejamkor, 4000K tiniq oq.', desc_ru:'Цоколь E27, экономная, 4000K белый свет.', price:18000, stock:150, icon:'💡', image:'' },
-  { id:'e4', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'Avtomat 16A', name_ru:'Автомат 16А', desc_uz:'C tipi, qisqa tutashuvdan himoya.', desc_ru:'Тип C, защита от короткого замыкания.', price:48000, stock:120, icon:'⚡', image:'' },
-
-  // Xo'jalik
-  { id:'h1', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Qo\'lqop paxta', name_ru:'Перчатки х/б', desc_uz:'5 ipli, qurilish va xo\'jalik uchun.', desc_ru:'5 нитей, для строительных и хозяйственных работ.', price:1000, stock:150, icon:'🧤', image:'' },
-  { id:'h2', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Qo\'lqop PVX', name_ru:'Перчатки с ПВХ', desc_uz:'Sirg\'anmaydigan, suv o\'tkazmaydigan.', desc_ru:'Нескользящие, водонепроницаемые.', price:5000, stock:120, icon:'🧤', image:'' },
-  { id:'h3', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Chelak 12L', name_ru:'Ведро 12л', desc_uz:'Plastik, qopqoqli, mustahkam tutqichli.', desc_ru:'Пластиковое, с крышкой, прочная ручка.', price:45000, stock:50, icon:'🪣', image:'' },
-  { id:'h4', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Shvabra', name_ru:'Швабра', desc_uz:'Siqish mexanizmli, polni yuvish uchun.', desc_ru:'С отжимом, для мытья полов.', price:60000, stock:40, icon:'🧹', image:'' },
-
-  // Bo'yoq
-  { id:'k1', cat_uz:'Bo\'yoq', cat_ru:'Краска', name_uz:'Bo\'yoq 3kg', name_ru:'Краска 3кг', desc_uz:'Suv-emulsiyali, oq rang, devor uchun.', desc_ru:'Водоэмульсионная, белая, для стен.', price:30000, stock:100, icon:'🎨', image:'' },
-  { id:'k2', cat_uz:'Bo\'yoq', cat_ru:'Краска', name_uz:'Bo\'yoq 10kg', name_ru:'Краска 10кг', desc_uz:'Yuviladigan, yuqori qoplash xususiyati.', desc_ru:'Моющаяся, с высокой укрывистостью.', price:120000, stock:60, icon:'🎨', image:'' },
-
-  // Sement
-  { id:'c1', cat_uz:'Sement', cat_ru:'Цемент', name_uz:'Sement Conch M450', name_ru:'Цемент Conch M450', desc_uz:'50 kg qop, tez qotuvchi portlandsement.', desc_ru:'Мешок 50 кг, быстротвердеющий портландцемент.', price:35000, stock:150, icon:'🧱', image:'' },
-  { id:'c2', cat_uz:'Sement', cat_ru:'Цемент', name_uz:'Plitka yelimi 25kg', name_ru:'Клей для плитки 25кг', desc_uz:'Kafel va plitkalar uchun universal yelim.', desc_ru:'Универсальный клей для плитки и кафеля.', price:35000, stock:80, icon:'🪣', image:'' },
-
-  // Bloklar
-  { id:'b1', cat_uz:'Bloklar', cat_ru:'Блоки', name_uz:'Shlakoblok', name_ru:'Шлакоблок', desc_uz:'20x20x40, devor terish uchun mustahkam.', desc_ru:'20x20x40, прочный для кладки стен.', price:2900, stock:150, icon:'🧱', image:'' },
-  { id:'b2', cat_uz:'Bloklar', cat_ru:'Блоки', name_uz:'Qumblok', name_ru:'Пескоблок', desc_uz:'Ekologik toza, issiqlikni yaxshi saqlaydi.', desc_ru:'Экологичный, хорошо сохраняет тепло.', price:6500, stock:80, icon:'🧱', image:'' }
+const DEFAULT_CATEGORIES = [
+  { id: 'c1', name_uz: 'Santexnika', name_ru: 'Сантехника' },
+  { id: 'c2', name_uz: 'Elektrotexnika', name_ru: 'Электротехника' },
+  { id: 'c3', name_uz: "Xo'jalik mollari", name_ru: 'Хозтовары' },
+  { id: 'c4', name_uz: "Bo'yoq va Kimyoviy moddalar", name_ru: 'Краски и Химия' },
+  { id: 'c5', name_uz: "Sement va Qorishmalar", name_ru: 'Цемент и Смеси' },
+  { id: 'c6', name_uz: "Bloklar va Gipsokarton", name_ru: 'Блоки и Гипсокартон' },
+  { id: 'c7', name_uz: "Qurilish asboblari", name_ru: 'Строительные инструменты' },
+  { id: 'c8', name_uz: "Metiz va Mahkamlagichlar", name_ru: 'Метизы и Крепеж' }
 ];
+
+const DEFAULT_PRODUCTS = [
+  // SANTEXNIKA
+  { id:'m1', cat_id:'c1', name_uz:'Smesitel oshxona ekonom', name_ru:'Смеситель для кухни эконом', desc_uz:'Silumin korpus, xrom qoplama, 360° aylanadigan suv chiqargich.', desc_ru:'Корпус из силумина, хромированное покрытие, поворотный излив 360°.', price:150000, stock:15, icon:'🚰', image:'' },
+  { id:'m2', cat_id:'c1', name_uz:'Smesitel vannaxona', name_ru:'Смеситель для ванной', desc_uz:'Bir tutqichli, keramik kartrijli, dush leyksasi bilan.', desc_ru:'Однорычажный, с керамическим картриджем и душевой лейкой.', price:200000, stock:15, icon:'💧', image:'' },
+  { id:'m3', cat_id:'c1', name_uz:'Smesitel uzun chiqargichli', name_ru:'Смеситель с длинным изливом', desc_uz:'Oshxona uchun uzun va aylanadigan suv chiqargich.', desc_ru:'Длинный поворотный излив для кухонной мойки.', price:250000, stock:20, icon:'🚰', image:'' },
+  { id:'m4', cat_id:'c1', name_uz:'Smesitel gigiyenik dushli', name_ru:'Смеситель с гигиенической лейкой', desc_uz:'Rakovina uchun, 1.2 metrli metall shlangli gigiyenik dush.', desc_ru:'Для раковины, с гигиеническим душем и шлангом 1.2 м.', price:300000, stock:5, icon:'🚿', image:'' },
+  { id:'m5', cat_id:'c1', name_uz:'Smesitel rakovina uchun', name_ru:'Смеситель для раковины', desc_uz:'Klassik dizayn, keramik kartrij, suv tejovchi aerator.', desc_ru:'Классический дизайн, керамический картридж, аэратор.', price:350000, stock:10, icon:'💧', image:'' },
+  { id:'t1', cat_id:'c1', name_uz:'Unitaz kompakt ekonom', name_ru:'Унитаз-компакт эконом', desc_uz:'Oq keramika, polga o\'rnatiladigan, iqtisodiy suv sarfi.', desc_ru:'Белая керамика, напольный, с экономным расходом воды.', price:300000, stock:100, icon:'🚽', image:'' },
+  { id:'t2', cat_id:'c1', name_uz:'Unitaz lyuks', name_ru:'Унитаз люкс', desc_uz:'Mikrolift, yumshoq yopilish, zamonaviy dizayn.', desc_ru:'Микролифт, плавное закрывание, современный дизайн.', price:650000, stock:40, icon:'🚽', image:'' },
+  { id:'r1', cat_id:'c1', name_uz:'Rakovina ustma-ust', name_ru:'Раковина накладная', desc_uz:'Keramikadan ishlangan, 50x40 sm o\'lchamda.', desc_ru:'Из керамики, размер 50x40 см.', price:350000, stock:90, icon:'🪠', image:'' },
+  { id:'r2', cat_id:'c1', name_uz:'Rakovina taglikli', name_ru:'Раковина с пьедесталом', desc_uz:'Poldan tik turuvchi, barqaror va mustahkam.', desc_ru:'Напольная с пьедесталом, устойчивая и прочная.', price:450000, stock:70, icon:'🚰', image:'' },
+  { id:'d1', cat_id:'c1', name_uz:'Dush kabinasi', name_ru:'Душевая кабина', desc_uz:'90x90 o\'lcham, 5 mm qalinlikdagi shisha, gidromassaj.', desc_ru:'Размер 90x90, стекло 5 мм, гидромассаж.', price:3200000, stock:60, icon:'🚿', image:'' },
+  { id:'p1', cat_id:'c1', name_uz:'Polipropilen quvur 20mm', name_ru:'Полипропиленовая труба 20мм', desc_uz:'Suv o\'tkazish uchun, 2 metrlik.', desc_ru:'Для водоснабжения, 2 метра.', price:15000, stock:200, icon:'🧪', image:'' },
+  { id:'p2', cat_id:'c1', name_uz:'Metall-plastik quvur 16mm', name_ru:'Металлопластиковая труба 16мм', desc_uz:'Isitish tizimlari uchun, egiluvchan.', desc_ru:'Для систем отопления, гибкая.', price:12000, stock:150, icon:'🧪', image:'' },
+  { id:'p3', cat_id:'c1', name_uz:'Kran sharli 1/2', name_ru:'Кран шаровый 1/2', desc_uz:'Latun, suvni to\'liq to\'sish uchun.', desc_ru:'Латунный, для полного перекрытия воды.', price:45000, stock:80, icon:'🔧', image:'' },
+  { id:'p4', cat_id:'c1', name_uz:'Gofra (shlang) 1.5m', name_ru:'Гофра (шланг) 1.5м', desc_uz:'Unitaz yoki rakovina uchun.', desc_ru:'Для унитаза или раковины.', price:25000, stock:100, icon:'〰️', image:'' },
+
+  // ELEKTROTEXNIKA
+  { id:'e1', cat_id:'c2', name_uz:'Kabel VVG 3x2.5', name_ru:'Кабель ВВГ 3x2.5', desc_uz:'Mis o\'tkazgichli, 3 yadroli (1 metr).', desc_ru:'Медный, 3-жильный (1 метр).', price:25000, stock:150, icon:'🔌', image:'' },
+  { id:'e2', cat_id:'c2', name_uz:'Rozetka 2x (yashirin)', name_ru:'Розетка двойная (скрытая)', desc_uz:'16A, yerga ulash kontaktli, oq.', desc_ru:'16A, с заземлением, белая.', price:35000, stock:100, icon:'🔌', image:'' },
+  { id:'e3', cat_id:'c2', name_uz:'LED lampa 12W', name_ru:'LED лампа 12Вт', desc_uz:'E27 sokol, tejamkor, 4000K tiniq oq.', desc_ru:'Цоколь E27, экономная, 4000K белый свет.', price:18000, stock:150, icon:'💡', image:'' },
+  { id:'e4', cat_id:'c2', name_uz:'Avtomat 16A (C tipi)', name_ru:'Автомат 16А (Тип C)', desc_uz:'Qisqa tutashuvdan himoya, DIN reykaga.', desc_ru:'Защита от КЗ, на DIN-рейку.', price:48000, stock:120, icon:'⚡', image:'' },
+  { id:'e5', cat_id:'c2', name_uz:'Vyklyuchatel 1 klavishali', name_ru:'Выключатель одноклавишный', desc_uz:'Yashirin o\'rnatish uchun.', desc_ru:'Для скрытой установки.', price:22000, stock:130, icon:'🎚️', image:'' },
+  { id:'e6', cat_id:'c2', name_uz:'Kabel VVG 2x1.5', name_ru:'Кабель ВВГ 2x1.5', desc_uz:'Yorug\'lik uchun mis kabel (1 metr).', desc_ru:'Медный кабель для освещения (1 метр).', price:15000, stock:200, icon:'🔌', image:'' },
+
+  // XO'JALIK MOLLARI
+  { id:'h1', cat_id:'c3', name_uz:'Qo\'lqop paxta', name_ru:'Перчатки х/б', desc_uz:'5 ipli, qurilish va xo\'jalik uchun (juft).', desc_ru:'5 нитей, для строительных и хозяйственных работ (пара).', price:2000, stock:150, icon:'🧤', image:'' },
+  { id:'h2', cat_id:'c3', name_uz:'Qo\'lqop PVX (nuqtali)', name_ru:'Перчатки с ПВХ (в точку)', desc_uz:'Sirg\'anmaydigan, ish paytida qulay.', desc_ru:'Нескользящие, удобные при работе.', price:6000, stock:120, icon:'🧤', image:'' },
+  { id:'h3', cat_id:'c3', name_uz:'Chelak 12L', name_ru:'Ведро 12л', desc_uz:'Plastik, qopqoqli, mustahkam tutqichli.', desc_ru:'Пластиковое, с крышкой, прочная ручка.', price:45000, stock:50, icon:'🪣', image:'' },
+  { id:'h4', cat_id:'c3', name_uz:'Shvabra (siqishli)', name_ru:'Швабра (с отжимом)', desc_uz:'Mikrofibra, polni yuvish uchun.', desc_ru:'Микрофибра, для мытья полов.', price:85000, stock:40, icon:'🧹', image:'' },
+  { id:'h5', cat_id:'c3', name_uz:'Axlat paketlari 120L', name_ru:'Мусорные пакеты 120Л', desc_uz:'Zich, 10 dona bir o\'ramda.', desc_ru:'Плотные, 10 штук в упаковке.', price:18000, stock:100, icon:'🗑️', image:'' },
+  { id:'h6', cat_id:'c3', name_uz:'Respirator (niqob)', name_ru:'Респиратор (маска)', desc_uz:'Changdan himoya qiluvchi, FFP1.', desc_ru:'Защита от пыли, FFP1.', price:12000, stock:80, icon:'😷', image:'' },
+
+  // BO'YOQ VA KIMYOVIY MODDALAR
+  { id:'k1', cat_id:'c4', name_uz:'Bo\'yoq 3kg (Oq)', name_ru:'Краска 3кг (Белая)', desc_uz:'Suv-emulsiyali, devor va shiftlar uchun.', desc_ru:'Водоэмульсионная, для стен и потолков.', price:35000, stock:100, icon:'🎨', image:'' },
+  { id:'k2', cat_id:'c4', name_uz:'Bo\'yoq 10kg (Oq)', name_ru:'Краска 10кг (Белая)', desc_uz:'Yuviladigan, yuqori yopish xususiyati.', desc_ru:'Моющаяся, высокая укрывистость.', price:110000, stock:60, icon:'🎨', image:'' },
+  { id:'k3', cat_id:'c4', name_uz:'Emal PF-115 (Oq)', name_ru:'Эмаль ПФ-115 (Белая)', desc_uz:'Metall va yog\'och uchun, 2kg.', desc_ru:'Для металла и дерева, 2кг.', price:95000, stock:50, icon:'🖌️', image:'' },
+  { id:'k4', cat_id:'c4', name_uz:'Grunt (10L)', name_ru:'Грунтовка (10Л)', desc_uz:'Chuqur singdiruvchi, devorni mustahkamlaydi.', desc_ru:'Глубокого проникновения, укрепляет стену.', price:120000, stock:45, icon:'🧴', image:'' },
+  { id:'k5', cat_id:'c4', name_uz:'Valik (Molyar)', name_ru:'Валик (Малярный)', desc_uz:'Bo\'yash uchun, tuklari to\'kilmaydi.', desc_ru:'Для покраски, не оставляет ворса.', price:25000, stock:70, icon:'🧹', image:'' },
+  { id:'k6', cat_id:'c4', name_uz:'Cho\'tka 50mm', name_ru:'Кисть 50мм', desc_uz:'Yog\'och yoki metall bo\'yash uchun.', desc_ru:'Для покраски дерева или металла.', price:10000, stock:90, icon:'🖌️', image:'' },
+
+  // SEMENT VA QORISHMALAR
+  { id:'c1', cat_id:'c5', name_uz:'Sement M400 (50kg)', name_ru:'Цемент М400 (50кг)', desc_uz:'Conch firmasi, umumiy qurilish ishlari uchun.', desc_ru:'Фирма Conch, для общестроительных работ.', price:35000, stock:150, icon:'🧱', image:'' },
+  { id:'c2', cat_id:'c5', name_uz:'Sement M500 (50kg)', name_ru:'Цемент М500 (50кг)', desc_uz:'Mustahkam, yuk ko\'taruvchi konstruksiyalar uchun.', desc_ru:'Прочный, для несущих конструкций.', price:45000, stock:100, icon:'🧱', image:'' },
+  { id:'c3', cat_id:'c5', name_uz:'Kafel yelimi 25kg', name_ru:'Клей для плитки 25кг', desc_uz:'Universal, ichki va tashqi ishlar uchun.', desc_ru:'Универсальный, для внутренних и наружных работ.', price:40000, stock:80, icon:'🪣', image:'' },
+  { id:'c4', cat_id:'c5', name_uz:'Shpatlyovka (25kg)', name_ru:'Шпатлевка (25кг)', desc_uz:'Devorlarni tekislash uchun.', desc_ru:'Для выравнивания стен.', price:55000, stock:60, icon:'🪣', image:'' },
+  { id:'c5', cat_id:'c5', name_uz:'Gips (alabastr) 5kg', name_ru:'Гипс (алебастр) 5кг', desc_uz:'Tez qotuvchi, mayda ishlar uchun.', desc_ru:'Быстротвердеющий, для мелких работ.', price:15000, stock:90, icon:'⚪', image:'' },
+
+  // BLOKLAR VA GIPSOKARTON
+  { id:'b1', cat_id:'c6', name_uz:'Shlakoblok 20x20x40', name_ru:'Шлакоблок 20x20x40', desc_uz:'Devor terish uchun, mustahkam.', desc_ru:'Для кладки стен, прочный.', price:3500, stock:500, icon:'🧱', image:'' },
+  { id:'b2', cat_id:'c6', name_uz:'Qumblok 20x20x40', name_ru:'Пескоблок 20x20x40', desc_uz:'Ekologik toza, issiqlikni yaxshi saqlaydi.', desc_ru:'Экологичный, хорошо сохраняет тепло.', price:5500, stock:400, icon:'🧱', image:'' },
+  { id:'b3', cat_id:'c6', name_uz:'Gipsokarton (Devor)', name_ru:'Гипсокартон (Стеновой)', desc_uz:'2.5x1.2 metr, 12.5mm qalinlik.', desc_ru:'2.5x1.2 метра, толщина 12.5мм.', price:45000, stock:60, icon:'📄', image:'' },
+  { id:'b4', cat_id:'c6', name_uz:'Profil (CD 60)', name_ru:'Профиль (CD 60)', desc_uz:'Gipsokarton uchun metall profil, 3 metr.', desc_ru:'Металлический профиль для ГКЛ, 3 метра.', price:28000, stock:100, icon:'📏', image:'' },
+  { id:'b5', cat_id:'c6', name_uz:'Penaplast (Penoplex) 5sm', name_ru:'Пенопласт 5см', desc_uz:'Issiqlik izolyatsiyasi uchun list.', desc_ru:'Лист для теплоизоляции.', price:35000, stock:50, icon:'🟦', image:'' },
+
+  // QURILISH ASBOBLARI
+  { id:'i1', cat_id:'c7', name_uz:'Bolg\'a (Molotok)', name_ru:'Молоток', desc_uz:'Yog\'och dastali, 500 gramm.', desc_ru:'С деревянной ручкой, 500 грамм.', price:35000, stock:40, icon:'🔨', image:'' },
+  { id:'i2', cat_id:'c7', name_uz:'Ruletka 5m', name_ru:'Рулетка 5м', desc_uz:'O\'lchash uchun, avtomatik tortiladi.', desc_ru:'Для измерений, с автоподмоткой.', price:20000, stock:60, icon:'📏', image:'' },
+  { id:'i3', cat_id:'c7', name_uz:'Otvyortka to\'plami', name_ru:'Набор отверток', desc_uz:'6 xil uchli, magnitli.', desc_ru:'6 разных насадок, магнитные.', price:65000, stock:35, icon:'🪛', image:'' },
+  { id:'i4', cat_id:'c7', name_uz:'Drel (Perforator)', name_ru:'Дрель (Перфоратор)', desc_uz:'Beton va devorga teshik ochish uchun.', desc_ru:'Для сверления бетона и стен.', price:850000, stock:15, icon:'🔫', image:'' },
+  { id:'i5', cat_id:'c7', name_uz:'Sath (Uroven)', name_ru:'Уровень', desc_uz:'Tekislikni tekshirish uchun, 60 sm.', desc_ru:'Для проверки ровности, 60 см.', price:55000, stock:40, icon:'📐', image:'' },
+  { id:'i6', cat_id:'c7', name_uz:'Keskich (Zubilo)', name_ru:'Зубило', desc_uz:'Metall yoki tosh uchun.', desc_ru:'Для металла или камня.', price:25000, stock:50, icon:'⛏️', image:'' },
+
+  // METIZ VA MAHKAMLAGICHLAR
+  { id:'mt1', cat_id:'c8', name_uz:'Samo rez 3.5x25', name_ru:'Саморез 3.5x25', desc_uz:'Yog\'och yoki gipsokarton uchun (1 kg).', desc_ru:'Для дерева или ГКЛ (1 кг).', price:25000, stock:150, icon:'🔩', image:'' },
+  { id:'mt2', cat_id:'c8', name_uz:'Dübel (Pochka)', name_ru:'Дюбель (Пачка)', desc_uz:'6x40 o\'lcham, 100 dona.', desc_ru:'Размер 6x40, 100 штук.', price:15000, stock:100, icon:'📍', image:'' },
+  { id:'mt3', cat_id:'c8', name_uz:'Mix (Plomba)', name_ru:'Дюбель-гвоздь (Пломба)', desc_uz:'Tez o\'rnatish uchun, 100 dona.', desc_ru:'Для быстрого монтажа, 100 штук.', price:18000, stock:120, icon:'📌', image:'' },
+  { id:'mt4', cat_id:'c8', name_uz:'Zanjir (Tsep)', name_ru:'Цепь', desc_uz:'1 metr, turli maqsadlar uchun.', desc_ru:'1 метр, для различных целей.', price:20000, stock:40, icon:'⛓️', image:'' },
+  { id:'mt5', cat_id:'c8', name_uz:'Kabel bog\'ichi (Styajka)', name_ru:'Кабельная стяжка', desc_uz:'100 dona, 20 sm.', desc_ru:'100 штук, 20 см.', price:10000, stock:200, icon:'🔗', image:'' }
+];
+
+const DEFAULT_AUTH = { user: 'albaraka1234', pass: 'abubakir1234' };
+const DEFAULT_CONTACT = {
+  phone: '+998 88 616 17 00',
+  address_uz: "Andijon, Qo'rg'ontepa",
+  address_ru: 'Андижан, Кургантепа',
+  time_uz: 'Har kuni: 08:00 - 20:00',
+  time_ru: 'Ежедневно: 08:00 - 20:00'
+};
 
 let currentLang = localStorage.getItem('albaraka_lang') || 'uz';
 let cart = {};
 let isSeller = false;
+
+let categories = JSON.parse(localStorage.getItem('albaraka_categories')) || [...DEFAULT_CATEGORIES];
 let products = JSON.parse(localStorage.getItem('albaraka_products')) || [...DEFAULT_PRODUCTS];
+let sellerAuth = JSON.parse(localStorage.getItem('albaraka_seller_auth')) || DEFAULT_AUTH;
+let contactInfo = JSON.parse(localStorage.getItem('albaraka_contact_info')) || DEFAULT_CONTACT;
+
+// Mijozning shaxsiy buyurtmalari tarixi
+let clientOrders = JSON.parse(localStorage.getItem('albaraka_client_orders')) || [];
+let currentReceiptData = null;
+
 let currentClientSearch = '';
 let currentSellerSearch = '';
 let currentOpenProductId = null;
 
-// ==========================================
-// TILNI O'ZGARTIRISH MANTIG'I
-// ==========================================
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('albaraka_lang', lang);
@@ -553,17 +615,30 @@ function setLang(lang) {
     if (TRANSLATIONS[lang][key]) el.placeholder = TRANSLATIONS[lang][key];
   });
 
+  renderContactInfo();
   renderCatalog();
+  renderHistory();
   updateCartUI();
+  
   if (isSeller) {
     loadSellerOrders();
     renderSellerProductsTable();
+    renderCategoriesList();
+    loadSettingsForm();
   }
 }
 
-// ==========================================
-// INTERFEYS VA KATALOG
-// ==========================================
+function renderContactInfo() {
+  document.getElementById('view-phone').textContent = contactInfo.phone;
+  if (currentLang === 'uz') {
+    document.getElementById('view-address').textContent = contactInfo.address_uz;
+    document.getElementById('view-time').textContent = contactInfo.time_uz;
+  } else {
+    document.getElementById('view-address').textContent = contactInfo.address_ru;
+    document.getElementById('view-time').textContent = contactInfo.time_ru;
+  }
+}
+
 function renderCatalog() {
   const container = document.getElementById('catalogContainer');
   let html = '';
@@ -571,21 +646,20 @@ function renderCatalog() {
   
   const filtered = products.filter(p => {
     const name = currentLang === 'uz' ? p.name_uz : p.name_ru;
-    const cat = currentLang === 'uz' ? p.cat_uz : p.cat_ru;
-    return name.toLowerCase().includes(currentClientSearch.toLowerCase()) || 
-           cat.toLowerCase().includes(currentClientSearch.toLowerCase());
+    return name.toLowerCase().includes(currentClientSearch.toLowerCase());
   });
 
   if(filtered.length === 0) {
-    container.innerHTML = `<p style="text-align:center; color:#64748b; margin-top:20px; font-size:1.1rem;">${t.search_ph}</p>`;
+    container.innerHTML = `<p style="text-align:center; color:#64748b; margin-top:20px; font-size:1.1rem; background:#fff; padding:20px; border-radius:12px;">${t.search_ph}</p>`;
     return;
   }
 
-  const cats = [...new Set(filtered.map(p => currentLang === 'uz' ? p.cat_uz : p.cat_ru))];
-  
-  cats.forEach(cat => {
-    html += `<h3 class="section-title">${cat}</h3><div class="grid">`;
-    const catProds = filtered.filter(p => (currentLang === 'uz' ? p.cat_uz : p.cat_ru) === cat);
+  categories.forEach(cat => {
+    const catProds = filtered.filter(p => p.cat_id === cat.id);
+    if (catProds.length === 0) return;
+
+    const catName = currentLang === 'uz' ? cat.name_uz : cat.name_ru;
+    html += `<h3 class="section-title">${catName}</h3><div class="grid">`;
     
     catProds.forEach(p => {
       const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
@@ -618,7 +692,6 @@ function searchClient() {
   renderCatalog();
 }
 
-// ===== BATAFSIL OYNA =====
 function openProductDetail(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
@@ -627,7 +700,8 @@ function openProductDetail(id) {
 
   const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
   const pDesc = currentLang === 'uz' ? p.desc_uz : p.desc_ru;
-  const pCat = currentLang === 'uz' ? p.cat_uz : p.cat_ru;
+  const cat = categories.find(c => c.id === p.cat_id);
+  const pCat = cat ? (currentLang === 'uz' ? cat.name_uz : cat.name_ru) : '';
 
   document.getElementById('detailName').textContent = pName;
   document.getElementById('detailCat').textContent = pCat;
@@ -681,7 +755,86 @@ function addToCartFromModal() {
   }
 }
 
-// ===== SOTUVCHI JADVALI =====
+// ===== MIJOZ TARIXI =====
+function renderHistory() {
+  const container = document.getElementById('clientHistoryContainer');
+  const t = TRANSLATIONS[currentLang];
+  
+  if (clientOrders.length === 0) {
+    container.innerHTML = `<p style="text-align:center; color:#64748b; font-size:1.1rem; background:#fff; padding:30px; border-radius:12px;">${t.history_empty}</p>`;
+    return;
+  }
+
+  container.innerHTML = clientOrders.map(o => {
+    const isDone = o.status === 'done';
+    const statusHtml = isDone 
+      ? `<span class="status-badge status-done">${t.status_done}</span>`
+      : `<span class="status-badge status-new">${t.status_new}</span>`;
+
+    return `
+    <div class="history-card">
+      <button class="btn-del-history" onclick="deleteHistoryOrder('${o.id}')" title="${t.btn_del}">🗑</button>
+      <div class="history-header">
+        <div>
+          <div class="history-title" style="margin-bottom:5px;">ID: ${o.id}</div>
+          ${statusHtml}
+        </div>
+        <div class="history-date">🕒 ${o.date}</div>
+      </div>
+      <div class="history-items">
+        ${o.items.map(i => `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>${i.name} x${i.qty}</span><span>${formatMoney(i.price * i.qty)}</span></div>`).join('')}
+      </div>
+      <div class="history-total">${t.receipt_total} ${formatMoney(o.total)} ${t.currency}</div>
+    </div>
+  `}).join('');
+}
+
+function deleteHistoryOrder(id) {
+  if (!confirm(currentLang === 'uz' ? 'Ushbu buyurtmani tarixdan o\'chirmoqchimisiz?' : 'Удалить этот заказ из истории?')) return;
+  
+  // Faqat mijozning shaxsiy tarixidan o'chiramiz (sotuvchinikidan emas)
+  clientOrders = clientOrders.filter(o => o.id !== id);
+  localStorage.setItem('albaraka_client_orders', JSON.stringify(clientOrders));
+  renderHistory();
+}
+
+// ===== SOTUVCHI MANTIG'I =====
+function loadSettingsForm() {
+  document.getElementById('setPhone').value = contactInfo.phone;
+  document.getElementById('setAddressUz').value = contactInfo.address_uz;
+  document.getElementById('setAddressRu').value = contactInfo.address_ru;
+  document.getElementById('setTimeUz').value = contactInfo.time_uz;
+  document.getElementById('setTimeRu').value = contactInfo.time_ru;
+  document.getElementById('setNewLogin').value = sellerAuth.user;
+}
+
+function saveSellerAuth() {
+  const newUser = document.getElementById('setNewLogin').value.trim();
+  const newPass = document.getElementById('setNewPass').value.trim();
+  
+  if (!newUser || !newPass) {
+    alert(currentLang === 'uz' ? 'Login va parolni to\'ldiring!' : 'Заполните логин и пароль!');
+    return;
+  }
+
+  sellerAuth = { user: newUser, pass: newPass };
+  localStorage.setItem('albaraka_seller_auth', JSON.stringify(sellerAuth));
+  document.getElementById('setNewPass').value = ''; 
+  alert(TRANSLATIONS[currentLang].save_success);
+}
+
+function saveContactInfo() {
+  contactInfo.phone = document.getElementById('setPhone').value.trim();
+  contactInfo.address_uz = document.getElementById('setAddressUz').value.trim();
+  contactInfo.address_ru = document.getElementById('setAddressRu').value.trim();
+  contactInfo.time_uz = document.getElementById('setTimeUz').value.trim();
+  contactInfo.time_ru = document.getElementById('setTimeRu').value.trim();
+
+  localStorage.setItem('albaraka_contact_info', JSON.stringify(contactInfo));
+  renderContactInfo(); 
+  alert(TRANSLATIONS[currentLang].save_success);
+}
+
 function renderSellerProductsTable() {
   const tbody = document.getElementById('sellerProductsTableBody');
   const filtered = products.filter(p => {
@@ -689,8 +842,16 @@ function renderSellerProductsTable() {
     return name.toLowerCase().includes(currentSellerSearch.toLowerCase());
   });
 
+  const catSelect = document.getElementById('newProdCat');
+  catSelect.innerHTML = categories.map(c => 
+    `<option value="${c.id}">${currentLang === 'uz' ? c.name_uz : c.name_ru}</option>`
+  ).join('');
+
   tbody.innerHTML = filtered.map(p => {
     const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
+    const catName = categories.find(c => c.id === p.cat_id);
+    const catDisplay = catName ? (currentLang === 'uz' ? catName.name_uz : catName.name_ru) : 'N/A';
+
     return `
     <tr>
       <td>
@@ -698,7 +859,9 @@ function renderSellerProductsTable() {
           ? `<img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;" onerror="this.src='https://via.placeholder.com/40?text=X'">` 
           : `<div style="font-size:1.8rem;">${p.icon || '📦'}</div>`}
       </td>
-      <td style="font-weight:700;">${pName}</td>
+      <td><input type="text" id="edit-icon-${p.id}" value="${p.icon || '📦'}" style="width: 50px; text-align:center; font-size:1.2rem;"></td>
+      <td><input type="text" id="edit-name-${p.id}" value="${pName}"></td>
+      <td style="font-size:0.75rem; color:var(--text-muted);">${catDisplay}</td>
       <td><input type="number" id="edit-price-${p.id}" value="${p.price}"></td>
       <td><input type="number" id="edit-stock-${p.id}" value="${p.stock}"></td>
       <td><input type="text" id="edit-image-${p.id}" value="${p.image || ''}" placeholder="URL manzil..."></td>
@@ -713,31 +876,36 @@ function searchSeller() {
 
 function saveSellerChanges() {
   products.forEach(p => {
+    const iconEl = document.getElementById(`edit-icon-${p.id}`);
+    const nameEl = document.getElementById(`edit-name-${p.id}`);
     const priceEl = document.getElementById(`edit-price-${p.id}`);
     const stockEl = document.getElementById(`edit-stock-${p.id}`);
     const imageEl = document.getElementById(`edit-image-${p.id}`);
     
-    if (priceEl && stockEl && imageEl) {
+    if (nameEl && priceEl && stockEl && imageEl && iconEl) {
       const newPrice = parseInt(priceEl.value);
       const newStock = parseInt(stockEl.value);
-      const newImage = imageEl.value.trim();
       
       if (!isNaN(newPrice) && !isNaN(newStock)) {
+        p.name_uz = nameEl.value;
+        p.name_ru = nameEl.value; 
+        p.icon = iconEl.value;
         p.price = newPrice;
         p.stock = newStock;
-        p.image = newImage;
+        p.image = imageEl.value.trim();
       }
     }
   });
   
   localStorage.setItem('albaraka_products', JSON.stringify(products));
-  alert(currentLang === 'uz' ? '✅ O\'zgarishlar saqlandi!' : '✅ Изменения сохранены!');
+  alert(TRANSLATIONS[currentLang].save_success);
   renderCatalog();
 }
 
 function addNewProduct() {
   const name = document.getElementById('newProdName').value.trim();
-  const cat = document.getElementById('newProdCat').value;
+  const catId = document.getElementById('newProdCat').value;
+  const icon = document.getElementById('newProdIcon').value.trim() || '📦';
   const price = parseInt(document.getElementById('newProdPrice').value);
   const stock = parseInt(document.getElementById('newProdStock').value);
   const imageUrl = document.getElementById('newProdImage').value.trim();
@@ -746,59 +914,128 @@ function addNewProduct() {
     alert(currentLang === 'uz' ? 'Ma\'lumotlarni to\'ldiring!' : 'Заполните все данные!'); 
     return; 
   }
-  
-  let defaultIcon = '📦';
-  if(cat === 'Santexnika') defaultIcon = '🚰';
-  if(cat === 'Elektrotexnika') defaultIcon = '💡';
-  if(cat === 'Xo\'jalik') defaultIcon = '🧤';
-  if(cat === 'Bo\'yoq') defaultIcon = '🎨';
-  if(cat === 'Sement' || cat === 'Bloklar') defaultIcon = '🧱';
 
   products.push({
     id: 'p_' + Date.now(), 
-    cat_uz: cat, cat_ru: cat, 
+    cat_id: catId,
     name_uz: name, name_ru: name, 
     desc_uz: 'Yangi qo\'shilgan mahsulot.', desc_ru: 'Новый добавленный товар.', 
-    price, stock,
-    icon: defaultIcon,
+    price, stock, icon,
     image: imageUrl || ''
   });
   
   localStorage.setItem('albaraka_products', JSON.stringify(products));
-  alert(currentLang === 'uz' ? '✅ Qo\'shildi!' : '✅ Добавлено!');
+  alert(TRANSLATIONS[currentLang].save_success);
   
   document.getElementById('newProdName').value = '';
   document.getElementById('newProdPrice').value = '';
   document.getElementById('newProdStock').value = '';
   document.getElementById('newProdImage').value = '';
+  document.getElementById('newProdIcon').value = '📦';
   
   renderSellerProductsTable();
   renderCatalog();
 }
 
-function switchView(view) {
-  if (isSeller) return;
-  document.getElementById('catalogView').style.display = view === 'client' ? 'block' : 'none';
-  document.getElementById('aboutView').style.display = view === 'about' ? 'block' : 'none';
-  document.getElementById('btnClient').classList.toggle('active', view === 'client');
-  document.getElementById('btnAbout').classList.toggle('active', view === 'about');
+function renderCategoriesList() {
+  const list = document.getElementById('categoriesList');
+  list.innerHTML = categories.map(c => {
+    const cName = currentLang === 'uz' ? c.name_uz : c.name_ru;
+    return `
+      <div class="cat-item">
+        <span>${cName}</span>
+        <button class="btn-del-cat" onclick="deleteCategory('${c.id}')">${TRANSLATIONS[currentLang].btn_del}</button>
+      </div>
+    `;
+  }).join('');
 }
 
-// ===== LOGIN =====
+function addNewCategory() {
+  const name = document.getElementById('newCatName').value.trim();
+  if (!name) {
+    alert(currentLang === 'uz' ? 'Qator nomini kiriting!' : 'Введите название категории!');
+    return;
+  }
+
+  categories.push({
+    id: 'cat_' + Date.now(),
+    name_uz: name,
+    name_ru: name
+  });
+
+  localStorage.setItem('albaraka_categories', JSON.stringify(categories));
+  document.getElementById('newCatName').value = '';
+  
+  renderCategoriesList();
+  renderCatalog();
+  renderSellerProductsTable();
+}
+
+function deleteCategory(id) {
+  const t = TRANSLATIONS[currentLang];
+  if (!confirm(t.cat_del_confirm)) return;
+
+  categories = categories.filter(c => c.id !== id);
+  
+  let otherCat = categories.find(c => c.name_uz === 'Boshqa' || c.name_ru === 'Другое');
+  if (!otherCat) {
+    otherCat = { id: 'cat_other', name_uz: 'Boshqa', name_ru: 'Другое' };
+    categories.push(otherCat);
+  }
+
+  products.forEach(p => {
+    if (p.cat_id === id) {
+      p.cat_id = otherCat.id;
+    }
+  });
+
+  localStorage.setItem('albaraka_categories', JSON.stringify(categories));
+  localStorage.setItem('albaraka_products', JSON.stringify(products));
+
+  renderCategoriesList();
+  renderCatalog();
+  renderSellerProductsTable();
+}
+
+function switchView(view) {
+  if (isSeller) return;
+  
+  document.getElementById('catalogView').style.display = view === 'client' ? 'block' : 'none';
+  document.getElementById('historyView').style.display = view === 'history' ? 'block' : 'none';
+  document.getElementById('aboutView').style.display = view === 'about' ? 'block' : 'none';
+  
+  document.getElementById('btnClient').classList.toggle('active', view === 'client');
+  document.getElementById('btnHistory').classList.toggle('active', view === 'history');
+  document.getElementById('btnAbout').classList.toggle('active', view === 'about');
+
+  if (view === 'history') {
+    renderHistory();
+  }
+}
+
 function openLogin() { document.getElementById('loginModal').classList.add('open'); document.getElementById('loginErr').style.display = 'none'; }
 function closeLogin() { document.getElementById('loginModal').classList.remove('open'); }
 function checkSellerLogin() {
   const user = document.getElementById('loginUser').value;
   const pass = document.getElementById('loginPass').value;
-  if (user === 'albaraka1234' && pass === 'abubakir1234') {
+  
+  if (user === sellerAuth.user && pass === sellerAuth.pass) {
     isSeller = true;
     closeLogin();
     document.getElementById('catalogView').style.display = 'none';
+    document.getElementById('historyView').style.display = 'none';
     document.getElementById('aboutView').style.display = 'none';
     document.getElementById('sellerView').style.display = 'block';
     document.getElementById('loginBtnHeader').style.display = 'none';
+    
+    document.getElementById('btnClient').style.display = 'none';
+    document.getElementById('btnHistory').style.display = 'none';
+    document.getElementById('btnAbout').style.display = 'none';
+
     loadSellerOrders();
     renderSellerProductsTable();
+    renderCategoriesList();
+    loadSettingsForm();
     switchSellerTab('orders');
   } else {
     document.getElementById('loginErr').style.display = 'block';
@@ -808,14 +1045,24 @@ function logoutSeller() {
   isSeller = false;
   document.getElementById('sellerView').style.display = 'none';
   document.getElementById('loginBtnHeader').style.display = 'block';
+  
+  document.getElementById('btnClient').style.display = 'block';
+  document.getElementById('btnHistory').style.display = 'block';
+  document.getElementById('btnAbout').style.display = 'block';
+
   switchView('client');
 }
 
 function switchSellerTab(tab) {
   document.getElementById('tabOrders').classList.toggle('active', tab === 'orders');
   document.getElementById('tabProducts').classList.toggle('active', tab === 'products');
+  document.getElementById('tabCategories').classList.toggle('active', tab === 'categories');
+  document.getElementById('tabSettings').classList.toggle('active', tab === 'settings');
+
   document.getElementById('sellerTabContentOrders').style.display = tab === 'orders' ? 'block' : 'none';
   document.getElementById('sellerTabContentProducts').style.display = tab === 'products' ? 'block' : 'none';
+  document.getElementById('sellerTabContentCategories').style.display = tab === 'categories' ? 'block' : 'none';
+  document.getElementById('sellerTabContentSettings').style.display = tab === 'settings' ? 'block' : 'none';
 }
 
 function loadSellerOrders() {
@@ -827,18 +1074,90 @@ function loadSellerOrders() {
     list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:1rem; padding: 30px;">${t.orders_empty}</p>`;
     return;
   }
-  list.innerHTML = orders.map(o => `
+  
+  list.innerHTML = orders.map(o => {
+    const isDone = o.status === 'done';
+    const completeBtn = isDone 
+      ? `<span class="status-badge status-done" style="margin-top:10px;">${t.status_done}</span>` 
+      : `<button class="btn-complete" onclick="completeOrder('${o.id}')">${t.btn_complete}</button>`;
+
+    return `
     <div class="order-card">
       <div class="order-header"><span>🆔 ${o.id}</span><span>🕒 ${o.date}</span></div>
       <div class="order-client">👤 ${o.clientName}</div>
       <div class="order-details">📞 ${o.phone} <br> 📍 ${o.address}</div>
       <div class="order-items">${o.items.map(i => `<div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f1f5f9;"><span>${i.name} x${i.qty}</span><span style="font-weight:700;">${formatMoney(i.price * i.qty)}</span></div>`).join('')}</div>
       <div class="order-total">${t.order_total} ${formatMoney(o.total)} ${t.currency}</div>
+      
+      <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+        ${completeBtn}
+        <button class="btn-receipt" onclick="showSellerReceipt('${o.id}')">🖨 ${t.btn_print}</button>
+      </div>
     </div>
-  `).join('');
+  `}).join('');
 }
 
-// ===== SAVAT =====
+// Sotuvchi buyurtmani yakunlaydi
+function completeOrder(id) {
+  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
+  const order = orders.find(o => o.id === id);
+  
+  if(order) {
+    order.status = 'done';
+    localStorage.setItem('albaraka_orders', JSON.stringify(orders));
+    
+    // Mijozning shaxsiy tarixidagi statusni ham yangilash
+    let clientOrds = JSON.parse(localStorage.getItem('albaraka_client_orders') || '[]');
+    const cOrder = clientOrds.find(o => o.id === id);
+    if(cOrder) {
+      cOrder.status = 'done';
+      localStorage.setItem('albaraka_client_orders', JSON.stringify(clientOrds));
+      clientOrders = clientOrds; // Lokal o'zgaruvchini yangilash
+    }
+    
+    loadSellerOrders();
+    renderHistory();
+  }
+}
+
+function showSellerReceipt(orderId) {
+  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
+  const order = orders.find(o => o.id === orderId);
+  if(!order) return;
+  
+  currentReceiptData = order;
+  const t = TRANSLATIONS[currentLang];
+  const box = document.getElementById('receiptBox');
+  
+  let itemsHtml = order.items.map(i => `
+    <div class="receipt-row">
+      <span>${i.name}</span>
+      <span>${i.qty} x ${formatMoney(i.price)}</span>
+    </div>
+    <div class="receipt-row" style="justify-content: flex-end; font-size: 0.75rem; color: #666; margin-bottom: 5px;">
+      <span>${formatMoney(i.price * i.qty)} ${t.currency}</span>
+    </div>
+  `).join('');
+
+  box.innerHTML = `
+    <div class="receipt-header">
+      <h2>AL BARAKA</h2>
+      <div style="font-size: 0.8rem; margin-top: 5px;">${t.receipt_title}</div>
+    </div>
+    <div class="receipt-divider"></div>
+    <div class="receipt-row"><span>ID:</span><span>${order.id}</span></div>
+    <div class="receipt-row"><span>${t.receipt_date}</span><span>${order.date}</span></div>
+    <div class="receipt-row"><span>Mijoz:</span><span>${order.clientName}</span></div>
+    <div class="receipt-divider"></div>
+    ${itemsHtml}
+    <div class="receipt-divider"></div>
+    <div class="receipt-total">${t.receipt_total} ${formatMoney(order.total)} ${t.currency}</div>
+    <div style="text-align: center; font-size: 0.8rem; margin-top: 15px;">${t.receipt_thanks}</div>
+  `;
+
+  document.getElementById('receiptModal').classList.add('open');
+}
+
 function addToCart(id) {
   const p = products.find(x => x.id === id);
   if (p.stock <= 0) { alert(TRANSLATIONS[currentLang].stock_out); return; }
@@ -905,28 +1224,35 @@ function submitOrder() {
   if (!address) return;
   
   let total = 0;
-  let message = `🛒 *YANGI BUYURTMA / НОВЫЙ ЗАКАЗ (Al Baraka)*\n\n`;
-  message += `👤 *Mijoz/Клиент:* ${name}\n`;
-  message += `📞 *Tel/Тел:* ${phone}\n`;
-  message += `📍 *Manzil/Адрес:* ${address}\n\n`;
-  message += `📦 *Mahsulotlar/Товары:*\n`;
-  
   const items = Object.keys(cart).map(k => {
     const p = products.find(x => x.id === k);
     const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
     const sum = p.price * cart[k].qty;
     total += sum;
-    message += `- ${pName} x${cart[k].qty} = ${formatMoney(sum)} ${t.currency}\n`;
     return { name: pName, qty: cart[k].qty, price: p.price };
   });
   
-  message += `\n💰 *JAMI/ИТОГО: ${formatMoney(total)} ${t.currency}*`;
+  const order = { 
+    id: 'ZAK-' + Date.now(), 
+    date: new Date().toLocaleString(), 
+    clientName: name, 
+    phone, 
+    address, 
+    items, 
+    total,
+    status: 'new' // Boshlang'ich status
+  };
   
-  const order = { id: 'ZAK-' + Date.now(), date: new Date().toLocaleString(), clientName: name, phone, address, items, total };
-  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
-  orders.unshift(order);
-  localStorage.setItem('albaraka_orders', JSON.stringify(orders));
+  // Sotuvchi bazasiga saqlash
+  const allOrders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
+  allOrders.unshift(order);
+  localStorage.setItem('albaraka_orders', JSON.stringify(allOrders));
   
+  // Mijoz shaxsiy tarixiga saqlash
+  clientOrders.unshift(order);
+  localStorage.setItem('albaraka_client_orders', JSON.stringify(clientOrders));
+  
+  // Ombordagi qoldiqni kamaytirish
   Object.keys(cart).forEach(k => {
     const p = products.find(x => x.id === k);
     p.stock -= cart[k].qty;
@@ -935,13 +1261,37 @@ function submitOrder() {
   
   cart = {}; updateCartUI(); closeCart(); renderCatalog();
   
-  const encodedMessage = encodeURIComponent(message);
-  window.open(`https://wa.me/998886161700?text=${encodedMessage}`, '_blank');
-  
+  // Mijozga muvaffaqiyatli xabar
   alert(t.order_success);
+  
+  // WhatsApp ga yuborish
+  sendToWhatsApp(order); 
 }
 
-// ===== MDF KALKULYATOR =====
+function sendToWhatsApp(order) {
+  const t = TRANSLATIONS[currentLang];
+  
+  let message = `🛒 *YANGI BUYURTMA / НОВЫЙ ЗАКАЗ (Al Baraka)*\n\n`;
+  message += `👤 *Mijoz/Клиент:* ${order.clientName}\n`;
+  message += `📞 *Tel/Тел:* ${order.phone}\n`;
+  message += `📍 *Manzil/Адрес:* ${order.address}\n\n`;
+  message += `📦 *Mahsulotlar/Товары:*\n`;
+  
+  order.items.forEach(i => {
+    message += `- ${i.name} x${i.qty} = ${formatMoney(i.price * i.qty)} ${t.currency}\n`;
+  });
+  
+  message += `\n💰 *JAMI/ИТОГО: ${formatMoney(order.total)} ${t.currency}*`;
+
+  let waPhone = contactInfo.phone.replace(/[^0-9]/g, ''); 
+  if(waPhone.startsWith('998')) waPhone = waPhone; 
+  else if(waPhone.startsWith('8')) waPhone = '998' + waPhone.substring(1);
+  else if(!waPhone.startsWith('998')) waPhone = '998' + waPhone;
+
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/${waPhone}?text=${encodedMessage}`, '_blank');
+}
+
 function calcMDF() {
   const w = parseFloat(document.getElementById('partW').value);
   const h = parseFloat(document.getElementById('partH').value);
@@ -978,8 +1328,8 @@ function calcMDF() {
 
 function formatMoney(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
 
-// START
 setLang(currentLang);
 </script>
 </body>
 </html>
+```
