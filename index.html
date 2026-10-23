@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f172a">
+<title>Al Baraka — Virtual Do'kon</title>
+<style>
+/* ZAMONAVIY RANGLAR PALITRASI */
+:root {
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --bg-dark: #0f172a;
+  --bg-card: rgba(255, 255, 255, 0.98);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --glass-bg: rgba(15, 23, 42, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* ORQA FON */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0; padding: 0; color: var(--text-main);
+  background: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+  background-size: cover; min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+body::before {
+  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
+  z-index: -1;
+}
+
+*{box-sizing:border-box;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;}
+
+/* HEADER */
+.header { 
+  background: var(--glass-bg); color: #fff; position: sticky; top: 0; z-index: 50; 
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; flex-wrap: wrap; gap: 10px;}
+.logo { font-size: 1.3rem; font-weight: 900; display: flex; align-items: center; gap: 10px; color:#fff; letter-spacing: 0.5px;}
+.logo-img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
+.logo span { color: #fbbf24; }
+.nav-btns { display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 10px;}
+.btn-nav { padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; color: #cbd5e1; background: transparent; }
+.btn-nav:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.btn-nav.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+
+/* TIL TANLASH */
+.lang-switch { display: flex; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 2px; margin-right: 5px;}
+.lang-btn { background: transparent; color: #cbd5e1; padding: 6px 10px; border-radius: 6px; font-weight: 800; font-size: 0.8rem;}
+.lang-btn.active { background: #fff; color: var(--bg-dark); }
+
+.login-btn { background: rgba(239, 68, 68, 0.9); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); }
+.login-btn:hover { background: #dc2626; transform: translateY(-2px); }
+.cart-btn-hdr { background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: none; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);}
+.cart-btn-hdr:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+/* ASOSIY KONTEYNER */
+.main-container { max-width: 1100px; margin: 25px auto; background: var(--bg-card); border-radius: 24px; padding: 25px; box-shadow: var(--shadow-lg); min-height: 80vh; }
+
+/* QIDIRUV */
+.search-bar { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--border-color); font-size: 0.95rem; margin-bottom: 25px; outline: none; background: #fff; transition: all 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);}
+.search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249,115,22,0.15); }
+
+/* KATALOG */
+.section-title { font-size: 1.25rem; font-weight: 800; margin: 30px 0 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px;}
+.section-title::before { content: ""; display: block; width: 6px; height: 24px; background: var(--primary); border-radius: 4px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+
+/* Tovar Kartochkasi */
+.product { 
+  background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; 
+  display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: #fdba74; }
+.product:active { transform: scale(0.98); }
+
+.product-media { width: 100%; height: 130px; border-radius: 12px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border: 1px solid #f1f5f9;}
+.product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;}
+.product:hover .product-img { transform: scale(1.05); }
+.product-icon { font-size: 3.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+
+.product-name { font-size: 0.9rem; font-weight: 700; margin: 4px 0 0 0; line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.stock { font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; align-self: flex-start; background: #dcfce7; color: #15803d; }
+.stock.low { background: #fef3c7; color: #b45309; }
+.stock.out { background: #fee2e2; color: #b91c1c; }
+.product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px;}
+.price { font-size: 1rem; font-weight: 900; color: #b91c1c; }
+.price small { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+.btn-add { background: var(--text-main); color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2); display:flex; align-items:center; justify-content:center;}
+.btn-add:hover { background: var(--primary); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4); }
+
+/* MDF KALKULYATORI */
+.mdf-box { background: var(--bg-dark); color: #fff; border-radius: 20px; padding: 25px; margin-top: 40px; box-shadow: var(--shadow-lg);}
+.mdf-box h2 { margin-top: 0; color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px;}
+.mdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.mdf-form input, .mdf-form select { width: 100%; padding: 10px 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #fff; outline: none; font-size: 0.9rem; transition: 0.2s;}
+.mdf-form input:focus { border-color: var(--primary); }
+.mdf-form label { font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 5px; font-weight: 600;}
+.btn-calc { background: var(--primary); color: #fff; width: 100%; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 10px; box-shadow: 0 4px 15px rgba(249,115,22,0.3);}
+.btn-calc:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.mdf-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid #475569; font-size: 0.9rem; display: flex; flex-direction: column; justify-content: center;}
+.res-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #475569; }
+.res-row:last-child { border: none; }
+.res-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; color: #fbbf24; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary); }
+
+/* KONTAKTLAR */
+.about-box { text-align: center; padding: 30px 10px; }
+.contact-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top:30px;}
+.contact-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; min-width: 220px; box-shadow: var(--shadow-sm); transition: 0.3s;}
+.contact-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary);}
+.contact-card .icon { font-size: 2.5rem; margin-bottom: 15px; }
+.contact-card h3 { margin: 0 0 8px 0; color: var(--text-main); font-size: 1.1rem; }
+.contact-card p { margin: 0; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
+
+/* SOTUVCHI PANELI */
+#sellerView { display: none; }
+.seller-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; flex-wrap: wrap; }
+.seller-tab { background: transparent; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); padding: 10px 20px; border-radius: 10px;}
+.seller-tab:hover { background: #f1f5f9; }
+.seller-tab.active { background: var(--text-main); color: #fff; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);}
+.order-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #ef4444; box-shadow: var(--shadow-sm);}
+.order-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;}
+.order-client { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px;}
+.order-details { font-size: 0.9rem; color: #475569; margin: 5px 0 15px 0; line-height: 1.5;}
+.order-items { background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 0.9rem; border: 1px solid #e2e8f0;}
+.order-total { font-weight: 900; font-size: 1.1rem; color: var(--primary); text-align: right; margin-top: 10px; }
+
+/* JADVAL VA FORMA */
+.product-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem;}
+.product-table th, .product-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle;}
+.product-table th { background: #f8fafc; font-weight: 700; color: var(--text-main); position: sticky; top: 0;}
+.product-table tr:hover { background: #f8fafc; }
+.product-table input[type="number"] { width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; outline:none;}
+.product-table input[type="text"] { width: 160px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.8rem; outline:none;}
+.product-table input:focus { border-color: var(--primary); }
+.btn-save-edits { background: #10b981; color: #fff; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; margin-top: 20px; display: block; width: 100%; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);}
+.btn-save-edits:hover { background: #059669; transform: translateY(-2px); }
+
+.add-product-box { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 25px; margin-top: 30px; }
+.add-product-box h3 { margin-top: 0; color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text-main); }
+.form-group input, .form-group select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline:none; background: #fff;}
+.form-group input:focus { border-color: var(--primary); }
+.btn-add-new { background: var(--primary); color: #fff; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 15px; grid-column: span 2; box-shadow: 0 4px 15px rgba(249,115,22,0.3);}
+.btn-add-new:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+/* MODAL OYNALAR */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 100; opacity: 0; transition: opacity 0.3s;}
+.modal.open { display: flex; opacity: 1; }
+.modal-content { background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.3s;}
+.modal.open .modal-content { transform: scale(1); }
+.modal-content input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.95rem; outline:none;}
+.modal-content input:focus { border-color: var(--primary); }
+.btn-primary { background: var(--text-main); color: #fff; width: 100%; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);}
+.btn-primary:hover { background: #0f172a; transform: translateY(-2px); }
+.btn-close { background: #f1f5f9; color: var(--text-muted); margin-top: 10px; box-shadow: none;}
+.btn-close:hover { background: #e2e8f0; }
+.err-msg { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; background: #fee2e2; padding: 10px; border-radius: 8px;}
+
+/* BATAFSIL MODAL DIZAYNI */
+.detail-media { width: 100%; height: 220px; border-radius: 16px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border-color);}
+.detail-img { width: 100%; height: 100%; object-fit: cover; }
+.detail-icon { font-size: 7rem; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
+.detail-title { font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin-bottom: 5px; text-align: left; line-height:1.2;}
+.detail-cat { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+.detail-desc { font-size: 0.95rem; color: #475569; margin-bottom: 20px; line-height: 1.5; text-align: left; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;}
+.detail-price { font-size: 1.5rem; font-weight: 900; color: #b91c1c; margin-bottom: 10px; }
+
+/* SAVAT */
+.cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 90; display: flex; flex-direction: column; }
+.cart-panel.open { right: 0; }
+.cart-head { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+.cart-head h3 { margin:0; font-size:1.2rem; color: var(--text-main); font-weight:800;}
+.cart-close-btn { background: #f1f5f9; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; font-size: 1.2rem; color: var(--text-muted); cursor:pointer;}
+.cart-close-btn:hover { background: #fee2e2; color: #dc2626;}
+.cart-items { flex-grow: 1; overflow-y: auto; padding: 20px; background: #f8fafc;}
+.cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 0.9rem; background: #fff; padding: 15px; border-radius: 12px; box-shadow: var(--shadow-sm);}
+.cart-foot { padding: 20px; border-top: 1px solid var(--border-color); background: #fff;}
+.btn-checkout { background: #25D366; color: #fff; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);}
+.btn-checkout:hover { background: #1eb954; transform: translateY(-2px);}
+
+/* MOBIL */
+@media (max-width: 768px) {
+  .main-container { margin: 10px; padding: 15px; border-radius: 16px; }
+  .mdf-grid, .form-grid { grid-template-columns: 1fr; }
+  .header-inner { flex-direction: column; align-items: stretch; gap: 15px;}
+  .nav-btns { justify-content: center; }
+  .header-actions { justify-content: space-between; }
+  .btn-add-new { grid-column: span 1; }
+  .cart-panel { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=100&auto=format&fit=crop" class="logo-img" alt="Santexnika">
+      Al <span>Baraka</span>
+    </div>
+    
+    <div class="nav-btns">
+      <button class="btn-nav active" id="btnClient" onclick="switchView('client')" data-i18n="nav_catalog">🛒 Katalog</button>
+      <button class="btn-nav" id="btnAbout" onclick="switchView('about')" data-i18n="nav_about">📞 Aloqa</button>
+    </div>
+    
+    <div class="header-actions">
+      <!-- TIL ALMASHTIRGICH -->
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btnUz" onclick="setLang('uz')">UZ</button>
+        <button class="lang-btn" id="btnRu" onclick="setLang('ru')">RU</button>
+      </div>
+      <button class="login-btn" id="loginBtnHeader" onclick="openLogin()" data-i18n="nav_seller">🔐 Sotuvchi</button>
+      <button class="cart-btn-hdr" onclick="openCart()"><span data-i18n="nav_cart">🛍 Savat</span> (<span id="cartCount">0</span>)</button>
+    </div>
+  </div>
+</header>
+
+<!-- ASOSIY KONTENT -->
+<div class="main-container">
+  
+  <!-- MIJOZ KATALOGI VA MDF -->
+  <div id="catalogView">
+    <input type="text" id="clientSearch" class="search-bar" placeholder="🔍 Mahsulot nomini yozing..." oninput="searchClient()" data-i18n-ph="search_ph">
+    <div id="catalogContainer"></div>
+    
+    <!-- MDF KALKULYATORI -->
+    <div class="mdf-box" id="mdfSection">
+      <h2 data-i18n="mdf_title">✂️ MDF Kesish (CNC Router)</h2>
+      <div class="mdf-grid">
+        <div class="mdf-form">
+          <label data-i18n="mdf_w">Kengligi (sm)</label><input type="number" id="partW" value="60">
+          <label data-i18n="mdf_h">Uzunligi (sm)</label><input type="number" id="partH" value="80">
+          <label data-i18n="mdf_qty">Soni (dona)</label><input type="number" id="partQty" value="6">
+          <label data-i18n="mdf_sheet">List turi</label>
+          <select id="sheetType">
+            <option value="190000" data-i18n="mdf_sheet_1">Standart — 190 000</option>
+            <option value="230000" data-i18n="mdf_sheet_2">Premium — 230 000</option>
+            <option value="270000" data-i18n="mdf_sheet_3">Maxsus — 270 000</option>
+          </select>
+          <label data-i18n="mdf_cut">Murakkablik</label>
+          <select id="cutType">
+            <option value="50000" data-i18n="mdf_cut_1">To'g'ri — 50 000</option>
+            <option value="85000" data-i18n="mdf_cut_2">Egri — 85 000</option>
+            <option value="120000" data-i18n="mdf_cut_3">ArtCam — 120 000</option>
+          </select>
+          <button class="btn-calc" onclick="calcMDF()" data-i18n="mdf_btn">Hisoblash</button>
+        </div>
+        <div class="mdf-result" id="mdfResult">
+          <p style="color:#94a3b8; text-align:center; margin-top:30px;" data-i18n="mdf_res_ph">Natija...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KONTAKTLAR -->
+  <div id="aboutView" style="display:none;">
+    <div class="about-box">
+      <h2 data-i18n="contact_title">Biz bilan bog'laning</h2>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="icon">📞</div><h3 data-i18n="contact_phone">Telefon</h3><p>+998 88 616 17 00</p>
+        </div>
+        <div class="contact-card">
+          <div class="icon">📍</div><h3 data-i18n="contact_addr">Manzil</h3><p data-i18n="contact_addr_val">Andijon, Qo'rg'ontepa</p>
+        </div>
+        <div class="contact-card">
+          <div class="icon">🕒</div><h3 data-i18n="contact_time">Ish vaqti</h3><p data-i18n="contact_time_val">Har kuni: 08:00 - 20:00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOTUVCHI PANELI -->
+  <div id="sellerView">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 style="margin:0; font-size:1.3rem; color: var(--text-main); font-weight:900;" data-i18n="seller_panel">Sotuvchi Paneli</h2>
+      <button class="login-btn" style="width:auto; padding:8px 16px;" onclick="logoutSeller()" data-i18n="btn_exit">Chiqish</button>
+    </div>
+
+    <div class="seller-tabs">
+      <button class="seller-tab active" id="tabOrders" onclick="switchSellerTab('orders')" data-i18n="tab_orders">📋 Zakazlar</button>
+      <button class="seller-tab" id="tabProducts" onclick="switchSellerTab('products')" data-i18n="tab_products">📦 Mahsulotlar</button>
+    </div>
+
+    <!-- Zakazlar -->
+    <div id="sellerTabContentOrders">
+      <div id="sellerOrdersList"></div>
+    </div>
+
+    <!-- Mahsulotlar -->
+    <div id="sellerTabContentProducts" style="display:none;">
+      <input type="text" id="sellerSearch" class="search-bar" placeholder="🔍 Bazadan qidirish..." oninput="searchSeller()" data-i18n-ph="search_ph">
+      
+      <div style="overflow-x:auto; background:#fff; border-radius:12px; box-shadow:var(--shadow-sm); max-height:500px; overflow-y:auto;">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th data-i18n="tbl_img">Rasm</th>
+              <th data-i18n="tbl_name">Nomi</th>
+              <th data-i18n="tbl_price">Narxi</th>
+              <th data-i18n="tbl_stock">Soni</th>
+              <th data-i18n="tbl_url">Rasm URL</th>
+            </tr>
+          </thead>
+          <tbody id="sellerProductsTableBody"></tbody>
+        </table>
+      </div>
+      <button class="btn-save-edits" onclick="saveSellerChanges()" data-i18n="btn_save">💾 O'zgarishlarni Saqlash</button>
+
+      <div class="add-product-box">
+        <h3 data-i18n="add_title">➕ Yangi mahsulot qo'shish</h3>
+        <div class="form-grid">
+          <div class="form-group"><label data-i18n="tbl_name">Nomi</label><input type="text" id="newProdName" placeholder="Masalan: Kafel 30x30"></div>
+          <div class="form-group"><label data-i18n="tbl_cat">Kategoriya</label>
+            <select id="newProdCat">
+              <option value="Santexnika">Santexnika</option>
+              <option value="Elektrotexnika">Elektrotexnika</option>
+              <option value="Xo'jalik">Xo'jalik</option>
+              <option value="Bo'yoq">Bo'yoq</option>
+              <option value="Sement">Sement</option>
+              <option value="Bloklar">Bloklar</option>
+            </select>
+          </div>
+          <div class="form-group"><label data-i18n="tbl_price">Narxi</label><input type="number" id="newProdPrice" placeholder="100000"></div>
+          <div class="form-group"><label data-i18n="tbl_stock">Soni</label><input type="number" id="newProdStock" placeholder="50"></div>
+          <div class="form-group" style="grid-column: span 2;">
+            <label data-i18n="tbl_url">Rasm URL (Internet havolasi)</label>
+            <input type="text" id="newProdImage" placeholder="https://example.com/rasm.jpg">
+          </div>
+          <button class="btn-add-new" onclick="addNewProduct()" data-i18n="btn_add">Qo'shish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h2 style="margin-top:0; font-size:1.4rem; font-weight:900; color:var(--text-main);" data-i18n="login_title">Sotuvchi Kirish</h2>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;" data-i18n="login_sub">Tizimga kirish uchun login va parolni kiriting.</p>
+    <div class="err-msg" id="loginErr" data-i18n="login_err">Login yoki parol xato!</div>
+    <input type="text" id="loginUser" placeholder="Login">
+    <input type="password" id="loginPass" placeholder="Parol">
+    <button class="btn-primary" onclick="checkSellerLogin()" data-i18n="login_btn">Kirish</button>
+    <button class="btn-primary btn-close" onclick="closeLogin()" data-i18n="btn_cancel">Bekor qilish</button>
+  </div>
+</div>
+
+<!-- TOVAR HAQIDA BATAFSIL MA'LUMOT MODALI -->
+<div class="modal" id="productDetailModal">
+  <div class="modal-content" style="text-align: left; padding: 25px;">
+    <button onclick="closeProductDetail()" style="position:absolute; top:15px; right:15px; background:#f1f5f9; border-radius:50%; width:36px; height:36px; font-size:1.2rem; color:#64748b; cursor:pointer; display:grid; place-items:center;">×</button>
+    
+    <div class="detail-media" id="detailMediaContainer"></div>
+    
+    <div class="detail-title" id="detailName"></div>
+    <div class="detail-cat" id="detailCat"></div>
+    <div class="detail-desc" id="detailDesc"></div>
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+      <div class="detail-price" id="detailPrice"></div>
+      <div id="detailStock" class="stock"></div>
+    </div>
+    
+    <button class="btn-primary" onclick="addToCartFromModal()" id="detailAddBtn" style="background:var(--primary); box-shadow:0 4px 15px rgba(249,115,22,0.3);" data-i18n="btn_to_cart">Savatga qo'shish</button>
+  </div>
+</div>
+
+<!-- SAVAT -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head">
+    <h3 data-i18n="cart_title">🛍 Savat</h3>
+    <button class="cart-close-btn" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.2rem; color:var(--text-main);">
+      <span data-i18n="cart_total">Jami:</span><span id="cartTotal" style="color:var(--primary);">0 so'm</span>
+    </div>
+    <button class="btn-checkout" onclick="submitOrder()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.304.014.39-.086c.087-.1.448-.521.568-.699.12-.178.239-.148.404-.087.166.061 1.054.497 1.234.588.18.092.301.136.345.214.043.078.043.451-.101.856z"/></svg>
+      <span data-i18n="btn_checkout">WhatsApp orqali Buyurtma</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ==========================================
+// VERSIYA NAZORATI (Eski xotirani tozalash)
+// ==========================================
+const APP_VERSION = "4.1";
+if (localStorage.getItem('app_version') !== APP_VERSION) {
+    localStorage.removeItem('albaraka_products'); 
+    localStorage.setItem('app_version', APP_VERSION);
+}
+
+// ==========================================
+// TARJIMALAR LUG'ATI (UZ / RU)
+// ==========================================
+const TRANSLATIONS = {
+  uz: {
+    nav_catalog: "🛒 Katalog", nav_about: "📞 Aloqa", nav_seller: "🔐 Sotuvchi", nav_cart: "🛍 Savat",
+    search_ph: "🔍 Mahsulot nomini yozing...",
+    mdf_title: "✂️ MDF Kesish (CNC Router)", mdf_w: "Kengligi (sm)", mdf_h: "Uzunligi (sm)", mdf_qty: "Soni (dona)",
+    mdf_sheet: "List turi", mdf_sheet_1: "Standart — 190 000", mdf_sheet_2: "Premium — 230 000", mdf_sheet_3: "Maxsus — 270 000",
+    mdf_cut: "Murakkablik", mdf_cut_1: "To'g'ri — 50 000", mdf_cut_2: "Egri — 85 000", mdf_cut_3: "ArtCam — 120 000",
+    mdf_btn: "Hisoblash", mdf_res_ph: "Natija...", 
+    mdf_res_list: "Kerakli listlar:", mdf_res_per: "1 listga sig'adi:", mdf_res_price: "List narxi:", mdf_res_cut: "Kesish narxi:", mdf_res_total: "Jami:",
+    contact_title: "Biz bilan bog'laning", contact_phone: "Telefon", contact_addr: "Manzil", contact_addr_val: "Andijon, Qo'rg'ontepa", contact_time: "Ish vaqti", contact_time_val: "Har kuni: 08:00 - 20:00",
+    seller_panel: "Sotuvchi Paneli", btn_exit: "Chiqish", tab_orders: "📋 Zakazlar", tab_products: "📦 Mahsulotlar",
+    tbl_img: "Rasm", tbl_name: "Nomi", tbl_price: "Narxi", tbl_stock: "Soni", tbl_url: "Rasm URL", tbl_cat: "Kategoriya",
+    btn_save: "💾 O'zgarishlarni Saqlash", add_title: "➕ Yangi mahsulot qo'shish", btn_add: "Qo'shish",
+    login_title: "Sotuvchi Kirish", login_sub: "Tizimga kirish uchun login va parolni kiriting.", login_err: "Login yoki parol xato!", login_btn: "Kirish", btn_cancel: "Bekor qilish",
+    btn_to_cart: "Savatga qo'shish", cart_title: "🛍 Savat", cart_total: "Jami:", btn_checkout: "WhatsApp orqali Buyurtma",
+    stock_left: "Soni:", stock_out: "Tugagan", stock_ombor: "Omborda:", stock_shosh: "Shoshiling! Qoldi:",
+    cart_empty_title: "Savat bo'sh", cart_empty_desc: "Xarid qilish uchun katalogdan tovar tanlang",
+    order_success: "✅ Buyurtma qabul qilindi va sotuvchiga yuborildi!",
+    prompt_name: "Ismingizni kiriting:", prompt_phone: "Telefon raqamingizni kiriting:", prompt_addr: "Manzilingizni kiriting:",
+    orders_empty: "Hozircha zakazlar yo'q.", order_total: "Jami:", currency: "so'm"
+  },
+  ru: {
+    nav_catalog: "🛒 Каталог", nav_about: "📞 Контакты", nav_seller: "🔐 Продавец", nav_cart: "🛍 Корзина",
+    search_ph: "🔍 Введите название товара...",
+    mdf_title: "✂️ Резка МДФ (CNC Router)", mdf_w: "Ширина (см)", mdf_h: "Длина (см)", mdf_qty: "Количество (шт)",
+    mdf_sheet: "Тип листа", mdf_sheet_1: "Стандарт — 190 000", mdf_sheet_2: "Премиум — 230 000", mdf_sheet_3: "Особый — 270 000",
+    mdf_cut: "Сложность", mdf_cut_1: "Прямой — 50 000", mdf_cut_2: "Кривой — 85 000", mdf_cut_3: "ArtCam — 120 000",
+    mdf_btn: "Рассчитать", mdf_res_ph: "Результат...", 
+    mdf_res_list: "Нужно листов:", mdf_res_per: "На 1 лист:", mdf_res_price: "Цена листа:", mdf_res_cut: "Цена резки:", mdf_res_total: "Итого:",
+    contact_title: "Свяжитесь с нами", contact_phone: "Телефон", contact_addr: "Адрес", contact_addr_val: "Андижан, Кургантепа", contact_time: "Время работы", contact_time_val: "Ежедневно: 08:00 - 20:00",
+    seller_panel: "Панель продавца", btn_exit: "Выйти", tab_orders: "📋 Заказы", tab_products: "📦 Товары",
+    tbl_img: "Фото", tbl_name: "Название", tbl_price: "Цена", tbl_stock: "Кол-во", tbl_url: "URL фото", tbl_cat: "Категория",
+    btn_save: "💾 Сохранить изменения", add_title: "➕ Добавить новый товар", btn_add: "Добавить",
+    login_title: "Вход для продавца", login_sub: "Введите логин и пароль для входа.", login_err: "Неверный логин или пароль!", login_btn: "Войти", btn_cancel: "Отмена",
+    btn_to_cart: "В корзину", cart_title: "🛍 Корзина", cart_total: "Итого:", btn_checkout: "Заказать через WhatsApp",
+    stock_left: "Кол-во:", stock_out: "Нет в наличии", stock_ombor: "На складе:", stock_shosh: "Спешите! Осталось:",
+    cart_empty_title: "Корзина пуста", cart_empty_desc: "Выберите товары из каталога",
+    order_success: "✅ Заказ принят и отправлен продавцу!",
+    prompt_name: "Введите ваше имя:", prompt_phone: "Введите ваш номер телефона:", prompt_addr: "Введите ваш адрес:",
+    orders_empty: "Заказов пока нет.", order_total: "Итого:", currency: "сум"
+  }
+};
+
+// ==========================================
+// MAHSULOTLAR BAZASI (TO'LIQ, IKKI TILDA)
+// ==========================================
+const DEFAULT_PRODUCTS = [
+  // Santexnika
+  { id:'m1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel oshxona ekonom', name_ru:'Смеситель для кухни эконом', desc_uz:'Silumin korpus, xrom qoplama, 360° aylanadigan suv chiqargich.', desc_ru:'Корпус из силумина, хромированное покрытие, поворотный излив 360°.', price:150000, stock:15, icon:'🚰', image:'' },
+  { id:'m2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel vannaxona', name_ru:'Смеситель для ванной', desc_uz:'Bir tutqichli, keramik kartrijli, dush leyksasi bilan.', desc_ru:'Однорычажный, с керамическим картриджем и душевой лейкой.', price:200000, stock:15, icon:'💧', image:'' },
+  { id:'m3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel uzun chiqargichli', name_ru:'Смеситель с длинным изливом', desc_uz:'Oshxona uchun uzun va aylanadigan suv chiqargich.', desc_ru:'Длинный поворотный излив для кухонной мойки.', price:250000, stock:20, icon:'🚰', image:'' },
+  { id:'m4', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel gigiyenik dushli', name_ru:'Смеситель с гигиенической лейкой', desc_uz:'Rakovina uchun, 1.2 metrli metall shlangli gigiyenik dush.', desc_ru:'Для раковины, с гигиеническим душем и шлангом 1.2 м.', price:300000, stock:5, icon:'🚿', image:'' },
+  { id:'m5', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel rakovina uchun', name_ru:'Смеситель для раковины', desc_uz:'Klassik dizayn, keramik kartrij, suv tejovchi aerator.', desc_ru:'Классический дизайн, керамический картридж, аэратор.', price:350000, stock:10, icon:'💧', image:'' },
+  { id:'m6', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel termostatli', name_ru:'Смеситель с термостатом', desc_uz:'Haroratni avtomatik ushlab turadi, xavfsizlik uchun.', desc_ru:'Автоматически поддерживает температуру, для безопасности.', price:400000, stock:10, icon:'🌡️', image:'' },
+  { id:'m7', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel yashirin montaj', name_ru:'Смеситель скрытого монтажа', desc_uz:'Devorga o\'rnatiladigan, keramik kartrij Ø35.', desc_ru:'Встраиваемый в стену, керамический картридж Ø35.', price:450000, stock:15, icon:'🚰', image:'' },
+  { id:'m8', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel premium', name_ru:'Смеситель премиум', desc_uz:'Yuqori sifatli xrom, zamonaviy dizayn, 5 yillik kafolat.', desc_ru:'Высококачественный хром, современный дизайн, гарантия 5 лет.', price:500000, stock:20, icon:'✨', image:'' },
+  { id:'m9', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel latun kuchaytirilgan', name_ru:'Смеситель латунный усиленный', desc_uz:'Korroziyaga chidamli qalin latun, 10 yillik kafolat.', desc_ru:'Толстая латунь, устойчивая к коррозии, гарантия 10 лет.', price:600000, stock:5, icon:'💎', image:'' },
+  { id:'m10', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Smesitel dizaynerlik', name_ru:'Смеситель дизайнерский', desc_uz:'Oltin va mis qoplamali, eksklyuziv kolleksiya.', desc_ru:'С золотым и медным покрытием, эксклюзивная коллекция.', price:700000, stock:5, icon:'👑', image:'' },
+  
+  { id:'t1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz kompakt ekonom', name_ru:'Унитаз-компакт эконом', desc_uz:'Oq keramika, polga o\'rnatiladigan, iqtisodiy suv sarfi.', desc_ru:'Белая керамика, напольный, с экономным расходом воды.', price:300000, stock:100, icon:'🚽', image:'' },
+  { id:'t2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz kompakt', name_ru:'Унитаз-компакт', desc_uz:'Standart o\'lcham, qulay o\'rindiq, yuqori sifatli keramika.', desc_ru:'Стандартный размер, удобное сиденье, качественная керамика.', price:400000, stock:120, icon:'🚽', image:'' },
+  { id:'t3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz 2 rejimli', name_ru:'Унитаз с 2 режимами', desc_uz:'Iqtisodiy va to\'liq yuvish rejimlari, suvni tejaydi.', desc_ru:'Экономный и полный режимы смыва, экономит воду.', price:500000, stock:80, icon:'🚽', image:'' },
+  { id:'t4', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz yondashuvchi', name_ru:'Унитаз приставной', desc_uz:'Zamonaviy dizayn, devorga yaqin turadi, tozalash oson.', desc_ru:'Современный дизайн, прилегает к стене, легко мыть.', price:600000, stock:55, icon:'🚽', image:'' },
+  { id:'t5', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz osma', name_ru:'Унитаз подвесной', desc_uz:'Devorga o\'rnatiladigan, polni tozalash juda oson.', desc_ru:'Навесной, очень легко мыть пол.', price:700000, stock:40, icon:'🚽', image:'' },
+  { id:'t6', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz mikroliftli', name_ru:'Унитаз с микролифтом', desc_uz:'O\'rindiq mikrolift mexanizmi bilan, shovqinsiz yopiladi.', desc_ru:'С сиденьем-микролифт, закрывается бесшумно.', price:800000, stock:30, icon:'🚽', image:'' },
+  { id:'t7', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz premium', name_ru:'Унитаз премиум', desc_uz:'Ramkasiz dizayn, antibakterial qoplama.', desc_ru:'Безободковый дизайн, антибактериальное покрытие.', price:900000, stock:24, icon:'✨', image:'' },
+  { id:'t8', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Unitaz dizaynerlik', name_ru:'Унитаз дизайнерский', desc_uz:'Eksklyuziv dizayn, oltin bezaklar, lyuks uchun.', desc_ru:'Эксклюзивный дизайн, золотые элементы, для люкса.', price:1000000, stock:15, icon:'👑', image:'' },
+  
+  { id:'r1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina ustma-ust', name_ru:'Раковина накладная', desc_uz:'Keramikadan ishlangan, 50x40 sm o\'lchamda.', desc_ru:'Из керамики, размер 50x40 см.', price:350000, stock:90, icon:'🪠', image:'' },
+  { id:'r2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina osma', name_ru:'Раковина подвесная', desc_uz:'Devorga o\'rnatiladigan, joyni tejaydi.', desc_ru:'Настенная, экономит место.', price:400000, stock:110, icon:'💧', image:'' },
+  { id:'r3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina taglikli', name_ru:'Раковина с пьедесталом', desc_uz:'Poldan tik turuvchi, barqaror va mustahkam.', desc_ru:'Напольная с пьедесталом, устойчивая и прочная.', price:450000, stock:70, icon:'🚰', image:'' },
+  { id:'r4', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina tumbali', name_ru:'Раковина с тумбой', desc_uz:'Mebel shkafchasi bilan, qulay saqlash joyi.', desc_ru:'С мебельным шкафчиком, удобное место для хранения.', price:500000, stock:50, icon:'🪠', image:'' },
+  { id:'r5', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina burchakli', name_ru:'Раковина угловая', desc_uz:'Kichik vannaxonalar uchun ixcham dizayn.', desc_ru:'Компактный дизайн для маленьких ванных комнат.', price:550000, stock:35, icon:'📐', image:'' },
+  { id:'r6', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina 2 kosali', name_ru:'Раковина с 2 чашами', desc_uz:'Katta vannaxona uchun, ikki kishiga qulay.', desc_ru:'Для большой ванной, удобно для двоих.', price:600000, stock:25, icon:'💧', image:'' },
+  { id:'r7', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina keramogranit', name_ru:'Раковина керамогранит', desc_uz:'Chidamli keramogranit, matovyy effekt.', desc_ru:'Прочный керамогранит, матовый эффект.', price:650000, stock:20, icon:'🔷', image:'' },
+  { id:'r8', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Rakovina dizaynerlik', name_ru:'Раковина дизайнерская', desc_uz:'Qo\'lda ishlangan, premium seriya.', desc_ru:'Ручная работа, премиум серия.', price:700000, stock:12, icon:'👑', image:'' },
+  
+  { id:'d1', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Dush burchagi', name_ru:'Душевой уголок', desc_uz:'90x90 o\'lcham, 5 mm qalinlikdagi shisha.', desc_ru:'Размер 90x90, стекло 5 мм.', price:3200000, stock:60, icon:'🚿', image:'' },
+  { id:'d2', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Dush kabinasi patnisli', name_ru:'Душевая кабина с поддоном', desc_uz:'Akril patnis, egri eshiklar, muhrlar.', desc_ru:'Акриловый поддон, распашные двери, уплотнители.', price:5000000, stock:45, icon:'🛁', image:'' },
+  { id:'d3', cat_uz:'Santexnika', cat_ru:'Сантехника', name_uz:'Dush kabinasi gidromassajli', name_ru:'Душевая кабина с гидромассажем', desc_uz:'Ko\'p funksiyali, yorug\'lik, radio.', desc_ru:'Многофункциональная, подсветка, радио.', price:7500000, stock:30, icon:'♨️', image:'' },
+
+  // Elektrotexnika
+  { id:'e1', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'Kabel VVG 3x2.5', name_ru:'Кабель ВВГ 3x2.5', desc_uz:'Mis o\'tkazgichli, 3 yadroli (1 metr).', desc_ru:'Медный, 3-жильный (1 метр).', price:25000, stock:150, icon:'🔌', image:'' },
+  { id:'e2', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'Rozetka 2x', name_ru:'Розетка двойная', desc_uz:'Yashirin o\'rnatish uchun, 16A, yerga ulash.', desc_ru:'Скрытая установка, 16A, с заземлением.', price:35000, stock:100, icon:'🔌', image:'' },
+  { id:'e3', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'LED lampa 12W', name_ru:'LED лампа 12Вт', desc_uz:'E27 sokol, tejamkor, 4000K tiniq oq.', desc_ru:'Цоколь E27, экономная, 4000K белый свет.', price:18000, stock:150, icon:'💡', image:'' },
+  { id:'e4', cat_uz:'Elektrotexnika', cat_ru:'Электротехника', name_uz:'Avtomat 16A', name_ru:'Автомат 16А', desc_uz:'C tipi, qisqa tutashuvdan himoya.', desc_ru:'Тип C, защита от короткого замыкания.', price:48000, stock:120, icon:'⚡', image:'' },
+
+  // Xo'jalik
+  { id:'h1', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Qo\'lqop paxta', name_ru:'Перчатки х/б', desc_uz:'5 ipli, qurilish va xo\'jalik uchun.', desc_ru:'5 нитей, для строительных и хозяйственных работ.', price:1000, stock:150, icon:'🧤', image:'' },
+  { id:'h2', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Qo\'lqop PVX', name_ru:'Перчатки с ПВХ', desc_uz:'Sirg\'anmaydigan, suv o\'tkazmaydigan.', desc_ru:'Нескользящие, водонепроницаемые.', price:5000, stock:120, icon:'🧤', image:'' },
+  { id:'h3', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Chelak 12L', name_ru:'Ведро 12л', desc_uz:'Plastik, qopqoqli, mustahkam tutqichli.', desc_ru:'Пластиковое, с крышкой, прочная ручка.', price:45000, stock:50, icon:'🪣', image:'' },
+  { id:'h4', cat_uz:'Xo\'jalik', cat_ru:'Хозтовары', name_uz:'Shvabra', name_ru:'Швабра', desc_uz:'Siqish mexanizmli, polni yuvish uchun.', desc_ru:'С отжимом, для мытья полов.', price:60000, stock:40, icon:'🧹', image:'' },
+
+  // Bo'yoq
+  { id:'k1', cat_uz:'Bo\'yoq', cat_ru:'Краска', name_uz:'Bo\'yoq 3kg', name_ru:'Краска 3кг', desc_uz:'Suv-emulsiyali, oq rang, devor uchun.', desc_ru:'Водоэмульсионная, белая, для стен.', price:30000, stock:100, icon:'🎨', image:'' },
+  { id:'k2', cat_uz:'Bo\'yoq', cat_ru:'Краска', name_uz:'Bo\'yoq 10kg', name_ru:'Краска 10кг', desc_uz:'Yuviladigan, yuqori qoplash xususiyati.', desc_ru:'Моющаяся, с высокой укрывистостью.', price:120000, stock:60, icon:'🎨', image:'' },
+
+  // Sement
+  { id:'c1', cat_uz:'Sement', cat_ru:'Цемент', name_uz:'Sement Conch M450', name_ru:'Цемент Conch M450', desc_uz:'50 kg qop, tez qotuvchi portlandsement.', desc_ru:'Мешок 50 кг, быстротвердеющий портландцемент.', price:35000, stock:150, icon:'🧱', image:'' },
+  { id:'c2', cat_uz:'Sement', cat_ru:'Цемент', name_uz:'Plitka yelimi 25kg', name_ru:'Клей для плитки 25кг', desc_uz:'Kafel va plitkalar uchun universal yelim.', desc_ru:'Универсальный клей для плитки и кафеля.', price:35000, stock:80, icon:'🪣', image:'' },
+
+  // Bloklar
+  { id:'b1', cat_uz:'Bloklar', cat_ru:'Блоки', name_uz:'Shlakoblok', name_ru:'Шлакоблок', desc_uz:'20x20x40, devor terish uchun mustahkam.', desc_ru:'20x20x40, прочный для кладки стен.', price:2900, stock:150, icon:'🧱', image:'' },
+  { id:'b2', cat_uz:'Bloklar', cat_ru:'Блоки', name_uz:'Qumblok', name_ru:'Пескоблок', desc_uz:'Ekologik toza, issiqlikni yaxshi saqlaydi.', desc_ru:'Экологичный, хорошо сохраняет тепло.', price:6500, stock:80, icon:'🧱', image:'' }
+];
+
+let currentLang = localStorage.getItem('albaraka_lang') || 'uz';
+let cart = {};
+let isSeller = false;
+let products = JSON.parse(localStorage.getItem('albaraka_products')) || [...DEFAULT_PRODUCTS];
+let currentClientSearch = '';
+let currentSellerSearch = '';
+let currentOpenProductId = null;
+
+// ==========================================
+// TILNI O'ZGARTIRISH MANTIG'I
+// ==========================================
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('albaraka_lang', lang);
+  document.documentElement.lang = lang;
+  
+  document.getElementById('btnUz').classList.toggle('active', lang === 'uz');
+  document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (TRANSLATIONS[lang][key]) el.textContent = TRANSLATIONS[lang][key];
+  });
+
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    if (TRANSLATIONS[lang][key]) el.placeholder = TRANSLATIONS[lang][key];
+  });
+
+  renderCatalog();
+  updateCartUI();
+  if (isSeller) {
+    loadSellerOrders();
+    renderSellerProductsTable();
+  }
+}
+
+// ==========================================
+// INTERFEYS VA KATALOG
+// ==========================================
+function renderCatalog() {
+  const container = document.getElementById('catalogContainer');
+  let html = '';
+  const t = TRANSLATIONS[currentLang];
+  
+  const filtered = products.filter(p => {
+    const name = currentLang === 'uz' ? p.name_uz : p.name_ru;
+    const cat = currentLang === 'uz' ? p.cat_uz : p.cat_ru;
+    return name.toLowerCase().includes(currentClientSearch.toLowerCase()) || 
+           cat.toLowerCase().includes(currentClientSearch.toLowerCase());
+  });
+
+  if(filtered.length === 0) {
+    container.innerHTML = `<p style="text-align:center; color:#64748b; margin-top:20px; font-size:1.1rem;">${t.search_ph}</p>`;
+    return;
+  }
+
+  const cats = [...new Set(filtered.map(p => currentLang === 'uz' ? p.cat_uz : p.cat_ru))];
+  
+  cats.forEach(cat => {
+    html += `<h3 class="section-title">${cat}</h3><div class="grid">`;
+    const catProds = filtered.filter(p => (currentLang === 'uz' ? p.cat_uz : p.cat_ru) === cat);
+    
+    catProds.forEach(p => {
+      const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
+      let stockClass = p.stock > 10 ? '' : (p.stock > 0 ? 'low' : 'out');
+      let stockText = p.stock > 0 ? `${t.stock_left} ${p.stock}` : t.stock_out;
+      
+      let mediaHtml = p.image 
+        ? `<img src="${p.image}" class="product-img" alt="${pName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="product-icon" style="display:none;">${p.icon || '📦'}</div>`
+        : `<div class="product-icon">${p.icon || '📦'}</div>`;
+      
+      html += `
+        <div class="product" onclick="openProductDetail('${p.id}')">
+          <div class="product-media">${mediaHtml}</div>
+          <h4 class="product-name">${pName}</h4>
+          <span class="stock ${stockClass}">${stockText}</span>
+          <div class="product-footer">
+            <span class="price">${formatMoney(p.price)} <small>${t.currency}</small></span>
+            <button class="btn-add" onclick="event.stopPropagation(); addToCart('${p.id}')">+</button>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+}
+
+function searchClient() {
+  currentClientSearch = document.getElementById('clientSearch').value;
+  renderCatalog();
+}
+
+// ===== BATAFSIL OYNA =====
+function openProductDetail(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const t = TRANSLATIONS[currentLang];
+  currentOpenProductId = id;
+
+  const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
+  const pDesc = currentLang === 'uz' ? p.desc_uz : p.desc_ru;
+  const pCat = currentLang === 'uz' ? p.cat_uz : p.cat_ru;
+
+  document.getElementById('detailName').textContent = pName;
+  document.getElementById('detailCat').textContent = pCat;
+  document.getElementById('detailDesc').textContent = pDesc || "Ma'lumot kiritilmagan.";
+  document.getElementById('detailPrice').textContent = formatMoney(p.price) + " " + t.currency;
+  
+  const stockEl = document.getElementById('detailStock');
+  if (p.stock > 10) {
+    stockEl.className = 'stock';
+    stockEl.textContent = `${t.stock_ombor} ${p.stock}`;
+  } else if (p.stock > 0) {
+    stockEl.className = 'stock low';
+    stockEl.textContent = `${t.stock_shosh} ${p.stock}`;
+  } else {
+    stockEl.className = 'stock out';
+    stockEl.textContent = t.stock_out;
+  }
+
+  const mediaContainer = document.getElementById('detailMediaContainer');
+  if (p.image) {
+    mediaContainer.innerHTML = `<img src="${p.image}" class="detail-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'detail-icon\\'>${p.icon || '📦'}</div>';" alt="${pName}">`;
+  } else {
+    mediaContainer.innerHTML = `<div class="detail-icon">${p.icon || '📦'}</div>`;
+  }
+
+  const addBtn = document.getElementById('detailAddBtn');
+  if (p.stock <= 0) {
+    addBtn.disabled = true;
+    addBtn.style.background = '#cbd5e1';
+    addBtn.textContent = t.stock_out;
+    addBtn.style.boxShadow = 'none';
+  } else {
+    addBtn.disabled = false;
+    addBtn.style.background = 'var(--primary)';
+    addBtn.textContent = t.btn_to_cart;
+    addBtn.style.boxShadow = '0 4px 15px rgba(249,115,22,0.3)';
+  }
+
+  document.getElementById('productDetailModal').classList.add('open');
+}
+
+function closeProductDetail() {
+  document.getElementById('productDetailModal').classList.remove('open');
+  currentOpenProductId = null;
+}
+
+function addToCartFromModal() {
+  if (currentOpenProductId) {
+    addToCart(currentOpenProductId);
+    closeProductDetail();
+  }
+}
+
+// ===== SOTUVCHI JADVALI =====
+function renderSellerProductsTable() {
+  const tbody = document.getElementById('sellerProductsTableBody');
+  const filtered = products.filter(p => {
+    const name = currentLang === 'uz' ? p.name_uz : p.name_ru;
+    return name.toLowerCase().includes(currentSellerSearch.toLowerCase());
+  });
+
+  tbody.innerHTML = filtered.map(p => {
+    const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
+    return `
+    <tr>
+      <td>
+        ${p.image 
+          ? `<img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;" onerror="this.src='https://via.placeholder.com/40?text=X'">` 
+          : `<div style="font-size:1.8rem;">${p.icon || '📦'}</div>`}
+      </td>
+      <td style="font-weight:700;">${pName}</td>
+      <td><input type="number" id="edit-price-${p.id}" value="${p.price}"></td>
+      <td><input type="number" id="edit-stock-${p.id}" value="${p.stock}"></td>
+      <td><input type="text" id="edit-image-${p.id}" value="${p.image || ''}" placeholder="URL manzil..."></td>
+    </tr>
+  `}).join('');
+}
+
+function searchSeller() {
+  currentSellerSearch = document.getElementById('sellerSearch').value;
+  renderSellerProductsTable();
+}
+
+function saveSellerChanges() {
+  products.forEach(p => {
+    const priceEl = document.getElementById(`edit-price-${p.id}`);
+    const stockEl = document.getElementById(`edit-stock-${p.id}`);
+    const imageEl = document.getElementById(`edit-image-${p.id}`);
+    
+    if (priceEl && stockEl && imageEl) {
+      const newPrice = parseInt(priceEl.value);
+      const newStock = parseInt(stockEl.value);
+      const newImage = imageEl.value.trim();
+      
+      if (!isNaN(newPrice) && !isNaN(newStock)) {
+        p.price = newPrice;
+        p.stock = newStock;
+        p.image = newImage;
+      }
+    }
+  });
+  
+  localStorage.setItem('albaraka_products', JSON.stringify(products));
+  alert(currentLang === 'uz' ? '✅ O\'zgarishlar saqlandi!' : '✅ Изменения сохранены!');
+  renderCatalog();
+}
+
+function addNewProduct() {
+  const name = document.getElementById('newProdName').value.trim();
+  const cat = document.getElementById('newProdCat').value;
+  const price = parseInt(document.getElementById('newProdPrice').value);
+  const stock = parseInt(document.getElementById('newProdStock').value);
+  const imageUrl = document.getElementById('newProdImage').value.trim();
+  
+  if (!name || isNaN(price) || isNaN(stock)) { 
+    alert(currentLang === 'uz' ? 'Ma\'lumotlarni to\'ldiring!' : 'Заполните все данные!'); 
+    return; 
+  }
+  
+  let defaultIcon = '📦';
+  if(cat === 'Santexnika') defaultIcon = '🚰';
+  if(cat === 'Elektrotexnika') defaultIcon = '💡';
+  if(cat === 'Xo\'jalik') defaultIcon = '🧤';
+  if(cat === 'Bo\'yoq') defaultIcon = '🎨';
+  if(cat === 'Sement' || cat === 'Bloklar') defaultIcon = '🧱';
+
+  products.push({
+    id: 'p_' + Date.now(), 
+    cat_uz: cat, cat_ru: cat, 
+    name_uz: name, name_ru: name, 
+    desc_uz: 'Yangi qo\'shilgan mahsulot.', desc_ru: 'Новый добавленный товар.', 
+    price, stock,
+    icon: defaultIcon,
+    image: imageUrl || ''
+  });
+  
+  localStorage.setItem('albaraka_products', JSON.stringify(products));
+  alert(currentLang === 'uz' ? '✅ Qo\'shildi!' : '✅ Добавлено!');
+  
+  document.getElementById('newProdName').value = '';
+  document.getElementById('newProdPrice').value = '';
+  document.getElementById('newProdStock').value = '';
+  document.getElementById('newProdImage').value = '';
+  
+  renderSellerProductsTable();
+  renderCatalog();
+}
+
+function switchView(view) {
+  if (isSeller) return;
+  document.getElementById('catalogView').style.display = view === 'client' ? 'block' : 'none';
+  document.getElementById('aboutView').style.display = view === 'about' ? 'block' : 'none';
+  document.getElementById('btnClient').classList.toggle('active', view === 'client');
+  document.getElementById('btnAbout').classList.toggle('active', view === 'about');
+}
+
+// ===== LOGIN =====
+function openLogin() { document.getElementById('loginModal').classList.add('open'); document.getElementById('loginErr').style.display = 'none'; }
+function closeLogin() { document.getElementById('loginModal').classList.remove('open'); }
+function checkSellerLogin() {
+  const user = document.getElementById('loginUser').value;
+  const pass = document.getElementById('loginPass').value;
+  if (user === 'albaraka1234' && pass === 'abubakir1234') {
+    isSeller = true;
+    closeLogin();
+    document.getElementById('catalogView').style.display = 'none';
+    document.getElementById('aboutView').style.display = 'none';
+    document.getElementById('sellerView').style.display = 'block';
+    document.getElementById('loginBtnHeader').style.display = 'none';
+    loadSellerOrders();
+    renderSellerProductsTable();
+    switchSellerTab('orders');
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+function logoutSeller() {
+  isSeller = false;
+  document.getElementById('sellerView').style.display = 'none';
+  document.getElementById('loginBtnHeader').style.display = 'block';
+  switchView('client');
+}
+
+function switchSellerTab(tab) {
+  document.getElementById('tabOrders').classList.toggle('active', tab === 'orders');
+  document.getElementById('tabProducts').classList.toggle('active', tab === 'products');
+  document.getElementById('sellerTabContentOrders').style.display = tab === 'orders' ? 'block' : 'none';
+  document.getElementById('sellerTabContentProducts').style.display = tab === 'products' ? 'block' : 'none';
+}
+
+function loadSellerOrders() {
+  const list = document.getElementById('sellerOrdersList');
+  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
+  const t = TRANSLATIONS[currentLang];
+  
+  if (orders.length === 0) {
+    list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:1rem; padding: 30px;">${t.orders_empty}</p>`;
+    return;
+  }
+  list.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="order-header"><span>🆔 ${o.id}</span><span>🕒 ${o.date}</span></div>
+      <div class="order-client">👤 ${o.clientName}</div>
+      <div class="order-details">📞 ${o.phone} <br> 📍 ${o.address}</div>
+      <div class="order-items">${o.items.map(i => `<div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f1f5f9;"><span>${i.name} x${i.qty}</span><span style="font-weight:700;">${formatMoney(i.price * i.qty)}</span></div>`).join('')}</div>
+      <div class="order-total">${t.order_total} ${formatMoney(o.total)} ${t.currency}</div>
+    </div>
+  `).join('');
+}
+
+// ===== SAVAT =====
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  if (p.stock <= 0) { alert(TRANSLATIONS[currentLang].stock_out); return; }
+  if (cart[id]) {
+    if (cart[id].qty >= p.stock) { alert(TRANSLATIONS[currentLang].stock_out); return; }
+    cart[id].qty++;
+  } else { cart[id] = { id, qty: 1 }; }
+  updateCartUI(); openCart();
+}
+
+function updateCartUI() {
+  const box = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartTotal');
+  const keys = Object.keys(cart);
+  const t = TRANSLATIONS[currentLang];
+  
+  document.getElementById('cartCount').textContent = keys.reduce((s,k) => s + cart[k].qty, 0);
+  
+  if (keys.length === 0) {
+    box.innerHTML = `<div style="text-align:center; padding:50px 20px; color:#94a3b8;"><div style="font-size:4rem; margin-bottom:15px;">🛒</div><p style="font-size:1.1rem; font-weight:600;">${t.cart_empty_title}</p><p style="font-size:0.9rem;">${t.cart_empty_desc}</p></div>`;
+    totalEl.textContent = '0 ' + t.currency; return;
+  }
+  
+  let total = 0;
+  box.innerHTML = keys.map(k => {
+    const item = cart[k]; const p = products.find(x => x.id === k);
+    const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
+    total += p.price * item.qty;
+    return `<div class="cart-item">
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <b style="font-size:0.95rem; color:var(--text-main);">${pName}</b>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button onclick="changeQty('${k}', -1)" style="padding:4px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; font-weight:bold;">-</button>
+            <span style="font-weight:700; min-width:20px; text-align:center;">${item.qty}</span>
+            <button onclick="changeQty('${k}', 1)" style="padding:4px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; font-weight:bold;">+</button>
+          </div>
+        </div>
+        <div style="font-weight:900; color:#b91c1c; font-size:1rem; white-space:nowrap;">${formatMoney(p.price * item.qty)}</div>
+      </div>`;
+  }).join('');
+  totalEl.textContent = formatMoney(total) + ' ' + t.currency;
+}
+
+function changeQty(id, delta) {
+  const p = products.find(x => x.id === id);
+  if (delta > 0 && cart[id].qty >= p.stock) { alert(TRANSLATIONS[currentLang].stock_out); return; }
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  updateCartUI();
+}
+
+function openCart() { document.getElementById('cartPanel').classList.add('open'); }
+function closeCart() { document.getElementById('cartPanel').classList.remove('open'); }
+
+function submitOrder() {
+  const t = TRANSLATIONS[currentLang];
+  if (Object.keys(cart).length === 0) { alert(t.cart_empty_title); return; }
+  
+  const name = prompt(t.prompt_name);
+  if (!name) return;
+  const phone = prompt(t.prompt_phone);
+  if (!phone) return;
+  const address = prompt(t.prompt_addr);
+  if (!address) return;
+  
+  let total = 0;
+  let message = `🛒 *YANGI BUYURTMA / НОВЫЙ ЗАКАЗ (Al Baraka)*\n\n`;
+  message += `👤 *Mijoz/Клиент:* ${name}\n`;
+  message += `📞 *Tel/Тел:* ${phone}\n`;
+  message += `📍 *Manzil/Адрес:* ${address}\n\n`;
+  message += `📦 *Mahsulotlar/Товары:*\n`;
+  
+  const items = Object.keys(cart).map(k => {
+    const p = products.find(x => x.id === k);
+    const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
+    const sum = p.price * cart[k].qty;
+    total += sum;
+    message += `- ${pName} x${cart[k].qty} = ${formatMoney(sum)} ${t.currency}\n`;
+    return { name: pName, qty: cart[k].qty, price: p.price };
+  });
+  
+  message += `\n💰 *JAMI/ИТОГО: ${formatMoney(total)} ${t.currency}*`;
+  
+  const order = { id: 'ZAK-' + Date.now(), date: new Date().toLocaleString(), clientName: name, phone, address, items, total };
+  const orders = JSON.parse(localStorage.getItem('albaraka_orders') || '[]');
+  orders.unshift(order);
+  localStorage.setItem('albaraka_orders', JSON.stringify(orders));
+  
+  Object.keys(cart).forEach(k => {
+    const p = products.find(x => x.id === k);
+    p.stock -= cart[k].qty;
+  });
+  localStorage.setItem('albaraka_products', JSON.stringify(products));
+  
+  cart = {}; updateCartUI(); closeCart(); renderCatalog();
+  
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/998886161700?text=${encodedMessage}`, '_blank');
+  
+  alert(t.order_success);
+}
+
+// ===== MDF KALKULYATOR =====
+function calcMDF() {
+  const w = parseFloat(document.getElementById('partW').value);
+  const h = parseFloat(document.getElementById('partH').value);
+  const qty = parseInt(document.getElementById('partQty').value);
+  const sPrice = +document.getElementById('sheetType').value;
+  const cPrice = +document.getElementById('cutType').value;
+  const box = document.getElementById('mdfResult');
+  const t = TRANSLATIONS[currentLang];
+  
+  if (!(w > 0) || !(h > 0) || !(qty > 0)) { 
+    box.innerHTML = `<p style="color:#ef4444; font-weight:bold;">${currentLang === 'uz' ? 'Xato! O\'lchamlarni tekshiring.' : 'Ошибка! Проверьте размеры.'}</p>`; 
+    return; 
+  }
+  if (w > 275 || h > 183) { 
+    box.innerHTML = `<p style="color:#ef4444; font-weight:bold;">${currentLang === 'uz' ? 'O\'lcham listdan (275x183) katta!' : 'Размер больше листа (275x183)!'}</p>`; 
+    return; 
+  }
+  
+  const perRow = Math.floor(275 / w);
+  const rows = Math.floor(183 / h);
+  const perSheet = perRow * rows;
+  const sheetsNeeded = Math.ceil(qty / perSheet);
+  const totalMatCost = sheetsNeeded * sPrice;
+  const totalCutCost = sheetsNeeded * cPrice;
+  
+  box.innerHTML = `
+    <div class="res-row"><span>${t.mdf_res_list}</span> <b>${sheetsNeeded} ${currentLang === 'uz' ? 'dona' : 'шт'}</b></div>
+    <div class="res-row"><span>${t.mdf_res_per}</span> <b>${perSheet} ${currentLang === 'uz' ? 'dona' : 'шт'}</b></div>
+    <div class="res-row"><span>${t.mdf_res_price}</span> <b>${formatMoney(totalMatCost)} ${t.currency}</b></div>
+    <div class="res-row"><span>${t.mdf_res_cut}</span> <b>${formatMoney(totalCutCost)} ${t.currency}</b></div>
+    <div class="res-total"><span>${t.mdf_res_total}</span> <span>${formatMoney(totalMatCost + totalCutCost)} ${t.currency}</span></div>
+  `;
+}
+
+function formatMoney(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+
+// START
+setLang(currentLang);
+</script>
+</body>
+</html>
