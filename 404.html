@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Al Baraka</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px;
+      background: #f4f0e7; color: #18211c;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-image: radial-gradient(circle at 1px 1px, rgba(29,41,34,.12) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .card {
+      width: min(560px, 100%); padding: 46px; border: 1px solid #dcd4c5; border-radius: 22px;
+      background: #fffdf8; text-align: center; box-shadow: 0 24px 60px rgba(24,33,28,.1);
+    }
+    .mark {
+      width: 58px; height: 58px; display: grid; place-items: center; margin: 0 auto 22px;
+      border-radius: 16px 16px 16px 4px; background: #e7622a; color: #f8f3e8;
+      font-family: "Bahnschrift", "Arial Narrow", Arial, sans-serif; font-size: 34px; font-weight: 800;
+    }
+    .kicker { margin: 0; font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #7b847b; }
+    h1 {
+      margin: 14px 0 10px; font-family: "Bahnschrift", "Arial Narrow", Arial, sans-serif;
+      font-size: clamp(46px, 12vw, 78px); line-height: .86; text-transform: uppercase; letter-spacing: -.02em;
+    }
+    h1 span { color: #e7622a; }
+    p { margin: 0 auto; max-width: 360px; font-size: 14px; line-height: 1.6; color: #7b847b; }
+    .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+    a {
+      min-height: 46px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 9px;
+      background: #1d2922; color: #f8f3e8; text-decoration: none;
+      font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    }
+    a.secondary { background: transparent; color: #18211c; border: 1px solid #dcd4c5; }
+    a:hover { background: #e7622a; color: #fff; border-color: #e7622a; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark">A</div>
+    <p class="kicker">Al Baraka · Qurilish mollari</p>
+    <h1>404 — <span>yo‘q</span></h1>
+    <p>Sahifa topilmadi. Katalogga qaytib, kerakli materialni tanlang.</p>
+    <div class="actions">
+      <a href="/">Katalogga qaytish</a>
+      <a class="secondary" href="/admin">Sotuvchi paneli</a>
+    </div>
+  </main>
+</body>
+</html>

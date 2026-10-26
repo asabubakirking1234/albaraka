@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Aralashtirgich Standart xrom">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe9dd"/>
+      <stop offset="1" stop-color="#ddd3c1"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f8f4"/>
+      <stop offset=".28" stop-color="#c4cbc4"/>
+      <stop offset=".5" stop-color="#ffffff"/>
+      <stop offset=".72" stop-color="#98a49b"/>
+      <stop offset="1" stop-color="#e4e9e2"/>
+    </linearGradient>
+    <linearGradient id="chrome2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".5" stop-color="#b9c2ba"/>
+      <stop offset="1" stop-color="#7e8a80"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="200%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#2a2114" flood-opacity=".3"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="180" cy="150" r="155" fill="#e7622a" opacity=".09"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">PLUMBING / MIXER</text>
+
+  <ellipse cx="400" cy="512" rx="220" ry="28" fill="#7d6d54" opacity=".22" filter="url(#blur)"/>
+
+  <g transform="translate(284 132)" filter="url(#shadow)">
+    <!-- body -->
+    <rect x="88" y="92" width="88" height="212" rx="28" fill="url(#chrome)"/>
+    <rect x="100" y="86" width="64" height="24" rx="10" fill="url(#chrome2)"/>
+    <rect x="108" y="72" width="48" height="28" rx="12" fill="url(#chrome)"/>
+    <ellipse cx="132" cy="92" rx="24" ry="8" fill="#f5f7f2"/>
+
+    <!-- spout -->
+    <path d="M132 138v-34q0-44 46-44h92q30 0 30 30v32" fill="none" stroke="url(#chrome)" stroke-width="25" stroke-linecap="round"/>
+    <path d="M132 132v-28q0-36 46-36h92q22 0 22 22v30" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="6" stroke-linecap="round"/>
+    <rect x="276" y="104" width="48" height="50" rx="18" fill="url(#chrome)"/>
+    <ellipse cx="300" cy="152" rx="18" ry="6" fill="#7e8a80"/>
+    <ellipse cx="300" cy="152" rx="12" ry="4" fill="#4b564e"/>
+
+    <!-- handle -->
+    <rect x="14" y="112" width="74" height="19" rx="9.5" fill="url(#chrome2)"/>
+    <circle cx="18" cy="121" r="11" fill="url(#chrome)"/>
+    <rect x="98" y="100" width="44" height="42" rx="14" fill="url(#chrome2)"/>
+    <path d="M110 116h20" stroke="#7c8880" stroke-width="2"/>
+
+    <!-- base -->
+    <rect x="72" y="298" width="120" height="20" rx="9" fill="url(#chrome2)"/>
+    <rect x="88" y="316" width="88" height="17" rx="8" fill="#8c988e"/>
+    <path d="M104 332v28M160 332v28" stroke="url(#chrome2)" stroke-width="13" stroke-linecap="round"/>
+
+    <!-- reflection -->
+    <path d="M104 112v166" stroke="#ffffff" stroke-opacity=".6" stroke-width="7" stroke-linecap="round"/>
+    <path d="M132 100v-16q0-22 30-22" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g opacity=".7">
+    <path d="M396 404q0 20 14 20t14-20q-4-14-14-24-10 10-14 24Z" fill="#8fb4bb"/>
+    <path d="M444 430q0 13 9 13t9-13q-3-9-9-15-6 6-9 15Z" fill="#8fb4bb" opacity=".6"/>
+  </g>
+
+  <g transform="translate(570 346) rotate(4)">
+    <rect x="0" y="0" width="152" height="104" rx="3" fill="#fffdf8" opacity=".92"/>
+    <text x="13" y="21" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">SINGLE LEVER</text>
+    <text x="13" y="50" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="800">CHROME</text>
+    <path d="M13 61h126" stroke="#d9d1c2"/>
+    <text x="13" y="76" fill="#4d584f" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">CERAMIC CARTRIDGE</text>
+    <text x="13" y="90" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1">10 YEAR FINISH</text>
+  </g>
+
+  <g transform="translate(74 118)">
+    <rect x="0" y="0" width="140" height="82" rx="3" fill="#fffdf8" opacity=".9"/>
+    <text x="13" y="20" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">KITCHEN &amp; BATH</text>
+    <text x="13" y="46" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="800">STANDART</text>
+    <text x="13" y="62" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">CHROME · BRASS BODY</text>
+    <text x="13" y="75" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" letter-spacing="1">EASY INSTALL</text>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="166" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5">MIXER · CHROME · STANDART</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">PLUMBING / 02</text>
+</svg>

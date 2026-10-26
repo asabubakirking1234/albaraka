@@ -1,0 +1,10 @@
+node_modules/
+data/
+public/uploads/
+.chrome-profile/
+.chrome-cdp/
+qa-*.png
+qa-*.mjs
+qa-order.json
+qa-*.json
+.DS_Store

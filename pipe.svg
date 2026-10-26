@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Polipropilen truba 25 mm">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eee8db"/>
+      <stop offset="1" stop-color="#dcd3c2"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="pipe1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dfe8d7"/>
+      <stop offset=".45" stop-color="#b5c4ac"/>
+      <stop offset="1" stop-color="#819378"/>
+    </linearGradient>
+    <linearGradient id="pipe2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8f3e8"/>
+      <stop offset=".5" stop-color="#ded5c5"/>
+      <stop offset="1" stop-color="#b4a992"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-50%" width="170%" height="220%">
+      <feDropShadow dx="0" dy="20" stdDeviation="14" flood-color="#2a2114" flood-opacity=".24"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="640" cy="150" r="170" fill="#e7622a" opacity=".09"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">PLUMBING / PP 25 MM</text>
+  <ellipse cx="410" cy="506" rx="280" ry="34" fill="#7d6d54" opacity=".2" filter="url(#blur)"/>
+
+  <g transform="rotate(-19 420 330)">
+    <g filter="url(#shadow)">
+      <rect x="116" y="260" width="590" height="48" rx="24" fill="url(#pipe2)"/>
+      <ellipse cx="706" cy="284" rx="12" ry="22" fill="#b8ad99"/>
+      <ellipse cx="706" cy="284" rx="7" ry="14" fill="#8d8372"/>
+      <rect x="116" y="260" width="42" height="48" rx="18" fill="#e7622a"/>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="104" y="326" width="610" height="48" rx="24" fill="url(#pipe1)"/>
+      <ellipse cx="714" cy="350" rx="12" ry="22" fill="#7b8d72"/>
+      <ellipse cx="714" cy="350" rx="7" ry="14" fill="#57664f"/>
+      <rect x="104" y="326" width="42" height="48" rx="18" fill="#1d2922"/>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="92" y="392" width="624" height="48" rx="24" fill="url(#pipe2)"/>
+      <ellipse cx="716" cy="416" rx="12" ry="22" fill="#b8ad99"/>
+      <ellipse cx="716" cy="416" rx="7" ry="14" fill="#8d8372"/>
+      <rect x="92" y="392" width="42" height="48" rx="18" fill="#e7622a"/>
+    </g>
+
+    <g fill="none" stroke="#1d2922" stroke-opacity=".22" stroke-width="1.3">
+      <path d="M250 244v78M250 244l-5 10M250 244l5 10M250 322l-5-10M250 322l5-10"/>
+      <text x="264" y="292" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="9" letter-spacing="1.4" stroke="none" opacity=".8">25 mm</text>
+    </g>
+
+    <g transform="translate(348 452)">
+      <path d="M0 0h72v24H48v54q0 20 20 20h80" fill="none" stroke="#b5c4ac" stroke-width="34" stroke-linecap="round"/>
+      <path d="M0 0h72v24H48v54q0 20 20 20h80" fill="none" stroke="#dbe5d3" stroke-width="26" stroke-linecap="round" opacity=".55"/>
+      <circle cx="150" cy="98" r="18" fill="#819378"/>
+    </g>
+  </g>
+
+  <g transform="translate(548 460) rotate(4)">
+    <rect x="0" y="0" width="154" height="30" rx="2" fill="#1d2922"/>
+    <text x="12" y="20" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="700" letter-spacing="1.8">PP-R · PN20</text>
+    <text x="142" y="20" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" text-anchor="end">25</text>
+  </g>
+
+  <g transform="translate(74 96)">
+    <rect x="0" y="0" width="146" height="86" rx="3" fill="#fffdf8" opacity=".9"/>
+    <text x="13" y="20" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">HOT &amp; COLD WATER</text>
+    <text x="13" y="48" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="800">25 mm</text>
+    <path d="M13 58h120" stroke="#d9d1c2"/>
+    <text x="13" y="73" fill="#4d584f" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">PRICE PER METRE</text>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="174" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5">PP-R · 25 MM · PER METRE</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">PLUMBING / 01</text>
+</svg>

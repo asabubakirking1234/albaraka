@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al Baraka — Sotuvchi paneli</title>
+  <meta name="description" content="Al Baraka Qurilish Mollari — sotuvchi paneli.">
+  <meta name="theme-color" content="#1d2922">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <div class="login" id="loginView">
+    <div class="login__visual">
+      <div class="login__grid" aria-hidden="true"></div>
+      <div class="login__visual-top">
+        <a class="admin-brand admin-brand--light" href="/">
+          <span class="admin-brand__mark">A</span>
+          <span class="admin-brand__text">
+            <strong>AL BARAKA</strong>
+            <small data-i18n="brandTagline">Qurilish mollari</small>
+          </span>
+        </a>
+        <span class="login__tag" data-i18n="adminSecure">Faqat sotuvchilar uchun</span>
+      </div>
+      <div class="login__hero">
+        <p class="admin-kicker light" data-i18n="adminLoginKicker">AL BARAKA · SOTUVCHI</p>
+        <h1><span data-i18n="loginWord1">Buyurtma.</span><br><span data-i18n="loginWord2">Qoldiq.</span><br><span class="accent" data-i18n="loginWord3">Nazorat.</span></h1>
+        <p data-i18n="adminLoginSub">Buyurtmalar, qoldiq va narxlarni boshqarish uchun tizimga kiring.</p>
+      </div>
+      <div class="login__foot">
+        <div class="login__feature">
+          <span>01</span>
+          <strong data-i18n="adminNavOrders">Buyurtmalar</strong>
+        </div>
+        <div class="login__feature">
+          <span>02</span>
+          <strong data-i18n="adminNavProducts">Mahsulotlar</strong>
+        </div>
+        <div class="login__feature">
+          <span>03</span>
+          <strong data-i18n="adminNavSettings">Sozlamalar</strong>
+        </div>
+        <a href="/" class="login__site-link">
+          <span data-i18n="adminBack">Saytga qaytish</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="login__panel">
+      <div class="login__lang">
+        <div class="lang-switch lang-switch--dark" role="group" aria-label="Til / Язык">
+          <button type="button" data-lang="uz" class="is-active">UZ</button>
+          <span>/</span>
+          <button type="button" data-lang="ru">RU</button>
+        </div>
+      </div>
+      <form class="login__form" id="loginForm" novalidate>
+        <span class="login__mark" aria-hidden="true">A</span>
+        <p class="admin-kicker" data-i18n="adminSecure">Faqat sotuvchilar uchun</p>
+        <h2 data-i18n="adminLoginTitle">Panelga kirish</h2>
+        <p class="login__sub" data-i18n="adminLoginSub">Buyurtmalar, qoldiq va narxlarni boshqarish uchun tizimga kiring.</p>
+
+        <label class="admin-field">
+          <span data-i18n="adminUser">Login</span>
+          <input type="text" id="loginUser" name="username" autocomplete="username" required maxlength="60" autofocus>
+        </label>
+        <label class="admin-field">
+          <span data-i18n="adminPass">Parol</span>
+          <div class="password-wrap">
+            <input type="password" id="loginPass" name="password" autocomplete="current-password" required maxlength="120">
+            <button type="button" class="password-toggle" id="loginPassToggle" aria-label="Parolni ko‘rsatish">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.6"></circle></svg>
+            </button>
+          </div>
+        </label>
+        <div class="admin-error" id="loginError" hidden></div>
+        <button type="submit" class="admin-btn admin-btn--primary admin-btn--wide" id="loginBtn">
+          <span data-i18n="adminLoginBtn">Kirish</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+        </button>
+        <p class="login__hint" data-i18n="adminLoginHint">Login va parolni do'kon egasidan oling.</p>
+      </form>
+      <a href="/" class="login__back">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m11 6-6 6 6 6"></path></svg>
+        <span data-i18n="adminBack">Saytga qaytish</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="admin-shell" id="dashboardView" hidden>
+    <aside class="sidebar">
+      <a class="admin-brand admin-brand--light" href="/">
+        <span class="admin-brand__mark">A</span>
+        <span class="admin-brand__text">
+          <strong>AL BARAKA</strong>
+          <small data-i18n="brandTagline">Qurilish mollari</small>
+        </span>
+      </a>
+
+      <nav class="sidebar__nav" aria-label="Sotuvchi paneli">
+        <button type="button" class="side-link is-active" data-tab="orders">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v15H5z"></path><path d="M8.5 9h7M8.5 13h7M8.5 17h4"></path></svg>
+          <span data-i18n="adminNavOrders">Buyurtmalar</span>
+          <b class="side-badge" id="navNewBadge" hidden>0</b>
+        </button>
+        <button type="button" class="side-link" data-tab="products">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4v9l-8 4-8-4z"></path><path d="m4 8 8 4 8-4M12 12v9"></path></svg>
+          <span data-i18n="adminNavProducts">Mahsulotlar</span>
+        </button>
+        <button type="button" class="side-link" data-tab="settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg>
+          <span data-i18n="adminNavSettings">Sozlamalar</span>
+        </button>
+      </nav>
+
+      <div class="sidebar__bottom">
+        <a class="sidebar__site" href="/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"></path><path d="M20 4 10 14"></path><path d="M19 13v6H5V5h6"></path></svg>
+          <span data-i18n="adminViewSite">Saytni ochish</span>
+        </a>
+        <div class="sidebar__user">
+          <span class="sidebar__avatar">A</span>
+          <div>
+            <strong id="adminUser">admin</strong>
+            <span data-i18n="adminSecure">Faqat sotuvchilar uchun</span>
+          </div>
+          <button type="button" class="sidebar__logout" id="logoutBtn" data-i18n-title="adminLogout" aria-label="Chiqish">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="m16 17 5-5-5-5M21 12H9"></path></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-topbar__title">
+          <p id="todayLabel"></p>
+          <h1 id="pageTitle" data-i18n="adminOrdersTitle">Buyurtmalar</h1>
+        </div>
+        <div class="admin-topbar__actions">
+          <div class="lang-switch lang-switch--dark" role="group" aria-label="Til / Язык">
+            <button type="button" data-lang="uz" class="is-active">UZ</button>
+            <span>/</span>
+            <button type="button" data-lang="ru">RU</button>
+          </div>
+          <a class="admin-btn admin-btn--ghost admin-btn--sm" href="/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"></path><path d="M20 4 10 14"></path><path d="M19 13v6H5V5h6"></path></svg>
+            <span data-i18n="adminViewSite">Saytni ochish</span>
+          </a>
+        </div>
+      </header>
+
+      <main class="admin-content">
+        <section class="tab-panel" id="tab-orders">
+          <div class="stats-grid">
+            <article class="stat-card stat-card--accent">
+              <div class="stat-card__top">
+                <span data-i18n="adminStatsNew">Yangi buyurtmalar</span>
+                <span class="stat-card__icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v15H5z"></path><path d="M8.5 9h7M8.5 13h7"></path></svg>
+                </span>
+              </div>
+              <strong id="statNewOrders">0</strong>
+              <small id="statNewSub">—</small>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card__top">
+                <span data-i18n="adminStatsToday">Bugungi buyurtmalar</span>
+                <span class="stat-card__icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>
+                </span>
+              </div>
+              <strong id="statToday">0</strong>
+              <small id="statTodaySub">—</small>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card__top">
+                <span data-i18n="adminStatsRevenue">Yakunlangan savdo</span>
+                <span class="stat-card__icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V9M10 18V5M16 18v-6M22 18H2"></path></svg>
+                </span>
+              </div>
+              <strong id="statRevenue" class="stat-card__money">0</strong>
+              <small data-i18n="adminStatsRevenue">Yakunlangan savdo</small>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card__top">
+                <span data-i18n="adminStatsLow">Kam qoldiq</span>
+                <span class="stat-card__icon stat-card__icon--warn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2z"></path><path d="M12 9v5M12 17.5v.5"></path></svg>
+                </span>
+              </div>
+              <strong id="statLowStock">0</strong>
+              <small id="statProductsCount">—</small>
+            </article>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head">
+              <div>
+                <div class="panel__title-row">
+                  <h2 data-i18n="adminOrdersTitle">Buyurtmalar</h2>
+                  <span class="count-badge" id="ordersCountBadge">0</span>
+                </div>
+                <p data-i18n="adminOrdersSub">Kim, qayerdan va qanday olishi — barchasi shu yerda.</p>
+              </div>
+              <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="refreshOrders">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M4 18v-5h5"></path><path d="M6.1 9A7 7 0 0 1 19 8l1 3M18 15a7 7 0 0 1-12.9 1L4 13"></path></svg>
+                <span data-i18n="adminRefresh">Yangilash</span>
+              </button>
+            </div>
+
+            <div class="orders-toolbar">
+              <div class="filter-tabs" id="orderStatusChips"></div>
+              <label class="admin-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+                <input type="search" id="orderSearch" data-i18n-placeholder="adminSearchOrders" placeholder="Buyurtma, ism yoki telefon...">
+              </label>
+            </div>
+
+            <div class="orders-list" id="ordersList"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-products" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <div>
+                <div class="panel__title-row">
+                  <h2 data-i18n="adminProductsTitle">Mahsulotlar</h2>
+                  <span class="count-badge" id="productsCountBadge">0</span>
+                </div>
+                <p data-i18n="adminProductsSub">Nomi, narxi, qoldig'i va rasmini boshqaring.</p>
+              </div>
+              <div class="panel__actions">
+                <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="manageCategoriesBtn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7v7H4zM13 5h7v7h-7zM4 14h7v6H4zM13 14h7v6h-7z"></path></svg>
+                  <span data-i18n="adminManageCategories">Kategoriyalar</span>
+                </button>
+                <button type="button" class="admin-btn admin-btn--primary admin-btn--sm" id="addProductBtn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+                  <span data-i18n="adminAddProduct">Mahsulot qo'shish</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="products-toolbar">
+              <label class="admin-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+                <input type="search" id="productSearch" data-i18n-placeholder="adminSearchProducts" placeholder="Mahsulot qidirish...">
+              </label>
+              <label class="admin-select">
+                <select id="productCategoryFilter" aria-label="Kategoriya"></select>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg>
+              </label>
+            </div>
+
+            <div class="table-wrap">
+              <table class="product-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="adminProductCol">Mahsulot</th>
+                    <th data-i18n="adminCategoryCol">Kategoriya</th>
+                    <th data-i18n="adminPriceCol">Narx</th>
+                    <th data-i18n="adminStockCol">Qoldiq</th>
+                    <th data-i18n="adminStatusCol">Holat</th>
+                    <th class="ta-right" data-i18n="adminActions">Amallar</th>
+                  </tr>
+                </thead>
+                <tbody id="productsBody"></tbody>
+              </table>
+            </div>
+            <div class="admin-empty" id="productsEmpty" hidden>
+              <h3 data-i18n="adminNoProducts">Mahsulot topilmadi</h3>
+              <p data-i18n="adminSearchEmpty">Qidiruv bo'yicha mahsulot yo'q.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-settings" hidden>
+          <div class="settings-grid">
+            <form class="panel" id="settingsForm" novalidate>
+              <div class="panel__head">
+                <div>
+                  <h2 data-i18n="adminSettingsStore">Do'kon ma'lumotlari</h2>
+                  <p data-i18n="adminSettingsSub">Do'kon ma'lumotlari va kirish paroli.</p>
+                </div>
+              </div>
+              <div class="settings-form">
+                <label class="admin-field">
+                  <span data-i18n="adminPhone">Telefon 1</span>
+                  <input type="tel" id="stPhone" maxlength="30" required>
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminPhone2">Telefon 2</span>
+                  <input type="tel" id="stPhone2" maxlength="30">
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminAddressUz">Manzil (o'zbekcha)</span>
+                  <input type="text" id="stAddressUz" maxlength="180" required>
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminAddressRu">Manzil (ruscha)</span>
+                  <input type="text" id="stAddressRu" maxlength="180" required>
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminLandmarkUz">Mo'ljal (o'zbekcha)</span>
+                  <input type="text" id="stLandmarkUz" maxlength="160">
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminLandmarkRu">Mo'ljal (ruscha)</span>
+                  <input type="text" id="stLandmarkRu" maxlength="160">
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminHoursUz">Ish vaqti (o'zbekcha)</span>
+                  <input type="text" id="stHoursUz" maxlength="120" required>
+                </label>
+                <label class="admin-field">
+                  <span data-i18n="adminHoursRu">Ish vaqti (ruscha)</span>
+                  <input type="text" id="stHoursRu" maxlength="120" required>
+                </label>
+                <label class="admin-field admin-field--full">
+                  <span data-i18n="adminPickupNoteUz">Olib ketish izohi (o'zbekcha)</span>
+                  <textarea id="stPickupUz" rows="2" maxlength="400"></textarea>
+                </label>
+                <label class="admin-field admin-field--full">
+                  <span data-i18n="adminPickupNoteRu">Olib ketish izohi (ruscha)</span>
+                  <textarea id="stPickupRu" rows="2" maxlength="400"></textarea>
+                </label>
+              </div>
+              <div class="admin-error" id="settingsError" hidden></div>
+              <div class="panel__foot">
+                <button type="submit" class="admin-btn admin-btn--primary" id="saveSettingsBtn">
+                  <span data-i18n="adminSaveSettings">Sozlamalarni saqlash</span>
+                </button>
+              </div>
+            </form>
+
+            <div class="settings-side">
+              <form class="panel" id="passwordForm" novalidate>
+                <div class="panel__head">
+                  <div>
+                    <h2 data-i18n="adminPassword">Parolni o'zgartirish</h2>
+                    <p data-i18n="adminPasswordSub">Xavfsizlik uchun kamida 8 belgidan foydalaning.</p>
+                  </div>
+                </div>
+                <div class="settings-form settings-form--single">
+                  <label class="admin-field">
+                    <span data-i18n="adminCurrentPassword">Joriy parol</span>
+                    <input type="password" id="pwCurrent" autocomplete="current-password" required maxlength="120">
+                  </label>
+                  <label class="admin-field">
+                    <span data-i18n="adminNewPassword">Yangi parol</span>
+                    <input type="password" id="pwNew" autocomplete="new-password" required minlength="8" maxlength="120">
+                  </label>
+                  <label class="admin-field">
+                    <span data-i18n="adminRepeatPassword">Yangi parolni takrorlang</span>
+                    <input type="password" id="pwRepeat" autocomplete="new-password" required minlength="8" maxlength="120">
+                  </label>
+                </div>
+                <div class="admin-error" id="passwordError" hidden></div>
+                <div class="panel__foot">
+                  <button type="submit" class="admin-btn admin-btn--dark" id="changePasswordBtn">
+                    <span data-i18n="adminChangePassword">Parolni yangilash</span>
+                  </button>
+                </div>
+              </form>
+
+              <div class="settings-note">
+                <span class="settings-note__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7v.5"></path></svg>
+                </span>
+                <div>
+                  <strong data-i18n="adminSecure">Faqat sotuvchilar uchun</strong>
+                  <p data-i18n="adminLoginHint">Login va parolni do'kon egasidan oling.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <section class="panel drivers-panel">
+            <div class="panel__head">
+              <div>
+                <h2 data-i18n="adminDriversTitle">Yetkazib berish haydovchilari</h2>
+                <p data-i18n="adminDriversSub">Mijozlar qo'ng'iroq qiladigan haydovchilar ro'yxati.</p>
+              </div>
+              <button type="button" class="admin-btn admin-btn--primary admin-btn--sm" id="addDriverBtn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+                <span data-i18n="adminAddDriver">Haydovchi qo'shish</span>
+              </button>
+            </div>
+            <div class="drivers-list" id="driversList"></div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="admin-footer">
+        <span>AL BARAKA · 2026</span>
+        <a href="/" target="_blank" rel="noopener" data-i18n="adminViewSite">Saytni ochish</a>
+      </footer>
+    </div>
+  </div>
+
+  <dialog class="admin-modal" id="productModal">
+    <form class="product-modal" id="productForm" novalidate>
+      <div class="admin-modal__head">
+        <div>
+          <p class="admin-kicker" data-i18n="adminProductsTitle">Mahsulotlar</p>
+          <h2 id="productModalTitle" data-i18n="adminNewProduct">Yangi mahsulot</h2>
+        </div>
+        <button type="button" class="admin-icon-btn" data-close-modal aria-label="Yopish">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+
+      <div class="product-form">
+        <div class="image-field">
+          <span class="admin-field__label" data-i18n="adminImage">Mahsulot rasmi</span>
+          <div class="image-drop" id="imageDrop" tabindex="0" role="button" aria-label="Rasm tanlash">
+            <img id="productImagePreview" src="/assets/img/box.svg" alt="">
+            <span class="image-drop__overlay">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16.5 9 11l4 4 2-2 5 5"></path><circle cx="15.5" cy="7.5" r="1.4"></circle><path d="M3.5 4.5h17v15h-17z"></path></svg>
+              <span data-i18n="adminReplaceImage">Rasmni almashtirish</span>
+            </span>
+          </div>
+          <input type="file" id="productImageInput" accept="image/jpeg,image/png,image/webp" hidden>
+          <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm image-choose" id="chooseImageBtn">
+            <span data-i18n="adminChooseImage">Rasm tanlash</span>
+          </button>
+          <p class="admin-hint" data-i18n="adminImageHint">JPG, PNG yoki WebP. 3 MB gacha. Avtomatik siqiladi.</p>
+        </div>
+
+        <div class="product-fields">
+          <div class="admin-form-row">
+            <label class="admin-field">
+              <span data-i18n="adminProductNameUz">Nomi (o'zbekcha)</span>
+              <input type="text" id="pfNameUz" maxlength="90" required>
+            </label>
+            <label class="admin-field">
+              <span data-i18n="adminProductNameRu">Nomi (ruscha)</span>
+              <input type="text" id="pfNameRu" maxlength="90" required>
+            </label>
+          </div>
+          <div class="admin-form-row admin-form-row--3">
+            <label class="admin-field">
+              <span data-i18n="adminCategory">Kategoriya</span>
+              <select id="pfCategory" required></select>
+            </label>
+            <label class="admin-field">
+              <span data-i18n="adminUnit">O'lchov birligi</span>
+              <select id="pfUnit" required></select>
+            </label>
+            <label class="admin-field">
+              <span data-i18n="adminActive">Saytda ko'rinadi</span>
+              <span class="switch-row">
+                <input type="checkbox" id="pfActive" class="switch-input">
+                <span class="switch-ui" aria-hidden="true"></span>
+                <span class="switch-text" id="pfActiveText">Faol</span>
+              </span>
+            </label>
+          </div>
+          <div class="admin-form-row">
+            <label class="admin-field">
+              <span data-i18n="adminPrice">Narx, so'm</span>
+              <input type="number" id="pfPrice" min="0" max="1000000000" step="1000" required>
+            </label>
+            <label class="admin-field">
+              <span data-i18n="adminStockQty">Ombordagi miqdor</span>
+              <input type="number" id="pfStock" min="0" max="1000000" step="1" required>
+            </label>
+          </div>
+          <div class="admin-form-row">
+            <label class="admin-field">
+              <span data-i18n="adminDescUz">Tavsif (o'zbekcha)</span>
+              <textarea id="pfDescUz" rows="3" maxlength="800"></textarea>
+            </label>
+            <label class="admin-field">
+              <span data-i18n="adminDescRu">Tavsif (ruscha)</span>
+              <textarea id="pfDescRu" rows="3" maxlength="800"></textarea>
+            </label>
+          </div>
+          <div class="admin-error" id="productFormError" hidden></div>
+        </div>
+      </div>
+
+      <div class="admin-modal__foot">
+        <button type="button" class="admin-btn admin-btn--ghost" data-close-modal data-i18n="adminCancel">Bekor qilish</button>
+        <button type="submit" class="admin-btn admin-btn--primary" id="saveProductBtn">
+          <span data-i18n="adminSave">Saqlash</span>
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="admin-modal" id="categoryModal">
+    <div class="product-modal category-modal">
+      <div class="admin-modal__head">
+        <div>
+          <p class="admin-kicker" data-i18n="adminProductsTitle">Mahsulotlar</p>
+          <h2 data-i18n="adminManageCategories">Kategoriyalar</h2>
+        </div>
+        <button type="button" class="admin-icon-btn" data-close-modal aria-label="Yopish">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+
+      <div class="category-manager">
+        <div class="category-manager__list-wrap">
+          <div class="category-manager__list-head">
+            <span data-i18n="adminManageCategories">Kategoriyalar</span>
+            <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="newCategoryBtn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+              <span data-i18n="adminAddCategory">Kategoriya qo'shish</span>
+            </button>
+          </div>
+          <div class="category-list" id="categoryList"></div>
+        </div>
+
+        <form class="category-form" id="categoryForm" novalidate>
+          <div class="category-form__head">
+            <h3 id="categoryFormTitle" data-i18n="adminAddCategory">Kategoriya qo'shish</h3>
+            <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="cancelCategoryEdit" hidden>
+              <span data-i18n="adminCancel">Bekor qilish</span>
+            </button>
+          </div>
+          <div class="category-form__body">
+            <div class="admin-form-row">
+              <label class="admin-field">
+                <span data-i18n="adminCategoryNameUz">Nomi (o'zbekcha)</span>
+                <input type="text" id="cfNameUz" maxlength="60" required>
+              </label>
+              <label class="admin-field">
+                <span data-i18n="adminCategoryNameRu">Nomi (ruscha)</span>
+                <input type="text" id="cfNameRu" maxlength="60" required>
+              </label>
+            </div>
+            <div class="admin-form-row">
+              <label class="admin-field">
+                <span data-i18n="adminCategoryBlurbUz">Qisqa izoh (o'zbekcha)</span>
+                <input type="text" id="cfBlurbUz" maxlength="120">
+              </label>
+              <label class="admin-field">
+                <span data-i18n="adminCategoryBlurbRu">Qisqa izoh (ruscha)</span>
+                <input type="text" id="cfBlurbRu" maxlength="120">
+              </label>
+            </div>
+            <div class="category-image-row">
+              <div class="image-drop category-image-drop" id="categoryImageDrop" tabindex="0" role="button" aria-label="Rasm tanlash">
+                <img id="categoryImagePreview" src="/assets/img/box.svg" alt="">
+                <span class="image-drop__overlay">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16.5 9 11l4 4 2-2 5 5"></path><circle cx="15.5" cy="7.5" r="1.4"></circle><path d="M3.5 4.5h17v15h-17z"></path></svg>
+                  <span data-i18n="adminReplaceImage">Rasmni almashtirish</span>
+                </span>
+              </div>
+              <div>
+                <span class="admin-field__label" data-i18n="adminCategoryImage">Kategoriya rasmi</span>
+                <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" id="chooseCategoryImageBtn">
+                  <span data-i18n="adminChooseImage">Rasm tanlash</span>
+                </button>
+                <p class="admin-hint" data-i18n="adminImageHint">JPG, PNG yoki WebP. 3 MB gacha. Avtomatik siqiladi.</p>
+              </div>
+              <input type="file" id="categoryImageInput" accept="image/jpeg,image/png,image/webp" hidden>
+            </div>
+            <div class="admin-error" id="categoryFormError" hidden></div>
+          </div>
+          <div class="category-form__foot">
+            <button type="submit" class="admin-btn admin-btn--primary" id="saveCategoryBtn">
+              <span data-i18n="adminSave">Saqlash</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="admin-modal" id="driverModal">
+    <form class="driver-modal" id="driverForm" novalidate>
+      <div class="admin-modal__head">
+        <div>
+          <p class="admin-kicker" data-i18n="adminDriversTitle">Yetkazib berish haydovchilari</p>
+          <h2 id="driverFormTitle" data-i18n="adminAddDriver">Haydovchi qo'shish</h2>
+        </div>
+        <button type="button" class="admin-icon-btn" data-close-modal aria-label="Yopish">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <div class="driver-form-body">
+        <div class="admin-form-row">
+          <label class="admin-field">
+            <span data-i18n="adminDriverName">Ismi</span>
+            <input type="text" id="dfName" maxlength="70" required>
+          </label>
+          <label class="admin-field">
+            <span data-i18n="adminDriverPhone">Telefon raqami</span>
+            <input type="tel" id="dfPhone" maxlength="30" required>
+          </label>
+        </div>
+        <div class="admin-form-row">
+          <label class="admin-field">
+            <span data-i18n="adminDriverArea">Hudud / yo'nalish</span>
+            <input type="text" id="dfArea" maxlength="100">
+          </label>
+          <label class="admin-field">
+            <span data-i18n="adminDriverActive">Mijozlarga ko'rinadi</span>
+            <span class="switch-row">
+              <input type="checkbox" id="dfActive" class="switch-input" checked>
+              <span class="switch-ui" aria-hidden="true"></span>
+              <span class="switch-text" id="dfActiveText">Faol</span>
+            </span>
+          </label>
+        </div>
+        <label class="admin-field">
+          <span data-i18n="adminDriverNote">Izoh (mashina, vaqt...)</span>
+          <textarea id="dfNote" rows="2" maxlength="220"></textarea>
+        </label>
+        <div class="admin-error" id="driverFormError" hidden></div>
+      </div>
+      <div class="admin-modal__foot">
+        <button type="button" class="admin-btn admin-btn--ghost" data-close-modal data-i18n="adminCancel">Bekor qilish</button>
+        <button type="submit" class="admin-btn admin-btn--primary" id="saveDriverBtn">
+          <span data-i18n="adminSave">Saqlash</span>
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="admin-modal admin-modal--confirm" id="confirmModal">
+    <div class="confirm-card">
+      <span class="confirm-card__icon" id="confirmIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m12 3 10 18H2z"></path><path d="M12 9v5M12 17.5v.5"></path></svg>
+      </span>
+      <h2 id="confirmTitle">—</h2>
+      <p id="confirmText">—</p>
+      <div class="confirm-card__actions">
+        <button type="button" class="admin-btn admin-btn--ghost" id="confirmCancel" data-i18n="adminCancel">Bekor qilish</button>
+        <button type="button" class="admin-btn admin-btn--danger" id="confirmOk">—</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="admin-toast-region" id="adminToastRegion" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

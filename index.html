@@ -1,1317 +1,644 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0f172a">
-<title>Al Baraka — Virtual Do'kon</title>
-<style>
-:root {
-  --primary: #f97316;
-  --primary-hover: #ea580c;
-  --bg-dark: #0f172a;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
-  --glass-bg: rgba(15, 23, 42, 0.85);
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
-}
-body {
-  font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; color: var(--text-main);
-  background: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
-  background-size: cover; min-height: 100vh; -webkit-tap-highlight-color: transparent;
-}
-body::before { 
-  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)); 
-  z-index: -1; 
-}
-*{box-sizing:border-box;} a{text-decoration:none;color:inherit;} button{font-family:inherit;cursor:pointer;border:none;transition:all 0.25s ease;}
-.header { background: var(--glass-bg); color: #fff; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: var(--shadow-sm); }
-.header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; flex-wrap: wrap; gap: 10px;}
-.logo { font-size: 1.3rem; font-weight: 900; display: flex; align-items: center; gap: 10px; color:#fff; }
-.logo-img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
-.logo span { color: #fbbf24; }
-.nav-btns { display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 10px;}
-.btn-nav { padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; color: #cbd5e1; background: transparent; }
-.btn-nav:hover { background: rgba(255,255,255,0.1); color: #fff; }
-.btn-nav.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
-.header-actions { display: flex; gap: 8px; align-items: center; }
-.lang-switch { display: flex; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 2px; margin-right: 5px;}
-.lang-btn { background: transparent; color: #cbd5e1; padding: 6px 10px; border-radius: 6px; font-weight: 800; font-size: 0.8rem;}
-.lang-btn.active { background: #fff; color: var(--bg-dark); }
-.login-btn { background: rgba(239, 68, 68, 0.9); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); }
-.login-btn:hover { background: #dc2626; transform: translateY(-2px); }
-.cart-btn-hdr { background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: none; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);}
-.cart-btn-hdr:hover { background: var(--primary-hover); transform: translateY(-2px); }
-.main-container { max-width: 1100px; margin: 25px auto; background: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2000&auto=format&fit=crop') no-repeat center center; background-size: cover; border-radius: 24px; padding: 25px; box-shadow: var(--shadow-lg); min-height: 80vh; position: relative; }
-.search-bar { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--border-color); font-size: 0.95rem; margin-bottom: 25px; outline: none; background: rgba(255,255,255,0.95); transition: all 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);}
-.search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249,115,22,0.15); background: #fff; }
-.section-title { font-size: 1.25rem; font-weight: 800; margin: 30px 0 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
-.section-title::before { content: ""; display: block; width: 6px; height: 24px; background: var(--primary); border-radius: 4px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-.product { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; position: relative; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s; }
-.product:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-color: #fdba74; }
-.product-media { width: 100%; height: 130px; border-radius: 12px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border: 1px solid #f1f5f9;}
-.product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;}
-.product:hover .product-img { transform: scale(1.05); }
-.product-icon { font-size: 3.5rem; }
-.product-name { font-size: 0.9rem; font-weight: 700; margin: 4px 0 0 0; line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
-.stock { font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; align-self: flex-start; background: #dcfce7; color: #15803d; }
-.stock.low { background: #fef3c7; color: #b45309; }
-.stock.out { background: #fee2e2; color: #b91c1c; }
-.product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px;}
-.price { font-size: 1rem; font-weight: 900; color: #b91c1c; }
-.price small { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
-.btn-add { background: var(--text-main); color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; }
-.btn-add:hover { background: var(--primary); }
-.history-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-sm); position: relative;}
-.history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 15px;}
-.history-title { font-weight: 800; color: var(--text-main); font-size: 1.1rem;}
-.history-date { font-size: 0.8rem; color: var(--text-muted);}
-.history-items { font-size: 0.9rem; color: #475569; margin-bottom: 15px;}
-.history-total { font-weight: 900; color: var(--primary); font-size: 1.2rem; text-align: right;}
-.btn-del-history { background: #fee2e2; color: #dc2626; padding: 8px 12px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; position: absolute; top: 15px; right: 15px; z-index: 2;}
-.btn-del-history:hover { background: #fca5a5; }
-.status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; margin-bottom: 10px;}
-.status-new { background: #fef3c7; color: #b45309; }
-.status-done { background: #dcfce7; color: #15803d; }
-.mdf-box { background: var(--bg-dark); color: #fff; border-radius: 20px; padding: 25px; margin-top: 40px; }
-.mdf-box h2 { margin-top: 0; color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px;}
-.mdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.mdf-form input, .mdf-form select { width: 100%; padding: 10px 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #475569; background: #1e293b; color: #fff; outline: none; font-size: 0.9rem; }
-.mdf-form label { font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 5px; font-weight: 600;}
-.btn-calc { background: var(--primary); color: #fff; width: 100%; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 10px; }
-.btn-calc:hover { background: var(--primary-hover); }
-.mdf-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid #475569; font-size: 0.9rem; display: flex; flex-direction: column; justify-content: center;}
-.res-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #475569; }
-.res-row:last-child { border: none; }
-.res-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; color: #fbbf24; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary); }
-.about-box { text-align: center; padding: 30px 10px; }
-.contact-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top:30px;}
-.contact-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; min-width: 220px; box-shadow: var(--shadow-sm); }
-.contact-card .icon { font-size: 2.5rem; margin-bottom: 15px; }
-.contact-card h3 { margin: 0 0 8px 0; color: var(--text-main); font-size: 1.1rem; }
-.contact-card p { margin: 0; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
-#sellerView { display: none; background: rgba(255,255,255,0.95); padding: 20px; border-radius: 16px;}
-.seller-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; flex-wrap: wrap; }
-.seller-tab { background: transparent; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); padding: 10px 20px; border-radius: 10px;}
-.seller-tab.active { background: var(--text-main); color: #fff; }
-.order-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #ef4444; box-shadow: var(--shadow-sm); position: relative;}
-.order-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;}
-.order-client { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px;}
-.order-details { font-size: 0.9rem; color: #475569; margin: 5px 0 15px 0; line-height: 1.5;}
-.order-items { background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 0.9rem; border: 1px solid #e2e8f0;}
-.order-total { font-weight: 900; font-size: 1.1rem; color: var(--primary); text-align: right; margin-top: 10px; }
-.btn-complete { background: #10b981; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; margin-top: 10px; display: inline-block; border: none;}
-.btn-receipt { background: #3b82f6; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; margin-top: 10px; display: inline-block; border: none; margin-left: 10px;}
-.product-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem;}
-.product-table th, .product-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle;}
-.product-table th { background: #f8fafc; font-weight: 700; color: var(--text-main); position: sticky; top: 0;}
-.product-table input[type="number"] { width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; outline:none;}
-.product-table input[type="text"] { width: 100%; min-width: 80px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.8rem; outline:none;}
-.btn-save-edits { background: #10b981; color: #fff; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; margin-top: 20px; display: block; width: 100%; }
-.add-product-box { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 25px; margin-top: 30px; }
-.add-product-box h3 { margin-top: 0; color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;}
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text-main); }
-.form-group input, .form-group select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline:none; background: #fff;}
-.btn-add-new { background: var(--primary); color: #fff; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; margin-top: 15px; grid-column: span 2; }
-.cat-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.cat-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); }
-.cat-item span { font-weight: 700; font-size: 1rem; color: var(--text-main);}
-.btn-del-cat { background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor:pointer;}
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 100; }
-.modal.open { display: flex; }
-.modal-content { background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; }
-.modal-content input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.95rem; outline:none;}
-.btn-primary { background: var(--text-main); color: #fff; width: 100%; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 1rem; }
-.btn-close { background: #f1f5f9; color: var(--text-muted); margin-top: 10px; }
-.err-msg { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 600; background: #fee2e2; padding: 10px; border-radius: 8px;}
-.detail-media { width: 100%; height: 220px; border-radius: 16px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border-color);}
-.detail-img { width: 100%; height: 100%; object-fit: cover; }
-.detail-icon { font-size: 7rem; }
-.detail-title { font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin-bottom: 5px; text-align: left; }
-.detail-cat { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: left; font-weight: 600; text-transform: uppercase; }
-.detail-desc { font-size: 0.95rem; color: #475569; margin-bottom: 20px; line-height: 1.5; text-align: left; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;}
-.detail-price { font-size: 1.5rem; font-weight: 900; color: #b91c1c; margin-bottom: 10px; }
-.receipt-box { font-family: 'Courier New', Courier, monospace; text-align: left; color: #000; background: #fff; padding: 20px; border-radius: 8px; border: 1px dashed #cbd5e1;}
-.receipt-header { text-align: center; margin-bottom: 10px;}
-.receipt-divider { border-top: 1px dashed #000; margin: 10px 0;}
-.receipt-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;}
-.receipt-total { font-weight: bold; font-size: 1rem; text-align: right; margin-top: 10px;}
-.cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.15); transition: right 0.4s; z-index: 90; display: flex; flex-direction: column; }
-.cart-panel.open { right: 0; }
-.cart-head { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-.cart-close-btn { background: #f1f5f9; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; font-size: 1.2rem; color: var(--text-muted); cursor:pointer;}
-.cart-items { flex-grow: 1; overflow-y: auto; padding: 20px; background: #f8fafc;}
-.cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 0.9rem; background: #fff; padding: 15px; border-radius: 12px; }
-.cart-foot { padding: 20px; border-top: 1px solid var(--border-color); background: #fff;}
-.btn-checkout { background: #25D366; color: #fff; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
-@media (max-width: 768px) {
-  .main-container { margin: 10px; padding: 15px; }
-  .mdf-grid, .form-grid { grid-template-columns: 1fr; }
-  .header-inner { flex-direction: column; align-items: stretch; gap: 15px;}
-  .nav-btns { justify-content: center; }
-  .btn-add-new { grid-column: span 1; }
-  .cart-panel { width: 100%; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al Baraka — Qurilish mollari | Toshkent</title>
+  <meta name="description" content="Al Baraka Qurilish Mollari — sement, bo'yoq, santexnika, gips va elektrotexnika. Onlayn katalog, real vaqtdagi qoldiq, olib ketish yoki haydovchi orqali yetkazish. Toshkent, Chilonzor.">
+  <meta name="theme-color" content="#1e2a23">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Al Baraka — Qurilish mollari">
+  <meta property="og:description" content="Sement, bo'yoq, santexnika, gips va elektrotexnika. Onlayn katalog va real vaqtdagi qoldiq. Olib ketish yoki haydovchi orqali yetkazish.">
+  <meta property="og:locale" content="uz_UZ">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:image" content="/assets/img/hero.svg">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/app.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#catalog" data-i18n="navCatalog">Katalog</a>
 
-<header class="header">
-  <div class="header-inner">
-    <div class="logo">
-      <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=100&auto=format&fit=crop" class="logo-img" alt="Santexnika">
-      Al <span>Baraka</span>
-    </div>
-    <div class="nav-btns">
-      <button class="btn-nav active" id="btnClient" onclick="switchView('client')" data-i18n="nav_catalog">🛒 Katalog</button>
-      <button class="btn-nav" id="btnHistory" onclick="switchView('history')" data-i18n="nav_history">📋 Buyurtmalarim</button>
-      <button class="btn-nav" id="btnAbout" onclick="switchView('about')" data-i18n="nav_about">📞 Aloqa</button>
-    </div>
-    <div class="header-actions">
-      <div class="lang-switch">
-        <button class="lang-btn active" id="btnUz" onclick="setLang('uz')">UZ</button>
-        <button class="lang-btn" id="btnRu" onclick="setLang('ru')">RU</button>
+  <div class="topbar">
+    <div class="container topbar__in">
+      <div class="topbar__left">
+        <span class="topbar__dot" aria-hidden="true"></span>
+        <span data-i18n="topbarPickup">Olib ketish + haydovchi orqali yetkazish</span>
+        <span class="topbar__sep" aria-hidden="true"></span>
+        <span class="topbar__hours" data-i18n="topbarHours">Dush–Shan, 08:00–19:00</span>
       </div>
-      <button class="login-btn" id="loginBtnHeader" onclick="openLogin()" data-i18n="nav_seller">🔐 Sotuvchi</button>
-      <button class="cart-btn-hdr" onclick="openCart()"><span data-i18n="nav_cart">🛍 Savat</span> (<span id="cartCount">0</span>)</button>
-    </div>
-  </div>
-</header>
-
-<div class="main-container">
-  <div id="catalogView">
-    <input type="text" id="clientSearch" class="search-bar" placeholder="🔍 Mahsulot nomini yozing..." oninput="searchClient()" data-i18n-ph="search_ph">
-    <div id="catalogContainer"></div>
-    
-    <div class="mdf-box" id="mdfSection">
-      <h2 data-i18n="mdf_title">✂️ MDF Kesish (CNC Router)</h2>
-      <div class="mdf-grid">
-        <div class="mdf-form">
-          <label data-i18n="mdf_w">Kengligi (sm)</label><input type="number" id="partW" value="60">
-          <label data-i18n="mdf_h">Uzunligi (sm)</label><input type="number" id="partH" value="80">
-          <label data-i18n="mdf_qty">Soni (dona)</label><input type="number" id="partQty" value="6">
-          <label data-i18n="mdf_sheet">List turi</label>
-          <select id="sheetType">
-            <option value="190000" data-i18n="mdf_sheet_1">Standart — 190 000</option>
-            <option value="230000" data-i18n="mdf_sheet_2">Premium — 230 000</option>
-            <option value="270000" data-i18n="mdf_sheet_3">Maxsus — 270 000</option>
-          </select>
-          <label data-i18n="mdf_cut">Murakkablik</label>
-          <select id="cutType">
-            <option value="50000" data-i18n="mdf_cut_1">To'g'ri — 50 000</option>
-            <option value="85000" data-i18n="mdf_cut_2">Egri — 85 000</option>
-            <option value="120000" data-i18n="mdf_cut_3">ArtCam — 120 000</option>
-          </select>
-          <button class="btn-calc" onclick="calcMDF()" data-i18n="mdf_btn">Hisoblash</button>
-        </div>
-        <div class="mdf-result" id="mdfResult">
-          <p style="color:#94a3b8; text-align:center; margin-top:30px;" data-i18n="mdf_res_ph">Natija...</p>
+      <div class="topbar__right">
+        <a class="topbar__phone" id="topbarPhone" href="tel:+998901234567">+998 90 123 45 67</a>
+        <div class="lang-switch" role="group" aria-label="Til / Язык">
+          <button type="button" data-lang="uz" class="is-active" aria-pressed="true">UZ</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="ru" aria-pressed="false">RU</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="historyView" style="display:none;">
-    <h2 class="section-title" data-i18n="history_title">Mening buyurtmalarim</h2>
-    <div id="clientHistoryContainer"></div>
-  </div>
+  <header class="site-header" id="siteHeader">
+    <div class="container header__in">
+      <a class="brand" href="/" aria-label="Al Baraka — bosh sahifa">
+        <span class="brand__mark" aria-hidden="true">A</span>
+        <span class="brand__text">
+          <strong>AL BARAKA</strong>
+          <small data-i18n="brandTagline">Qurilish mollari</small>
+        </span>
+      </a>
 
-  <div id="aboutView" style="display:none;">
-    <div class="about-box">
-      <h2 data-i18n="contact_title">Biz bilan bog'laning</h2>
-      <div class="contact-cards">
-        <div class="contact-card">
-          <div class="icon">📞</div><h3 data-i18n="contact_phone">Telefon</h3><p id="view-phone">+998 88 616 17 00</p>
-        </div>
-        <div class="contact-card">
-          <div class="icon">📍</div><h3 data-i18n="contact_addr">Manzil</h3><p id="view-address"></p>
-        </div>
-        <div class="contact-card">
-          <div class="icon">🕒</div><h3 data-i18n="contact_time">Ish vaqti</h3><p id="view-time"></p>
-        </div>
+      <nav class="main-nav" aria-label="Asosiy menyu">
+        <a href="#catalog" data-i18n="navCatalog">Katalog</a>
+        <a href="#how" data-i18n="navPickup">Qanday ishlaydi</a>
+        <a href="#delivery" data-i18n="navDelivery">Yetkazish</a>
+        <a href="#about" data-i18n="navAbout">Do'kon haqida</a>
+        <a href="#contacts" data-i18n="navContact">Aloqa</a>
+      </nav>
+
+      <div class="header__actions">
+        <button type="button" class="track-btn" id="trackBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+          <span data-i18n="trackOrder">Buyurtmani tekshirish</span>
+        </button>
+        <button type="button" class="cart-button" id="cartBtn" aria-controls="cartDrawer" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8h13l-1 12h-11z"></path><path d="M9 9V6.5a3 3 0 0 1 6 0V9"></path></svg>
+          <span class="cart-button__label" data-i18n="cart">Savat</span>
+          <span class="cart-button__count" id="cartCount">0</span>
+        </button>
+        <button type="button" class="menu-button" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Menyu">
+          <span></span><span></span>
+        </button>
       </div>
     </div>
+  </header>
+
+  <div class="mobile-scrim" id="mobileScrim" hidden></div>
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <nav aria-label="Mobil menyu">
+      <a href="#catalog" data-i18n="navCatalog">Katalog</a>
+      <a href="#how" data-i18n="navPickup">Qanday ishlaydi</a>
+      <a href="#delivery" data-i18n="navDelivery">Yetkazish</a>
+      <a href="#about" data-i18n="navAbout">Do'kon haqida</a>
+      <a href="#contacts" data-i18n="navContact">Aloqa</a>
+    </nav>
+    <div class="mobile-nav__bottom">
+      <button type="button" class="mobile-nav__track" data-open-track data-i18n="trackOrder">Buyurtmani tekshirish</button>
+      <a class="mobile-nav__phone" id="mobilePhone" href="tel:+998901234567">+998 90 123 45 67</a>
+    </div>
   </div>
 
-  <div id="sellerView">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-      <h2 style="margin:0; font-size:1.3rem; color: var(--text-main); font-weight:900;" data-i18n="seller_panel">Sotuvchi Paneli</h2>
-      <button class="login-btn" style="width:auto; padding:8px 16px;" onclick="logoutSeller()" data-i18n="btn_exit">Chiqish</button>
-    </div>
-
-    <div class="seller-tabs">
-      <button class="seller-tab active" id="tabOrders" onclick="switchSellerTab('orders')" data-i18n="tab_orders">📋 Zakazlar</button>
-      <button class="seller-tab" id="tabProducts" onclick="switchSellerTab('products')" data-i18n="tab_products">📦 Mahsulotlar</button>
-      <button class="seller-tab" id="tabCategories" onclick="switchSellerTab('categories')" data-i18n="tab_categories">📑 Qatorlar</button>
-      <button class="seller-tab" id="tabSettings" onclick="switchSellerTab('settings')" data-i18n="tab_settings">⚙️ Sozlamalar</button>
-    </div>
-
-    <div id="sellerTabContentOrders">
-      <div id="sellerOrdersList"></div>
-    </div>
-
-    <div id="sellerTabContentProducts" style="display:none;">
-      <input type="text" id="sellerSearch" class="search-bar" placeholder="🔍 Bazadan qidirish..." oninput="searchSeller()" data-i18n-ph="search_ph">
-      
-      <div style="overflow-x:auto; background:#fff; border-radius:12px; box-shadow:var(--shadow-sm); max-height:500px; overflow-y:auto;">
-        <table class="product-table">
-          <thead>
-            <tr>
-              <th data-i18n="tbl_img">Rasm</th>
-              <th data-i18n="tbl_icon">Ikonka</th>
-              <th data-i18n="tbl_name">Nomi</th>
-              <th data-i18n="tbl_cat">Qator</th>
-              <th data-i18n="tbl_price">Narxi</th>
-              <th data-i18n="tbl_stock">Soni</th>
-              <th data-i18n="tbl_url">Rasm URL</th>
-            </tr>
-          </thead>
-          <tbody id="sellerProductsTableBody"></tbody>
-        </table>
-      </div>
-      <button class="btn-save-edits" onclick="saveSellerChanges()" data-i18n="btn_save">💾 O'zgarishlarni Saqlash</button>
-
-      <div class="add-product-box">
-        <h3 data-i18n="add_title">➕ Yangi mahsulot qo'shish</h3>
-        <div class="form-grid">
-          <div class="form-group"><label data-i18n="tbl_name">Nomi</label><input type="text" id="newProdName" placeholder="Masalan: Kafel 30x30"></div>
-          <div class="form-group"><label data-i18n="tbl_cat">Qator (Kategoriya)</label>
-            <select id="newProdCat"></select>
+  <main>
+    <section class="hero">
+      <div class="hero__grid-bg" aria-hidden="true"></div>
+      <div class="container hero__in">
+        <div class="hero__copy">
+          <p class="eyebrow hero__eyebrow reveal">
+            <span class="eyebrow__line" aria-hidden="true"></span>
+            <span data-i18n="heroKicker">Qurilish mollari do'koni · Chilonzor</span>
+          </p>
+          <h1 class="hero__title reveal">
+            <span class="hero__line" data-i18n="heroTitle1">Poydevordan</span>
+            <span class="hero__line hero__line--accent" data-i18n="heroTitle2">tomgacha</span>
+            <span class="hero__line hero__line--outline" data-i18n="heroTitle3">bir joyda.</span>
+          </h1>
+          <p class="hero__lead reveal" data-i18n="heroLead">Sement, bo'yoq, santexnika, gips va elektrotexnika. Ombordagi qoldiqni saytda ko'ring, buyurtma bering — olib ketasiz yoki haydovchi bilan kelishib yetkazasiz.</p>
+          <div class="hero__actions reveal">
+            <a class="btn btn--primary" href="#catalog">
+              <span data-i18n="heroPrimary">Katalogni ko‘rish</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+            </a>
+            <a class="btn btn--ghost" href="#how" data-i18n="heroSecondary">Qanday ishlaydi?</a>
           </div>
-          <div class="form-group"><label data-i18n="tbl_icon">Ikonka (Emoji)</label><input type="text" id="newProdIcon" placeholder="📦" value="📦"></div>
-          <div class="form-group"><label data-i18n="tbl_price">Narxi</label><input type="number" id="newProdPrice" placeholder="100000"></div>
-          <div class="form-group"><label data-i18n="tbl_stock">Soni</label><input type="number" id="newProdStock" placeholder="50"></div>
-          <div class="form-group"><label data-i18n="tbl_url">Rasm URL (Internet havolasi)</label><input type="text" id="newProdImage" placeholder="https://example.com/rasm.jpg"></div>
-          <button class="btn-add-new" onclick="addNewProduct()" data-i18n="btn_add">Qo'shish</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="sellerTabContentCategories" style="display:none;">
-      <div class="add-product-box" style="margin-top: 0; margin-bottom: 20px; border-style: solid; background: #fff;">
-        <h3 data-i18n="add_cat">➕ Yangi qator qo'shish</h3>
-        <div class="form-grid" style="grid-template-columns: 1fr auto;">
-          <div class="form-group"><label data-i18n="cat_name">Qator nomi (UZ / RU)</label><input type="text" id="newCatName" placeholder="Masalan: Elektr tovarlari"></div>
-          <button class="btn-add-new" style="margin-top: 24px;" onclick="addNewCategory()" data-i18n="btn_add">Qo'shish</button>
-        </div>
-      </div>
-      
-      <div class="cat-list" id="categoriesList"></div>
-    </div>
-
-    <div id="sellerTabContentSettings" style="display:none;">
-      <div class="add-product-box" style="margin-top: 0; border-style: solid; background: #fff; margin-bottom: 20px;">
-        <h3 data-i18n="set_auth_title">🔐 Login va Parolni o'zgartirish</h3>
-        <div class="form-grid">
-          <div class="form-group"><label data-i18n="set_login">Yangi Login</label><input type="text" id="setNewLogin"></div>
-          <div class="form-group"><label data-i18n="set_pass">Yangi Parol</label><input type="password" id="setNewPass"></div>
-          <button class="btn-add-new" onclick="saveSellerAuth()" data-i18n="btn_save_auth">Kirish ma'lumotlarini saqlash</button>
-        </div>
-      </div>
-
-      <div class="add-product-box" style="margin-top: 0; border-style: solid; background: #fff;">
-        <h3 data-i18n="set_contact_title">📞 Aloqa (Kontakt) ma'lumotlarini o'zgartirish</h3>
-        <div class="form-grid">
-          <div class="form-group" style="grid-column: span 2;"><label data-i18n="contact_phone">Telefon</label><input type="text" id="setPhone"></div>
-          <div class="form-group"><label>Manzil (UZ)</label><input type="text" id="setAddressUz"></div>
-          <div class="form-group"><label>Адрес (RU)</label><input type="text" id="setAddressRu"></div>
-          <div class="form-group"><label>Ish vaqti (UZ)</label><input type="text" id="setTimeUz"></div>
-          <div class="form-group"><label>Время работы (RU)</label><input type="text" id="setTimeRu"></div>
-          <button class="btn-add-new" onclick="saveContactInfo()" data-i18n="btn_save_contact">Kontaktlarni saqlash</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="modal" id="loginModal">
-  <div class="modal-content">
-    <h2 style="margin-top:0; font-size:1.4rem; font-weight:900; color:var(--text-main);" data-i18n="login_title">Sotuvchi Kirish</h2>
-    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;" data-i18n="login_sub">Tizimga kirish uchun login va parolni kiriting.</p>
-    <div class="err-msg" id="loginErr" data-i18n="login_err">Login yoki parol xato!</div>
-    <input type="text" id="loginUser" placeholder="Login">
-    <input type="password" id="loginPass" placeholder="Parol">
-    <button class="btn-primary" onclick="checkSellerLogin()" data-i18n="login_btn">Kirish</button>
-    <button class="btn-primary btn-close" onclick="closeLogin()" data-i18n="btn_cancel">Bekor qilish</button>
-  </div>
-</div>
-
-<div class="modal" id="productDetailModal">
-  <div class="modal-content" style="text-align: left; padding: 25px;">
-    <button onclick="closeProductDetail()" style="position:absolute; top:15px; right:15px; background:#f1f5f9; border-radius:50%; width:36px; height:36px; font-size:1.2rem; color:#64748b; cursor:pointer; display:grid; place-items:center;">×</button>
-    <div class="detail-media" id="detailMediaContainer"></div>
-    <div class="detail-title" id="detailName"></div>
-    <div class="detail-cat" id="detailCat"></div>
-    <div class="detail-desc" id="detailDesc"></div>
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-      <div class="detail-price" id="detailPrice"></div>
-      <div id="detailStock" class="stock"></div>
-    </div>
-    <button class="btn-primary" onclick="addToCartFromModal()" id="detailAddBtn" style="background:var(--primary); box-shadow:0 4px 15px rgba(249,115,22,0.3);" data-i18n="btn_to_cart">Savatga qo'shish</button>
-  </div>
-</div>
-
-<div class="modal" id="receiptModal">
-  <div class="modal-content" style="padding: 15px;">
-    <div class="receipt-box" id="receiptBox"></div>
-    <button class="btn-primary" style="background: #25D366; margin-top: 15px;" onclick="sendToWhatsApp()">WhatsApp ga yuborish</button>
-    <button class="btn-primary btn-close" onclick="document.getElementById('receiptModal').classList.remove('open')" data-i18n="btn_close">Yopish</button>
-  </div>
-</div>
-
-<div class="cart-panel" id="cartPanel">
-  <div class="cart-head">
-    <h3 data-i18n="cart_title">🛍 Savat</h3>
-    <button class="cart-close-btn" onclick="closeCart()">×</button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-foot">
-    <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.2rem; color:var(--text-main);">
-      <span data-i18n="cart_total">Jami:</span><span id="cartTotal" style="color:var(--primary);">0 so'm</span>
-    </div>
-    <button class="btn-checkout" onclick="submitOrder()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.304.014.39-.086c.087-.1.448-.521.568-.699.12-.178.239-.148.404-.087.166.061 1.054.497 1.234.588.18.092.301.136.345.214.043.078.043.451-.101.856z"/></svg>
-      <span data-i18n="btn_checkout">Buyurtma berish</span>
-    </button>
-  </div>
-</div>
-
-<!-- FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-<script>
-// =========================================================
-// 🔥 SIZNING SHAXSIY FIREBASE KALITLARINGIZ
-// =========================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyAmSVuVe9EJw_dFUOFgHiF48kgGpbSBayI",
-  authDomain: "albaraka-store-d6ad5.firebaseapp.com",
-  projectId: "albaraka-store-d6ad5",
-  storageBucket: "albaraka-store-d6ad5.firebasestorage.app",
-  messagingSenderId: "640115480155",
-  appId: "1:640115480155:web:c2bd0e01e2385d5188117e"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-// =========================================================
-
-const APP_VERSION = "15.2"; 
-if (localStorage.getItem('app_version') !== APP_VERSION) {
-    localStorage.removeItem('albaraka_products'); 
-    localStorage.removeItem('albaraka_categories'); 
-    localStorage.setItem('app_version', APP_VERSION);
-}
-
-const TRANSLATIONS = {
-  uz: {
-    nav_catalog: "🛒 Katalog", nav_about: "📞 Aloqa", nav_seller: "🔐 Sotuvchi", nav_cart: "🛍 Savat",
-    nav_history: "📋 Buyurtmalarim", history_title: "Mening buyurtmalarim", history_empty: "Sizda hali buyurtmalar yo'q.",
-    search_ph: "🔍 Mahsulot nomini yozing...",
-    mdf_title: "✂️ MDF Kesish (CNC Router)", mdf_w: "Kengligi (sm)", mdf_h: "Uzunligi (sm)", mdf_qty: "Soni (dona)",
-    mdf_sheet: "List turi", mdf_sheet_1: "Standart — 190 000", mdf_sheet_2: "Premium — 230 000", mdf_sheet_3: "Maxsus — 270 000",
-    mdf_cut: "Murakkablik", mdf_cut_1: "To'g'ri — 50 000", mdf_cut_2: "Egri — 85 000", mdf_cut_3: "ArtCam — 120 000",
-    mdf_btn: "Hisoblash", mdf_res_ph: "Natija...", 
-    mdf_res_list: "Kerakli listlar:", mdf_res_per: "1 listga sig'adi:", mdf_res_price: "List narxi:", mdf_res_cut: "Kesish narxi:", mdf_res_total: "Jami:",
-    contact_title: "Biz bilan bog'laning", contact_phone: "Telefon", contact_addr: "Manzil", contact_time: "Ish vaqti",
-    seller_panel: "Sotuvchi Paneli", btn_exit: "Chiqish", tab_orders: "📋 Zakazlar", tab_products: "📦 Mahsulotlar", tab_categories: "📑 Qatorlar", tab_settings: "⚙️ Sozlamalar",
-    tbl_img: "Rasm", tbl_icon: "Ikonka", tbl_name: "Nomi", tbl_price: "Narxi", tbl_stock: "Soni", tbl_url: "Rasm URL", tbl_cat: "Qator",
-    btn_save: "💾 O'zgarishlarni Saqlash", add_title: "➕ Yangi mahsulot qo'shish", btn_add: "Qo'shish",
-    add_cat: "➕ Yangi qator qo'shish", cat_name: "Qator nomi", btn_del: "O'chirish",
-    login_title: "Sotuvchi Kirish", login_sub: "Tizimga kirish uchun login va parolni kiriting.", login_err: "Login yoki parol xato!", login_btn: "Kirish", btn_cancel: "Bekor qilish", btn_close: "Yopish",
-    btn_to_cart: "Savatga qo'shish", cart_title: "🛍 Savat", cart_total: "Jami:", btn_checkout: "Buyurtma berish",
-    stock_left: "Soni:", stock_out: "Tugagan", stock_ombor: "Omborda:", stock_shosh: "Shoshiling! Qoldi:",
-    cart_empty_title: "Savat bo'sh", cart_empty_desc: "Xarid qilish uchun katalogdan tovar tanlang",
-    order_success: "✅ Buyurtma qabul qilindi!",
-    prompt_name: "Ismingizni kiriting:", prompt_phone: "Telefon raqamingizni kiriting:", prompt_addr: "Manzilingizni kiriting:",
-    orders_empty: "Hozircha zakazlar yo'q.", order_total: "Jami:", currency: "so'm",
-    cat_del_confirm: "Rostdan ham bu qatorni o'chirmoqchisiz? Undagi barcha tovarlar 'Boshqa' qatoriga o'tadi.",
-    set_auth_title: "🔐 Login va Parolni o'zgartirish", set_login: "Yangi Login", set_pass: "Yangi Parol", btn_save_auth: "Kirish ma'lumotlarini saqlash",
-    set_contact_title: "📞 Aloqa (Kontakt) ma'lumotlarini o'zgartirish", btn_save_contact: "Kontaktlarni saqlash",
-    save_success: "✅ Muvaffaqiyatli saqlandi!",
-    receipt_title: "Xarid cheki", receipt_date: "Sana:", receipt_item: "Mahsulot", receipt_qty: "Soni", receipt_total: "JAMI:", receipt_thanks: "Xaridingiz uchun rahmat!", 
-    btn_print: "🖨 Chek chiqarish", btn_complete: "✅ Yakunlash", status_new: "⏳ Yangi", status_done: "✅ Yakunlangan"
-  },
-  ru: {
-    nav_catalog: "🛒 Каталог", nav_about: "📞 Контакты", nav_seller: "🔐 Продавец", nav_cart: "🛍 Корзина",
-    nav_history: "📋 Мои заказы", history_title: "Мои заказы", history_empty: "У вас пока нет заказов.",
-    search_ph: "🔍 Введите название товара...",
-    mdf_title: "✂️ Резка МДФ (CNC Router)", mdf_w: "Ширина (см)", mdf_h: "Длина (см)", mdf_qty: "Количество (шт)",
-    mdf_sheet: "Тип листа", mdf_sheet_1: "Стандарт — 190 000", mdf_sheet_2: "Премиум — 230 000", mdf_sheet_3: "Особый — 270 000",
-    mdf_cut: "Сложность", mdf_cut_1: "Прямой — 50 000", mdf_cut_2: "Кривой — 85 000", mdf_cut_3: "ArtCam — 120 000",
-    mdf_btn: "Рассчитать", mdf_res_ph: "Результат...", 
-    mdf_res_list: "Нужно листов:", mdf_res_per: "На 1 лист:", mdf_res_price: "Цена листа:", mdf_res_cut: "Цена резки:", mdf_res_total: "Итого:",
-    contact_title: "Свяжитесь с нами", contact_phone: "Телефон", contact_addr: "Адрес", contact_time: "Время работы",
-    seller_panel: "Панель продавца", btn_exit: "Выйти", tab_orders: "📋 Заказы", tab_products: "📦 Товары", tab_categories: "📑 Категории", tab_settings: "⚙️ Настройки",
-    tbl_img: "Фото", tbl_icon: "Иконка", tbl_name: "Название", tbl_price: "Цена", tbl_stock: "Кол-во", tbl_url: "URL фото", tbl_cat: "Категория",
-    btn_save: "💾 Сохранить изменения", add_title: "➕ Добавить новый товар", btn_add: "Добавить",
-    add_cat: "➕ Добавить новую категорию", cat_name: "Название категории", btn_del: "Удалить",
-    login_title: "Вход для продавца", login_sub: "Введите логин и пароль для входа.", login_err: "Неверный логин или пароль!", login_btn: "Войти", btn_cancel: "Отмена", btn_close: "Закрыть",
-    btn_to_cart: "В корзину", cart_title: "🛍 Корзина", cart_total: "Итого:", btn_checkout: "Оформить заказ",
-    stock_left: "Кол-во:", stock_out: "Нет в наличии", stock_ombor: "На складе:", stock_shosh: "Спешите! Осталось:",
-    cart_empty_title: "Корзина пуста", cart_empty_desc: "Выберите товары из каталога",
-    order_success: "✅ Заказ принят!",
-    prompt_name: "Введите ваше имя:", prompt_phone: "Введите ваш номер телефона:", prompt_addr: "Введите ваш адрес:",
-    orders_empty: "Заказов пока нет.", order_total: "Итого:", currency: "сум",
-    cat_del_confirm: "Вы действительно хотите удалить эту категорию? Все товары из нее перейдут в 'Другое'.",
-    set_auth_title: "🔐 Изменить логин и пароль", set_login: "Новый Логин", set_pass: "Новый Пароль", btn_save_auth: "Сохранить данные для входа",
-    set_contact_title: "📞 Изменить контактные данные", btn_save_contact: "Сохранить контакты",
-    save_success: "✅ Успешно сохранено!",
-    receipt_title: "Чек покупки", receipt_date: "Дата:", receipt_item: "Товар", receipt_qty: "Кол-во", receipt_total: "ИТОГО:", receipt_thanks: "Спасибо за покупку!", 
-    btn_print: "🖨 Напечатать чек", btn_complete: "✅ Завершить", status_new: "⏳ Новый", status_done: "✅ Завершен"
-  }
-};
-
-const DEFAULT_CATEGORIES = [
-  { id: 'c1', name_uz: 'Santexnika', name_ru: 'Сантехника' },
-  { id: 'c2', name_uz: 'Elektrotexnika', name_ru: 'Электротехника' },
-  { id: 'c3', name_uz: "Xo'jalik mollari", name_ru: 'Хозтовары' },
-  { id: 'c4', name_uz: "Bo'yoq va Kimyoviy moddalar", name_ru: 'Краски и Химия' },
-  { id: 'c5', name_uz: "Sement va Qorishmalar", name_ru: 'Цемент и Смеси' },
-  { id: 'c6', name_uz: "Bloklar va Gipsokarton", name_ru: 'Блоки и Гипсокартон' },
-  { id: 'c7', name_uz: "Qurilish asboblari", name_ru: 'Строительные инструменты' },
-  { id: 'c8', name_uz: "Metiz va Mahkamlagichlar", name_ru: 'Метизы и Крепеж' }
-];
-
-const DEFAULT_PRODUCTS = [
-  { id:'m1', cat_id:'c1', name_uz:'Smesitel oshxona ekonom', name_ru:'Смеситель для кухни эконом', desc_uz:'Silumin korpus, xrom qoplama, 360° aylanadigan suv chiqargich.', desc_ru:'Корпус из силумина, хромированное покрытие, поворотный излив 360°.', price:150000, stock:15, icon:'🚰', image:'' },
-  { id:'m2', cat_id:'c1', name_uz:'Smesitel vannaxona', name_ru:'Смеситель для ванной', desc_uz:'Bir tutqichli, keramik kartrijli, dush leyksasi bilan.', desc_ru:'Однорычажный, с керамическим картриджем и душевой лейкой.', price:200000, stock:15, icon:'💧', image:'' },
-  { id:'m3', cat_id:'c1', name_uz:'Smesitel uzun chiqargichli', name_ru:'Смеситель с длинным изливом', desc_uz:'Oshxona uchun uzun va aylanadigan suv chiqargich.', desc_ru:'Длинный поворотный излив для кухонной мойки.', price:250000, stock:20, icon:'🚰', image:'' },
-  { id:'m4', cat_id:'c1', name_uz:'Smesitel gigiyenik dushli', name_ru:'Смеситель с гигиенической лейкой', desc_uz:'Rakovina uchun, 1.2 metrli metall shlangli gigiyenik dush.', desc_ru:'Для раковины, с гигиеническим душем и шлангом 1.2 м.', price:300000, stock:5, icon:'🚿', image:'' },
-  { id:'m5', cat_id:'c1', name_uz:'Smesitel rakovina uchun', name_ru:'Смеситель для раковины', desc_uz:'Klassik dizayn, keramik kartrij, suv tejovchi aerator.', desc_ru:'Классический дизайн, керамический картридж, аэратор.', price:350000, stock:10, icon:'💧', image:'' },
-  { id:'t1', cat_id:'c1', name_uz:'Unitaz kompakt ekonom', name_ru:'Унитаз-компакт эконом', desc_uz:'Oq keramika, polga o\'rnatiladigan, iqtisodiy suv sarfi.', desc_ru:'Белая керамика, напольный, с экономным расходом воды.', price:300000, stock:100, icon:'🚽', image:'' },
-  { id:'t2', cat_id:'c1', name_uz:'Unitaz lyuks', name_ru:'Унитаз люкс', desc_uz:'Mikrolift, yumshoq yopilish, zamonaviy dizayn.', desc_ru:'Микролифт, плавное закрывание, современный дизайн.', price:650000, stock:40, icon:'🚽', image:'' },
-  { id:'r1', cat_id:'c1', name_uz:'Rakovina ustma-ust', name_ru:'Раковина накладная', desc_uz:'Keramikadan ishlangan, 50x40 sm o\'lchamda.', desc_ru:'Из керамики, размер 50x40 см.', price:350000, stock:90, icon:'🪠', image:'' },
-  { id:'r2', cat_id:'c1', name_uz:'Rakovina taglikli', name_ru:'Раковина с пьедесталом', desc_uz:'Poldan tik turuvchi, barqaror va mustahkam.', desc_ru:'Напольная с пьедесталом, устойчивая и прочная.', price:450000, stock:70, icon:'🚰', image:'' },
-  { id:'d1', cat_id:'c1', name_uz:'Dush kabinasi', name_ru:'Душевая кабина', desc_uz:'90x90 o\'lcham, 5 mm qalinlikdagi shisha, gidromassaj.', desc_ru:'Размер 90x90, стекло 5 мм, гидромассаж.', price:3200000, stock:60, icon:'🚿', image:'' },
-  { id:'p1', cat_id:'c1', name_uz:'Polipropilen quvur 20mm', name_ru:'Полипропиленовая труба 20мм', desc_uz:'Suv o\'tkazish uchun, 2 metrlik.', desc_ru:'Для водоснабжения, 2 метра.', price:15000, stock:200, icon:'🧪', image:'' },
-  { id:'p2', cat_id:'c1', name_uz:'Metall-plastik quvur 16mm', name_ru:'Металлопластиковая труба 16мм', desc_uz:'Isitish tizimlari uchun, egiluvchan.', desc_ru:'Для систем отопления, гибкая.', price:12000, stock:150, icon:'🧪', image:'' },
-  { id:'p3', cat_id:'c1', name_uz:'Kran sharli 1/2', name_ru:'Кран шаровый 1/2', desc_uz:'Latun, suvni to\'liq to\'sish uchun.', desc_ru:'Латунный, для полного перекрытия воды.', price:45000, stock:80, icon:'🔧', image:'' },
-  { id:'p4', cat_id:'c1', name_uz:'Gofra (shlang) 1.5m', name_ru:'Гофра (шланг) 1.5м', desc_uz:'Unitaz yoki rakovina uchun.', desc_ru:'Для унитаза или раковины.', price:25000, stock:100, icon:'〰️', image:'' },
-  { id:'e1', cat_id:'c2', name_uz:'Kabel VVG 3x2.5', name_ru:'Кабель ВВГ 3x2.5', desc_uz:'Mis o\'tkazgichli, 3 yadroli (1 metr).', desc_ru:'Медный, 3-жильный (1 метр).', price:25000, stock:150, icon:'🔌', image:'' },
-  { id:'e2', cat_id:'c2', name_uz:'Rozetka 2x (yashirin)', name_ru:'Розетка двойная (скрытая)', desc_uz:'16A, yerga ulash kontaktli, oq.', desc_ru:'16A, с заземлением, белая.', price:35000, stock:100, icon:'🔌', image:'' },
-  { id:'e3', cat_id:'c2', name_uz:'LED lampa 12W', name_ru:'LED лампа 12Вт', desc_uz:'E27 sokol, tejamkor, 4000K tiniq oq.', desc_ru:'Цоколь E27, экономная, 4000K белый свет.', price:18000, stock:150, icon:'💡', image:'' },
-  { id:'e4', cat_id:'c2', name_uz:'Avtomat 16A (C tipi)', name_ru:'Автомат 16А (Тип C)', desc_uz:'Qisqa tutashuvdan himoya, DIN reykaga.', desc_ru:'Защита от КЗ, на DIN-рейку.', price:48000, stock:120, icon:'⚡', image:'' },
-  { id:'e5', cat_id:'c2', name_uz:'Vyklyuchatel 1 klavishali', name_ru:'Выключатель одноклавишный', desc_uz:'Yashirin o\'rnatish uchun.', desc_ru:'Для скрытой установки.', price:22000, stock:130, icon:'🎚️', image:'' },
-  { id:'e6', cat_id:'c2', name_uz:'Kabel VVG 2x1.5', name_ru:'Кабель ВВГ 2x1.5', desc_uz:'Yorug\'lik uchun mis kabel (1 metr).', desc_ru:'Медный кабель для освещения (1 метр).', price:15000, stock:200, icon:'🔌', image:'' },
-  { id:'h1', cat_id:'c3', name_uz:'Qo\'lqop paxta', name_ru:'Перчатки х/б', desc_uz:'5 ipli, qurilish va xo\'jalik uchun (juft).', desc_ru:'5 нитей, для строительных и хозяйственных работ (пара).', price:2000, stock:150, icon:'🧤', image:'' },
-  { id:'h2', cat_id:'c3', name_uz:'Qo\'lqop PVX (nuqtali)', name_ru:'Перчатки с ПВХ (в точку)', desc_uz:'Sirg\'anmaydigan, ish paytida qulay.', desc_ru:'Нескользящие, удобные при работе.', price:6000, stock:120, icon:'🧤', image:'' },
-  { id:'h3', cat_id:'c3', name_uz:'Chelak 12L', name_ru:'Ведро 12л', desc_uz:'Plastik, qopqoqli, mustahkam tutqichli.', desc_ru:'Пластиковое, с крышкой, прочная ручка.', price:45000, stock:50, icon:'🪣', image:'' },
-  { id:'h4', cat_id:'c3', name_uz:'Shvabra (siqishli)', name_ru:'Швабра (с отжимом)', desc_uz:'Mikrofibra, polni yuvish uchun.', desc_ru:'Микрофибра, для мытья полов.', price:85000, stock:40, icon:'🧹', image:'' },
-  { id:'h5', cat_id:'c3', name_uz:'Axlat paketlari 120L', name_ru:'Мусорные пакеты 120Л', desc_uz:'Zich, 10 dona bir o\'ramda.', desc_ru:'Плотные, 10 штук в упаковке.', price:18000, stock:100, icon:'🗑️', image:'' },
-  { id:'h6', cat_id:'c3', name_uz:'Respirator (niqob)', name_ru:'Респиратор (маска)', desc_uz:'Changdan himoya qiluvchi, FFP1.', desc_ru:'Защита от пыли, FFP1.', price:12000, stock:80, icon:'😷', image:'' },
-  { id:'k1', cat_id:'c4', name_uz:'Bo\'yoq 3kg (Oq)', name_ru:'Краска 3кг (Белая)', desc_uz:'Suv-emulsiyali, devor va shiftlar uchun.', desc_ru:'Водоэмульсионная, для стен и потолков.', price:35000, stock:100, icon:'🎨', image:'' },
-  { id:'k2', cat_id:'c4', name_uz:'Bo\'yoq 10kg (Oq)', name_ru:'Краска 10кг (Белая)', desc_uz:'Yuviladigan, yuqori yopish xususiyati.', desc_ru:'Моющаяся, высокая укрывистость.', price:110000, stock:60, icon:'🎨', image:'' },
-  { id:'k3', cat_id:'c4', name_uz:'Emal PF-115 (Oq)', name_ru:'Эмаль ПФ-115 (Белая)', desc_uz:'Metall va yog\'och uchun, 2kg.', desc_ru:'Для металла и дерева, 2кг.', price:95000, stock:50, icon:'🖌️', image:'' },
-  { id:'k4', cat_id:'c4', name_uz:'Grunt (10L)', name_ru:'Грунтовка (10Л)', desc_uz:'Chuqur singdiruvchi, devorni mustahkamlaydi.', desc_ru:'Глубокого проникновения, укрепляет стену.', price:120000, stock:45, icon:'🧴', image:'' },
-  { id:'k5', cat_id:'c4', name_uz:'Valik (Molyar)', name_ru:'Валик (Малярный)', desc_uz:'Bo\'yash uchun, tuklari to\'kilmaydi.', desc_ru:'Для покраски, не оставляет ворса.', price:25000, stock:70, icon:'🧹', image:'' },
-  { id:'k6', cat_id:'c4', name_uz:'Cho\'tka 50mm', name_ru:'Кисть 50мм', desc_uz:'Yog\'och yoki metall bo\'yash uchun.', desc_ru:'Для покраски дерева или металла.', price:10000, stock:90, icon:'🖌️', image:'' },
-  { id:'c1', cat_id:'c5', name_uz:'Sement M400 (50kg)', name_ru:'Цемент М400 (50кг)', desc_uz:'Conch firmasi, umumiy qurilish ishlari uchun.', desc_ru:'Фирма Conch, для общестроительных работ.', price:35000, stock:150, icon:'🧱', image:'' },
-  { id:'c2', cat_id:'c5', name_uz:'Sement M500 (50kg)', name_ru:'Цемент М500 (50кг)', desc_uz:'Mustahkam, yuk ko\'taruvchi konstruksiyalar uchun.', desc_ru:'Прочный, для несущих конструкций.', price:45000, stock:100, icon:'🧱', image:'' },
-  { id:'c3', cat_id:'c5', name_uz:'Kafel yelimi 25kg', name_ru:'Клей для плитки 25кг', desc_uz:'Universal, ichki va tashqi ishlar uchun.', desc_ru:'Универсальный, для внутренних и наружных работ.', price:40000, stock:80, icon:'🪣', image:'' },
-  { id:'c4', cat_id:'c5', name_uz:'Shpatlyovka (25kg)', name_ru:'Шпатлевка (25кг)', desc_uz:'Devorlarni tekislash uchun.', desc_ru:'Для выравнивания стен.', price:55000, stock:60, icon:'🪣', image:'' },
-  { id:'c5', cat_id:'c5', name_uz:'Gips (alabastr) 5kg', name_ru:'Гипс (алебастр) 5кг', desc_uz:'Tez qotuvchi, mayda ishlar uchun.', desc_ru:'Быстротвердеющий, для мелких работ.', price:15000, stock:90, icon:'⚪', image:'' },
-  { id:'b1', cat_id:'c6', name_uz:'Shlakoblok 20x20x40', name_ru:'Шлакоблок 20x20x40', desc_uz:'Devor terish uchun, mustahkam.', desc_ru:'Для кладки стен, прочный.', price:3500, stock:500, icon:'🧱', image:'' },
-  { id:'b2', cat_id:'c6', name_uz:'Qumblok 20x20x40', name_ru:'Пескоблок 20x20x40', desc_uz:'Ekologik toza, issiqlikni yaxshi saqlaydi.', desc_ru:'Экологичный, хорошо сохраняет тепло.', price:5500, stock:400, icon:'🧱', image:'' },
-  { id:'b3', cat_id:'c6', name_uz:'Gipsokarton (Devor)', name_ru:'Гипсокартон (Стеновой)', desc_uz:'2.5x1.2 metr, 12.5mm qalinlik.', desc_ru:'2.5x1.2 метра, толщина 12.5мм.', price:45000, stock:60, icon:'📄', image:'' },
-  { id:'b4', cat_id:'c6', name_uz:'Profil (CD 60)', name_ru:'Профиль (CD 60)', desc_uz:'Gipsokarton uchun metall profil, 3 metr.', desc_ru:'Металлический профиль для ГКЛ, 3 метра.', price:28000, stock:100, icon:'📏', image:'' },
-  { id:'b5', cat_id:'c6', name_uz:'Penaplast (Penoplex) 5sm', name_ru:'Пенопласт 5см', desc_uz:'Issiqlik izolyatsiyasi uchun list.', desc_ru:'Лист для теплоизоляции.', price:35000, stock:50, icon:'🟦', image:'' },
-  { id:'i1', cat_id:'c7', name_uz:'Bolg\'a (Molotok)', name_ru:'Молоток', desc_uz:'Yog\'och dastali, 500 gramm.', desc_ru:'С деревянной ручкой, 500 грамм.', price:35000, stock:40, icon:'🔨', image:'' },
-  { id:'i2', cat_id:'c7', name_uz:'Ruletka 5m', name_ru:'Рулетка 5м', desc_uz:'O\'lchash uchun, avtomatik tortiladi.', desc_ru:'Для измерений, с автоподмоткой.', price:20000, stock:60, icon:'📏', image:'' },
-  { id:'i3', cat_id:'c7', name_uz:'Otvyortka to\'plami', name_ru:'Набор отверток', desc_uz:'6 xil uchli, magnitli.', desc_ru:'6 разных насадок, магнитные.', price:65000, stock:35, icon:'🪛', image:'' },
-  { id:'i4', cat_id:'c7', name_uz:'Drel (Perforator)', name_ru:'Дрель (Перфоратор)', desc_uz:'Beton va devorga teshik ochish uchun.', desc_ru:'Для сверления бетона и стен.', price:850000, stock:15, icon:'🔫', image:'' },
-  { id:'i5', cat_id:'c7', name_uz:'Sath (Uroven)', name_ru:'Уровень', desc_uz:'Tekislikni tekshirish uchun, 60 sm.', desc_ru:'Для проверки ровности, 60 см.', price:55000, stock:40, icon:'📐', image:'' },
-  { id:'i6', cat_id:'c7', name_uz:'Keskich (Zubilo)', name_ru:'Зубило', desc_uz:'Metall yoki tosh uchun.', desc_ru:'Для металла или камня.', price:25000, stock:50, icon:'⛏️', image:'' },
-  { id:'mt1', cat_id:'c8', name_uz:'Samo rez 3.5x25', name_ru:'Саморез 3.5x25', desc_uz:'Yog\'och yoki gipsokarton uchun (1 kg).', desc_ru:'Для дерева или ГКЛ (1 кг).', price:25000, stock:150, icon:'🔩', image:'' },
-  { id:'mt2', cat_id:'c8', name_uz:'Dübel (Pochka)', name_ru:'Дюбель (Пачка)', desc_uz:'6x40 o\'lcham, 100 dona.', desc_ru:'Размер 6x40, 100 штук.', price:15000, stock:100, icon:'📍', image:'' },
-  { id:'mt3', cat_id:'c8', name_uz:'Mix (Plomba)', name_ru:'Дюбель-гвоздь (Пломба)', desc_uz:'Tez o\'rnatish uchun, 100 dona.', desc_ru:'Для быстрого монтажа, 100 штук.', price:18000, stock:120, icon:'📌', image:'' },
-  { id:'mt4', cat_id:'c8', name_uz:'Zanjir (Tsep)', name_ru:'Цепь', desc_uz:'1 metr, turli maqsadlar uchun.', desc_ru:'1 метр, для различных целей.', price:20000, stock:40, icon:'⛓️', image:'' },
-  { id:'mt5', cat_id:'c8', name_uz:'Kabel bog\'ichi (Styajka)', name_ru:'Кабельная стяжка', desc_uz:'100 dona, 20 sm.', desc_ru:'100 штук, 20 см.', price:10000, stock:200, icon:'🔗', image:'' }
-];
-
-const DEFAULT_AUTH = { user: 'albaraka1234', pass: 'abubakir1234' };
-const DEFAULT_CONTACT = {
-  phone: '+998 88 616 17 00',
-  address_uz: "Andijon, Qo'rg'ontepa",
-  address_ru: 'Андижан, Кургантепа',
-  time_uz: 'Har kuni: 08:00 - 20:00',
-  time_ru: 'Ежедневно: 08:00 - 20:00'
-};
-
-let currentLang = localStorage.getItem('albaraka_lang') || 'uz';
-let cart = {};
-let isSeller = false;
-
-let categories = JSON.parse(localStorage.getItem('albaraka_categories')) || [...DEFAULT_CATEGORIES];
-let products = JSON.parse(localStorage.getItem('albaraka_products')) || [...DEFAULT_PRODUCTS];
-let sellerAuth = JSON.parse(localStorage.getItem('albaraka_seller_auth')) || DEFAULT_AUTH;
-let contactInfo = JSON.parse(localStorage.getItem('albaraka_contact_info')) || DEFAULT_CONTACT;
-
-let allOrders = [];
-let clientOrders = [];
-let currentReceiptData = null;
-
-let currentClientSearch = '';
-let currentSellerSearch = '';
-let currentOpenProductId = null;
-
-// ==========================================
-// FIREBASE DAN BUYURTMALARNI TINGLASH (Indekssiz va xatosiz)
-// ==========================================
-function listenOrders() {
-  db.collection("orders").onSnapshot((snapshot) => {
-    allOrders = [];
-    snapshot.forEach((doc) => {
-      allOrders.push({ firebaseId: doc.id, ...doc.data() });
-    });
-    
-    // JavaScript da tartiblash (eng yangisi birinchi)
-    allOrders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-    
-    if (isSeller) {
-      loadSellerOrders();
-    }
-    
-    let myOrderIds = JSON.parse(localStorage.getItem('my_order_ids') || '[]');
-    clientOrders = allOrders.filter(o => myOrderIds.includes(o.id));
-    
-    if (document.getElementById('historyView').style.display === 'block') {
-      renderHistory();
-    }
-  }, (error) => {
-    console.error("Firebase xatoligi:", error);
-    // Agar ruxsat berilmagan bo'lsa, konsolga yozamiz
-    if(error.code === 'permission-denied') {
-      alert("Diqqat! Firebase bazasida xavfsizlik qoidalari (Rules) noto'g'ri sozlangan. Iltimos, rasmda ko'rsatilgandek 'allow read, write: if true;' qilib 'Publish' qiling.");
-    }
-  });
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('albaraka_lang', lang);
-  document.documentElement.lang = lang;
-  
-  document.getElementById('btnUz').classList.toggle('active', lang === 'uz');
-  document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if (TRANSLATIONS[lang][key]) el.textContent = TRANSLATIONS[lang][key];
-  });
-
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    const key = el.dataset.i18nPh;
-    if (TRANSLATIONS[lang][key]) el.placeholder = TRANSLATIONS[lang][key];
-  });
-
-  renderContactInfo();
-  renderCatalog();
-  if (isSeller) {
-    renderSellerProductsTable();
-    renderCategoriesList();
-    loadSettingsForm();
-    loadSellerOrders();
-  }
-  if (document.getElementById('historyView').style.display === 'block') {
-    renderHistory();
-  }
-  updateCartUI();
-}
-
-function renderContactInfo() {
-  document.getElementById('view-phone').textContent = contactInfo.phone;
-  if (currentLang === 'uz') {
-    document.getElementById('view-address').textContent = contactInfo.address_uz;
-    document.getElementById('view-time').textContent = contactInfo.time_uz;
-  } else {
-    document.getElementById('view-address').textContent = contactInfo.address_ru;
-    document.getElementById('view-time').textContent = contactInfo.time_ru;
-  }
-}
-
-function renderCatalog() {
-  const container = document.getElementById('catalogContainer');
-  let html = '';
-  const t = TRANSLATIONS[currentLang];
-  
-  const filtered = products.filter(p => {
-    const name = currentLang === 'uz' ? p.name_uz : p.name_ru;
-    return name.toLowerCase().includes(currentClientSearch.toLowerCase());
-  });
-
-  if(filtered.length === 0) {
-    container.innerHTML = `<p style="text-align:center; color:#64748b; margin-top:20px; font-size:1.1rem; background:#fff; padding:20px; border-radius:12px;">${t.search_ph}</p>`;
-    return;
-  }
-
-  categories.forEach(cat => {
-    const catProds = filtered.filter(p => p.cat_id === cat.id);
-    if (catProds.length === 0) return;
-
-    const catName = currentLang === 'uz' ? cat.name_uz : cat.name_ru;
-    html += `<h3 class="section-title">${catName}</h3><div class="grid">`;
-    
-    catProds.forEach(p => {
-      const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
-      let stockClass = p.stock > 10 ? '' : (p.stock > 0 ? 'low' : 'out');
-      let stockText = p.stock > 0 ? `${t.stock_left} ${p.stock}` : t.stock_out;
-      
-      let mediaHtml = p.image 
-        ? `<img src="${p.image}" class="product-img" alt="${pName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="product-icon" style="display:none;">${p.icon || '📦'}</div>`
-        : `<div class="product-icon">${p.icon || '📦'}</div>`;
-      
-      html += `
-        <div class="product" onclick="openProductDetail('${p.id}')">
-          <div class="product-media">${mediaHtml}</div>
-          <h4 class="product-name">${pName}</h4>
-          <span class="stock ${stockClass}">${stockText}</span>
-          <div class="product-footer">
-            <span class="price">${formatMoney(p.price)} <small>${t.currency}</small></span>
-            <button class="btn-add" onclick="event.stopPropagation(); addToCart('${p.id}')">+</button>
+          <div class="hero__note reveal">
+            <span class="hero__note-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle><path d="m4 5 17 0"></path></svg>
+            </span>
+            <span data-i18n="heroNote">Haydovchi orqali yetkazish mavjud</span>
+          </div>
+          <div class="hero__stats reveal">
+            <div class="hero__stat">
+              <strong id="categoryCount">6</strong>
+              <span data-i18n="statCategories">kategoriya</span>
+            </div>
+            <div class="hero__stat">
+              <strong data-i18n="statStockValue">Onlayn</strong>
+              <span data-i18n="statStock">ombor qoldig'i</span>
+            </div>
+            <div class="hero__stat">
+              <strong data-i18n="statDeliveryValue">Haydovchi</strong>
+              <span data-i18n="statDelivery">yetkazish</span>
+            </div>
           </div>
         </div>
-      `;
-    });
-    html += `</div>`;
-  });
-  container.innerHTML = html;
-}
 
-function searchClient() {
-  currentClientSearch = document.getElementById('clientSearch').value;
-  renderCatalog();
-}
-
-function openProductDetail(id) {
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-  const t = TRANSLATIONS[currentLang];
-  currentOpenProductId = id;
-
-  const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
-  const pDesc = currentLang === 'uz' ? p.desc_uz : p.desc_ru;
-  const cat = categories.find(c => c.id === p.cat_id);
-  const pCat = cat ? (currentLang === 'uz' ? cat.name_uz : cat.name_ru) : '';
-
-  document.getElementById('detailName').textContent = pName;
-  document.getElementById('detailCat').textContent = pCat;
-  document.getElementById('detailDesc').textContent = pDesc || "Ma'lumot kiritilmagan.";
-  document.getElementById('detailPrice').textContent = formatMoney(p.price) + " " + t.currency;
-  
-  const stockEl = document.getElementById('detailStock');
-  if (p.stock > 10) {
-    stockEl.className = 'stock';
-    stockEl.textContent = `${t.stock_ombor} ${p.stock}`;
-  } else if (p.stock > 0) {
-    stockEl.className = 'stock low';
-    stockEl.textContent = `${t.stock_shosh} ${p.stock}`;
-  } else {
-    stockEl.className = 'stock out';
-    stockEl.textContent = t.stock_out;
-  }
-
-  const mediaContainer = document.getElementById('detailMediaContainer');
-  if (p.image) {
-    mediaContainer.innerHTML = `<img src="${p.image}" class="detail-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'detail-icon\\'>${p.icon || '📦'}</div>';" alt="${pName}">`;
-  } else {
-    mediaContainer.innerHTML = `<div class="detail-icon">${p.icon || '📦'}</div>`;
-  }
-
-  const addBtn = document.getElementById('detailAddBtn');
-  if (p.stock <= 0) {
-    addBtn.disabled = true;
-    addBtn.style.background = '#cbd5e1';
-    addBtn.textContent = t.stock_out;
-    addBtn.style.boxShadow = 'none';
-  } else {
-    addBtn.disabled = false;
-    addBtn.style.background = 'var(--primary)';
-    addBtn.textContent = t.btn_to_cart;
-    addBtn.style.boxShadow = '0 4px 15px rgba(249,115,22,0.3)';
-  }
-
-  document.getElementById('productDetailModal').classList.add('open');
-}
-
-function closeProductDetail() {
-  document.getElementById('productDetailModal').classList.remove('open');
-  currentOpenProductId = null;
-}
-
-function addToCartFromModal() {
-  if (currentOpenProductId) {
-    addToCart(currentOpenProductId);
-    closeProductDetail();
-  }
-}
-
-function renderHistory() {
-  const container = document.getElementById('clientHistoryContainer');
-  const t = TRANSLATIONS[currentLang];
-  
-  if (clientOrders.length === 0) {
-    container.innerHTML = `<p style="text-align:center; color:#64748b; font-size:1.1rem; background:#fff; padding:30px; border-radius:12px;">${t.history_empty}</p>`;
-    return;
-  }
-
-  container.innerHTML = clientOrders.map(o => {
-    const isDone = o.status === 'done';
-    const statusHtml = isDone 
-      ? `<span class="status-badge status-done">${t.status_done}</span>`
-      : `<span class="status-badge status-new">${t.status_new}</span>`;
-
-    return `
-    <div class="history-card">
-      <button class="btn-del-history" onclick="deleteHistoryOrder('${o.firebaseId}')" title="${t.btn_del}">🗑</button>
-      <div class="history-header">
-        <div>
-          <div class="history-title" style="margin-bottom:5px;">ID: ${o.id}</div>
-          ${statusHtml}
-        </div>
-        <div class="history-date">🕒 ${o.date}</div>
-      </div>
-      <div class="history-items">
-        ${o.items.map(i => `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>${i.name} x${i.qty}</span><span>${formatMoney(i.price * i.qty)}</span></div>`).join('')}
-      </div>
-      <div class="history-total">${t.receipt_total} ${formatMoney(o.total)} ${t.currency}</div>
-    </div>
-  `}).join('');
-}
-
-function deleteHistoryOrder(firebaseId) {
-  if (!confirm(currentLang === 'uz' ? 'Ushbu buyurtmani shaxsiy tarixingizdan o\'chirmoqchimisiz? (Sotuvchida qoladi)' : 'Удалить этот заказ из вашей истории? (У продавца останется)')) return;
-  
-  const order = clientOrders.find(o => o.firebaseId === firebaseId);
-  if(!order) return;
-
-  let myOrderIds = JSON.parse(localStorage.getItem('my_order_ids') || '[]');
-  myOrderIds = myOrderIds.filter(id => id !== order.id);
-  localStorage.setItem('my_order_ids', JSON.stringify(myOrderIds));
-  
-  clientOrders = clientOrders.filter(o => o.firebaseId !== firebaseId);
-  renderHistory();
-}
-
-function loadSettingsForm() {
-  document.getElementById('setPhone').value = contactInfo.phone;
-  document.getElementById('setAddressUz').value = contactInfo.address_uz;
-  document.getElementById('setAddressRu').value = contactInfo.address_ru;
-  document.getElementById('setTimeUz').value = contactInfo.time_uz;
-  document.getElementById('setTimeRu').value = contactInfo.time_ru;
-  document.getElementById('setNewLogin').value = sellerAuth.user;
-}
-
-function saveSellerAuth() {
-  const newUser = document.getElementById('setNewLogin').value.trim();
-  const newPass = document.getElementById('setNewPass').value.trim();
-  
-  if (!newUser || !newPass) {
-    alert(currentLang === 'uz' ? 'Login va parolni to\'ldiring!' : 'Заполните логин и пароль!');
-    return;
-  }
-
-  sellerAuth = { user: newUser, pass: newPass };
-  localStorage.setItem('albaraka_seller_auth', JSON.stringify(sellerAuth));
-  document.getElementById('setNewPass').value = ''; 
-  alert(TRANSLATIONS[currentLang].save_success);
-}
-
-function saveContactInfo() {
-  contactInfo.phone = document.getElementById('setPhone').value.trim();
-  contactInfo.address_uz = document.getElementById('setAddressUz').value.trim();
-  contactInfo.address_ru = document.getElementById('setAddressRu').value.trim();
-  contactInfo.time_uz = document.getElementById('setTimeUz').value.trim();
-  contactInfo.time_ru = document.getElementById('setTimeRu').value.trim();
-
-  localStorage.setItem('albaraka_contact_info', JSON.stringify(contactInfo));
-  renderContactInfo(); 
-  alert(TRANSLATIONS[currentLang].save_success);
-}
-
-function renderSellerProductsTable() {
-  const tbody = document.getElementById('sellerProductsTableBody');
-  const filtered = products.filter(p => {
-    const name = currentLang === 'uz' ? p.name_uz : p.name_ru;
-    return name.toLowerCase().includes(currentSellerSearch.toLowerCase());
-  });
-
-  const catSelect = document.getElementById('newProdCat');
-  catSelect.innerHTML = categories.map(c => 
-    `<option value="${c.id}">${currentLang === 'uz' ? c.name_uz : c.name_ru}</option>`
-  ).join('');
-
-  tbody.innerHTML = filtered.map(p => {
-    const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
-    const catName = categories.find(c => c.id === p.cat_id);
-    const catDisplay = catName ? (currentLang === 'uz' ? catName.name_uz : catName.name_ru) : 'N/A';
-
-    return `
-    <tr>
-      <td>
-        ${p.image 
-          ? `<img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;" onerror="this.src='https://via.placeholder.com/40?text=X'">` 
-          : `<div style="font-size:1.8rem;">${p.icon || '📦'}</div>`}
-      </td>
-      <td><input type="text" id="edit-icon-${p.id}" value="${p.icon || '📦'}" style="width: 50px; text-align:center; font-size:1.2rem;"></td>
-      <td><input type="text" id="edit-name-${p.id}" value="${pName}"></td>
-      <td style="font-size:0.75rem; color:var(--text-muted);">${catDisplay}</td>
-      <td><input type="number" id="edit-price-${p.id}" value="${p.price}"></td>
-      <td><input type="number" id="edit-stock-${p.id}" value="${p.stock}"></td>
-      <td><input type="text" id="edit-image-${p.id}" value="${p.image || ''}" placeholder="URL manzil..."></td>
-    </tr>
-  `}).join('');
-}
-
-function searchSeller() {
-  currentSellerSearch = document.getElementById('sellerSearch').value;
-  renderSellerProductsTable();
-}
-
-function saveSellerChanges() {
-  products.forEach(p => {
-    const iconEl = document.getElementById(`edit-icon-${p.id}`);
-    const nameEl = document.getElementById(`edit-name-${p.id}`);
-    const priceEl = document.getElementById(`edit-price-${p.id}`);
-    const stockEl = document.getElementById(`edit-stock-${p.id}`);
-    const imageEl = document.getElementById(`edit-image-${p.id}`);
-    
-    if (nameEl && priceEl && stockEl && imageEl && iconEl) {
-      const newPrice = parseInt(priceEl.value);
-      const newStock = parseInt(stockEl.value);
-      
-      if (!isNaN(newPrice) && !isNaN(newStock)) {
-        p.name_uz = nameEl.value;
-        p.name_ru = nameEl.value; 
-        p.icon = iconEl.value;
-        p.price = newPrice;
-        p.stock = newStock;
-        p.image = imageEl.value.trim();
-      }
-    }
-  });
-  
-  localStorage.setItem('albaraka_products', JSON.stringify(products));
-  alert(TRANSLATIONS[currentLang].save_success);
-  renderCatalog();
-}
-
-function addNewProduct() {
-  const name = document.getElementById('newProdName').value.trim();
-  const catId = document.getElementById('newProdCat').value;
-  const icon = document.getElementById('newProdIcon').value.trim() || '📦';
-  const price = parseInt(document.getElementById('newProdPrice').value);
-  const stock = parseInt(document.getElementById('newProdStock').value);
-  const imageUrl = document.getElementById('newProdImage').value.trim();
-  
-  if (!name || isNaN(price) || isNaN(stock)) { 
-    alert(currentLang === 'uz' ? 'Ma\'lumotlarni to\'ldiring!' : 'Заполните все данные!'); 
-    return; 
-  }
-
-  products.push({
-    id: 'p_' + Date.now(), 
-    cat_id: catId,
-    name_uz: name, name_ru: name, 
-    desc_uz: 'Yangi qo\'shilgan mahsulot.', desc_ru: 'Новый добавленный товар.', 
-    price, stock, icon,
-    image: imageUrl || ''
-  });
-  
-  localStorage.setItem('albaraka_products', JSON.stringify(products));
-  alert(TRANSLATIONS[currentLang].save_success);
-  
-  document.getElementById('newProdName').value = '';
-  document.getElementById('newProdPrice').value = '';
-  document.getElementById('newProdStock').value = '';
-  document.getElementById('newProdImage').value = '';
-  document.getElementById('newProdIcon').value = '📦';
-  
-  renderSellerProductsTable();
-  renderCatalog();
-}
-
-function renderCategoriesList() {
-  const list = document.getElementById('categoriesList');
-  list.innerHTML = categories.map(c => {
-    const cName = currentLang === 'uz' ? c.name_uz : c.name_ru;
-    return `
-      <div class="cat-item">
-        <span>${cName}</span>
-        <button class="btn-del-cat" onclick="deleteCategory('${c.id}')">${TRANSLATIONS[currentLang].btn_del}</button>
-      </div>
-    `;
-  }).join('');
-}
-
-function addNewCategory() {
-  const name = document.getElementById('newCatName').value.trim();
-  if (!name) {
-    alert(currentLang === 'uz' ? 'Qator nomini kiriting!' : 'Введите название категории!');
-    return;
-  }
-
-  categories.push({
-    id: 'cat_' + Date.now(),
-    name_uz: name,
-    name_ru: name
-  });
-
-  localStorage.setItem('albaraka_categories', JSON.stringify(categories));
-  document.getElementById('newCatName').value = '';
-  
-  renderCategoriesList();
-  renderCatalog();
-  renderSellerProductsTable();
-}
-
-function deleteCategory(id) {
-  const t = TRANSLATIONS[currentLang];
-  if (!confirm(t.cat_del_confirm)) return;
-
-  categories = categories.filter(c => c.id !== id);
-  
-  let otherCat = categories.find(c => c.name_uz === 'Boshqa' || c.name_ru === 'Другое');
-  if (!otherCat) {
-    otherCat = { id: 'cat_other', name_uz: 'Boshqa', name_ru: 'Другое' };
-    categories.push(otherCat);
-  }
-
-  products.forEach(p => {
-    if (p.cat_id === id) {
-      p.cat_id = otherCat.id;
-    }
-  });
-
-  localStorage.setItem('albaraka_categories', JSON.stringify(categories));
-  localStorage.setItem('albaraka_products', JSON.stringify(products));
-
-  renderCategoriesList();
-  renderCatalog();
-  renderSellerProductsTable();
-}
-
-function switchView(view) {
-  if (isSeller) return;
-  
-  document.getElementById('catalogView').style.display = view === 'client' ? 'block' : 'none';
-  document.getElementById('historyView').style.display = view === 'history' ? 'block' : 'none';
-  document.getElementById('aboutView').style.display = view === 'about' ? 'block' : 'none';
-  
-  document.getElementById('btnClient').classList.toggle('active', view === 'client');
-  document.getElementById('btnHistory').classList.toggle('active', view === 'history');
-  document.getElementById('btnAbout').classList.toggle('active', view === 'about');
-
-  if (view === 'history') {
-    renderHistory();
-  }
-}
-
-function openLogin() { document.getElementById('loginModal').classList.add('open'); document.getElementById('loginErr').style.display = 'none'; }
-function closeLogin() { document.getElementById('loginModal').classList.remove('open'); }
-function checkSellerLogin() {
-  const user = document.getElementById('loginUser').value;
-  const pass = document.getElementById('loginPass').value;
-  
-  if (user === sellerAuth.user && pass === sellerAuth.pass) {
-    isSeller = true;
-    closeLogin();
-    document.getElementById('catalogView').style.display = 'none';
-    document.getElementById('historyView').style.display = 'none';
-    document.getElementById('aboutView').style.display = 'none';
-    document.getElementById('sellerView').style.display = 'block';
-    document.getElementById('loginBtnHeader').style.display = 'none';
-    
-    document.getElementById('btnClient').style.display = 'none';
-    document.getElementById('btnHistory').style.display = 'none';
-    document.getElementById('btnAbout').style.display = 'none';
-
-    loadSellerOrders();
-    renderSellerProductsTable();
-    renderCategoriesList();
-    loadSettingsForm();
-    switchSellerTab('orders');
-  } else {
-    document.getElementById('loginErr').style.display = 'block';
-  }
-}
-function logoutSeller() {
-  isSeller = false;
-  document.getElementById('sellerView').style.display = 'none';
-  document.getElementById('loginBtnHeader').style.display = 'block';
-  
-  document.getElementById('btnClient').style.display = 'block';
-  document.getElementById('btnHistory').style.display = 'block';
-  document.getElementById('btnAbout').style.display = 'block';
-
-  switchView('client');
-}
-
-function switchSellerTab(tab) {
-  document.getElementById('tabOrders').classList.toggle('active', tab === 'orders');
-  document.getElementById('tabProducts').classList.toggle('active', tab === 'products');
-  document.getElementById('tabCategories').classList.toggle('active', tab === 'categories');
-  document.getElementById('tabSettings').classList.toggle('active', tab === 'settings');
-
-  document.getElementById('sellerTabContentOrders').style.display = tab === 'orders' ? 'block' : 'none';
-  document.getElementById('sellerTabContentProducts').style.display = tab === 'products' ? 'block' : 'none';
-  document.getElementById('sellerTabContentCategories').style.display = tab === 'categories' ? 'block' : 'none';
-  document.getElementById('sellerTabContentSettings').style.display = tab === 'settings' ? 'block' : 'none';
-}
-
-function loadSellerOrders() {
-  const list = document.getElementById('sellerOrdersList');
-  const t = TRANSLATIONS[currentLang];
-  
-  if (allOrders.length === 0) {
-    list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:1rem; padding: 30px;">${t.orders_empty}</p>`;
-    return;
-  }
-  
-  list.innerHTML = allOrders.map(o => {
-    const isDone = o.status === 'done';
-    const completeBtn = isDone 
-      ? `<span class="status-badge status-done" style="margin-top:10px;">${t.status_done}</span>` 
-      : `<button class="btn-complete" onclick="completeOrder('${o.firebaseId}')">${t.btn_complete}</button>`;
-
-    return `
-    <div class="order-card">
-      <div class="order-header"><span>🆔 ${o.id}</span><span>🕒 ${o.date}</span></div>
-      <div class="order-client">👤 ${o.clientName}</div>
-      <div class="order-details">📞 ${o.phone} <br> 📍 ${o.address}</div>
-      <div class="order-items">${o.items.map(i => `<div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #f1f5f9;"><span>${i.name} x${i.qty}</span><span style="font-weight:700;">${formatMoney(i.price * i.qty)}</span></div>`).join('')}</div>
-      <div class="order-total">${t.order_total} ${formatMoney(o.total)} ${t.currency}</div>
-      
-      <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
-        ${completeBtn}
-        <button class="btn-receipt" onclick="showSellerReceipt('${o.firebaseId}')">🖨 ${t.btn_print}</button>
-      </div>
-    </div>
-  `}).join('');
-}
-
-function completeOrder(firebaseId) {
-  db.collection("orders").doc(firebaseId).update({
-    status: 'done'
-  }).catch((error) => {
-    alert("Xatolik yuz berdi: " + error.message);
-  });
-}
-
-function showSellerReceipt(firebaseId) {
-  const order = allOrders.find(o => o.firebaseId === firebaseId);
-  if(!order) return;
-  
-  currentReceiptData = order;
-  const t = TRANSLATIONS[currentLang];
-  const box = document.getElementById('receiptBox');
-  
-  let itemsHtml = order.items.map(i => `
-    <div class="receipt-row">
-      <span>${i.name}</span>
-      <span>${i.qty} x ${formatMoney(i.price)}</span>
-    </div>
-    <div class="receipt-row" style="justify-content: flex-end; font-size: 0.75rem; color: #666; margin-bottom: 5px;">
-      <span>${formatMoney(i.price * i.qty)} ${t.currency}</span>
-    </div>
-  `).join('');
-
-  box.innerHTML = `
-    <div class="receipt-header">
-      <h2>AL BARAKA</h2>
-      <div style="font-size: 0.8rem; margin-top: 5px;">${t.receipt_title}</div>
-    </div>
-    <div class="receipt-divider"></div>
-    <div class="receipt-row"><span>ID:</span><span>${order.id}</span></div>
-    <div class="receipt-row"><span>${t.receipt_date}</span><span>${order.date}</span></div>
-    <div class="receipt-row"><span>Mijoz:</span><span>${order.clientName}</span></div>
-    <div class="receipt-divider"></div>
-    ${itemsHtml}
-    <div class="receipt-divider"></div>
-    <div class="receipt-total">${t.receipt_total} ${formatMoney(order.total)} ${t.currency}</div>
-    <div style="text-align: center; font-size: 0.8rem; margin-top: 15px;">${t.receipt_thanks}</div>
-  `;
-
-  document.getElementById('receiptModal').classList.add('open');
-}
-
-function addToCart(id) {
-  const p = products.find(x => x.id === id);
-  if (p.stock <= 0) { alert(TRANSLATIONS[currentLang].stock_out); return; }
-  if (cart[id]) {
-    if (cart[id].qty >= p.stock) { alert(TRANSLATIONS[currentLang].stock_out); return; }
-    cart[id].qty++;
-  } else { cart[id] = { id, qty: 1 }; }
-  updateCartUI(); openCart();
-}
-
-function updateCartUI() {
-  const box = document.getElementById('cartItems');
-  const totalEl = document.getElementById('cartTotal');
-  const keys = Object.keys(cart);
-  const t = TRANSLATIONS[currentLang];
-  
-  document.getElementById('cartCount').textContent = keys.reduce((s,k) => s + cart[k].qty, 0);
-  
-  if (keys.length === 0) {
-    box.innerHTML = `<div style="text-align:center; padding:50px 20px; color:#94a3b8;"><div style="font-size:4rem; margin-bottom:15px;">🛒</div><p style="font-size:1.1rem; font-weight:600;">${t.cart_empty_title}</p><p style="font-size:0.9rem;">${t.cart_empty_desc}</p></div>`;
-    totalEl.textContent = '0 ' + t.currency; return;
-  }
-  
-  let total = 0;
-  box.innerHTML = keys.map(k => {
-    const item = cart[k]; const p = products.find(x => x.id === k);
-    const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
-    total += p.price * item.qty;
-    return `<div class="cart-item">
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <b style="font-size:0.95rem; color:var(--text-main);">${pName}</b>
-          <div style="display:flex; gap:10px; align-items:center;">
-            <button onclick="changeQty('${k}', -1)" style="padding:4px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; font-weight:bold;">-</button>
-            <span style="font-weight:700; min-width:20px; text-align:center;">${item.qty}</span>
-            <button onclick="changeQty('${k}', 1)" style="padding:4px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; font-weight:bold;">+</button>
+        <div class="hero__visual reveal">
+          <div class="hero__poster">
+            <img src="/assets/img/hero.svg" alt="Al Baraka qurilish mollari: sement, bo'yoq, truba va asboblar" width="900" height="1060">
+            <div class="poster-stamp" aria-hidden="true">
+              <span class="poster-stamp__top" data-i18n="ticketLabel">YETKAZISH</span>
+              <span class="poster-stamp__mark">AB</span>
+              <span class="poster-stamp__bottom" data-i18n="ticketSub">OLIB KETISH</span>
+            </div>
+            <div class="poster-ticket">
+              <div class="poster-ticket__head">
+                <span class="poster-ticket__dot" aria-hidden="true"></span>
+                <span data-i18n="heroBadge">Bugun ochiq</span>
+              </div>
+              <strong data-i18n="ticketTime">08:00 — 19:00</strong>
+              <div class="poster-ticket__bars" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span data-i18n="ticketLabel">YETKAZISH</span>
+            </div>
+            <div class="poster-caption">
+              <span>AL BARAKA</span>
+              <span>EST. 2016</span>
+            </div>
           </div>
         </div>
-        <div style="font-weight:900; color:#b91c1c; font-size:1rem; white-space:nowrap;">${formatMoney(p.price * item.qty)}</div>
-      </div>`;
-  }).join('');
-  totalEl.textContent = formatMoney(total) + ' ' + t.currency;
-}
+      </div>
 
-function changeQty(id, delta) {
-  const p = products.find(x => x.id === id);
-  if (delta > 0 && cart[id].qty >= p.stock) { alert(TRANSLATIONS[currentLang].stock_out); return; }
-  cart[id].qty += delta;
-  if (cart[id].qty <= 0) delete cart[id];
-  updateCartUI();
-}
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span data-i18n="marquee1">Sement</span><i></i>
+          <span data-i18n="marquee2">Bo'yoq</span><i></i>
+          <span data-i18n="marquee3">Santexnika</span><i></i>
+          <span data-i18n="marquee4">Rotband</span><i></i>
+          <span data-i18n="marquee5">Elektrotexnika</span><i></i>
+          <span data-i18n="marquee6">Kesish xizmati</span><i></i>
+          <span data-i18n="marquee1">Sement</span><i></i>
+          <span data-i18n="marquee2">Bo'yoq</span><i></i>
+          <span data-i18n="marquee3">Santexnika</span><i></i>
+          <span data-i18n="marquee4">Rotband</span><i></i>
+          <span data-i18n="marquee5">Elektrotexnika</span><i></i>
+          <span data-i18n="marquee6">Kesish xizmati</span><i></i>
+        </div>
+      </div>
+    </section>
 
-function openCart() { document.getElementById('cartPanel').classList.add('open'); }
-function closeCart() { document.getElementById('cartPanel').classList.remove('open'); }
+    <section class="section categories" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="catsKicker">Katalog</span></p>
+            <h2 data-i18n="catsTitle">Nima quryapsiz?</h2>
+          </div>
+          <p class="section-head__sub" data-i18n="catsSub">Kerakli bo'limni tanlang — qolganini biz tayyorlab qo'yamiz.</p>
+        </div>
+        <div class="cat-grid" id="categoryGrid" aria-live="polite"></div>
+      </div>
+    </section>
 
-function submitOrder() {
-  const t = TRANSLATIONS[currentLang];
-  if (Object.keys(cart).length === 0) { alert(t.cart_empty_title); return; }
-  
-  const name = prompt(t.prompt_name);
-  if (!name) return;
-  const phone = prompt(t.prompt_phone);
-  if (!phone) return;
-  const address = prompt(t.prompt_addr);
-  if (!address) return;
-  
-  let total = 0;
-  const items = Object.keys(cart).map(k => {
-    const p = products.find(x => x.id === k);
-    const pName = currentLang === 'uz' ? p.name_uz : p.name_ru;
-    const sum = p.price * cart[k].qty;
-    total += sum;
-    return { name: pName, qty: cart[k].qty, price: p.price };
-  });
-  
-  const newOrder = { 
-    id: 'ZAK-' + Math.floor(Math.random() * 1000000), 
-    date: new Date().toLocaleString(), 
-    clientName: name, 
-    phone, 
-    address, 
-    items, 
-    total,
-    status: 'new',
-    timestamp: Date.now() // Server vaqti o'rniga oddiy vaqt ishlatildi
-  };
-  
-  db.collection("orders").add(newOrder).then((docRef) => {
-    Object.keys(cart).forEach(k => {
-      const p = products.find(x => x.id === k);
-      p.stock -= cart[k].qty;
-    });
-    localStorage.setItem('albaraka_products', JSON.stringify(products));
-    
-    let myOrderIds = JSON.parse(localStorage.getItem('my_order_ids') || '[]');
-    myOrderIds.push(newOrder.id);
-    localStorage.setItem('my_order_ids', JSON.stringify(myOrderIds));
-    
-    cart = {}; updateCartUI(); closeCart(); renderCatalog();
-    
-    alert(t.order_success);
-    sendToWhatsApp(newOrder); 
-  }).catch((error) => {
-    alert("Xatolik yuz berdi. Internet aloqasini yoki Firebase sozlamalarini tekshiring.\n" + error.message);
-  });
-}
+    <section class="section catalog" id="catalog">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="catalogKicker">Omborda bor</span></p>
+            <h2 data-i18n="catalogTitle">Mahsulotlar va narxlar</h2>
+          </div>
+          <p class="section-head__sub" data-i18n="catalogSub">Qoldiq har buyurtmadan keyin avtomatik yangilanadi. Narxlar so'mda.</p>
+        </div>
 
-function sendToWhatsApp(order) {
-  const t = TRANSLATIONS[currentLang];
-  
-  let message = `🛒 *YANGI BUYURTMA / НОВЫЙ ЗАКАЗ (Al Baraka)*\n\n`;
-  message += `👤 *Mijoz/Клиент:* ${order.clientName}\n`;
-  message += `📞 *Tel/Тел:* ${order.phone}\n`;
-  message += `📍 *Manzil/Адрес:* ${order.address}\n\n`;
-  message += `📦 *Mahsulotlar/Товары:*\n`;
-  
-  order.items.forEach(i => {
-    message += `- ${i.name} x${i.qty} = ${formatMoney(i.price * i.qty)} ${t.currency}\n`;
-  });
-  
-  message += `\n💰 *JAMI/ИТОГО: ${formatMoney(order.total)} ${t.currency}*`;
+        <div class="catalog-toolbar">
+          <div class="chips" id="filterChips" role="group" aria-label="Kategoriyalar"></div>
+          <div class="catalog-tools">
+            <label class="searchbox">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+              <input type="search" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Mahsulot qidirish..." autocomplete="off">
+            </label>
+            <label class="selectbox">
+              <span class="sr-only" data-i18n="sortLabel">Saralash</span>
+              <select id="sortSelect">
+                <option value="default" data-i18n="sortDefault">Odatiy</option>
+                <option value="price-asc" data-i18n="sortPriceAsc">Narx: arzon → qimmat</option>
+                <option value="price-desc" data-i18n="sortPriceDesc">Narx: qimmat → arzon</option>
+                <option value="name" data-i18n="sortName">Nomi bo'yicha</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg>
+            </label>
+          </div>
+        </div>
 
-  let waPhone = contactInfo.phone.replace(/[^0-9]/g, ''); 
-  if(waPhone.startsWith('998')) waPhone = waPhone; 
-  else if(waPhone.startsWith('8')) waPhone = '998' + waPhone.substring(1);
-  else if(!waPhone.startsWith('998')) waPhone = '998' + waPhone;
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
 
-  const encodedMessage = encodeURIComponent(message);
-  window.open(`https://wa.me/${waPhone}?text=${encodedMessage}`, '_blank');
-}
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-state__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m4 8 8-4 8 4v9l-8 4-8-4z"></path><path d="m4 8 8 4 8-4"></path><path d="M12 12v9"></path></svg>
+          </div>
+          <h3 data-i18n="emptyTitle">Hech narsa topilmadi</h3>
+          <p data-i18n="emptyText">Boshqa nom bilan qidirib ko'ring yoki filtrni tozalang.</p>
+          <button type="button" class="btn btn--ghost" id="clearFilters" data-i18n="clearFilters">Filtrlarni tozalash</button>
+        </div>
+      </div>
+    </section>
 
-function calcMDF() {
-  const w = parseFloat(document.getElementById('partW').value);
-  const h = parseFloat(document.getElementById('partH').value);
-  const qty = parseInt(document.getElementById('partQty').value);
-  const sPrice = +document.getElementById('sheetType').value;
-  const cPrice = +document.getElementById('cutType').value;
-  const box = document.getElementById('mdfResult');
-  const t = TRANSLATIONS[currentLang];
-  
-  if (!(w > 0) || !(h > 0) || !(qty > 0)) { 
-    box.innerHTML = `<p style="color:#ef4444; font-weight:bold;">${currentLang === 'uz' ? 'Xato! O\'lchamlarni tekshiring.' : 'Ошибка! Проверьте размеры.'}</p>`; 
-    return; 
-  }
-  if (w > 275 || h > 183) { 
-    box.innerHTML = `<p style="color:#ef4444; font-weight:bold;">${currentLang === 'uz' ? 'O\'lcham listdan (275x183) katta!' : 'Размер больше листа (275x183)!'}</p>`; 
-    return; 
-  }
-  
-  const perRow = Math.floor(275 / w);
-  const rows = Math.floor(183 / h);
-  const perSheet = perRow * rows;
-  const sheetsNeeded = Math.ceil(qty / perSheet);
-  const totalMatCost = sheetsNeeded * sPrice;
-  const totalCutCost = sheetsNeeded * cPrice;
-  
-  box.innerHTML = `
-    <div class="res-row"><span>${t.mdf_res_list}</span> <b>${sheetsNeeded} ${currentLang === 'uz' ? 'dona' : 'шт'}</b></div>
-    <div class="res-row"><span>${t.mdf_res_per}</span> <b>${perSheet} ${currentLang === 'uz' ? 'dona' : 'шт'}</b></div>
-    <div class="res-row"><span>${t.mdf_res_price}</span> <b>${formatMoney(totalMatCost)} ${t.currency}</b></div>
-    <div class="res-row"><span>${t.mdf_res_cut}</span> <b>${formatMoney(totalCutCost)} ${t.currency}</b></div>
-    <div class="res-total"><span>${t.mdf_res_total}</span> <span>${formatMoney(totalMatCost + totalCutCost)} ${t.currency}</span></div>
-  `;
-}
+    <section class="section how" id="how">
+      <div class="container">
+        <div class="how-panel">
+          <div class="how-head">
+            <p class="eyebrow eyebrow--light"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="howKicker">Oson jarayon</span></p>
+            <h2 data-i18n="howTitle">Uch qadam — va materiallar sizda</h2>
+            <p class="how-note" data-i18n="howNote">Yetkazishni haydovchi bilan kelishasiz: vaqt, manzil va narxni telefon orqali aniqlashtirasiz. Do'kon buyurtmani tayyorlab beradi.</p>
+            <div class="how-badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle></svg>
+              <span data-i18n="heroNote">Haydovchi orqali yetkazish mavjud</span>
+            </div>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <span class="step__num">01</span>
+              <h3 data-i18n="step1Title">Tanlang</h3>
+              <p data-i18n="step1Text">Katalogdan kerakli mahsulotni va miqdorini tanlang. Qoldiq saytda ko'rinadi.</p>
+            </article>
+            <article class="step">
+              <span class="step__num">02</span>
+              <h3 data-i18n="step2Title">Buyurtma bering</h3>
+              <p data-i18n="step2Text">Ismingiz, telefoningiz va qulay vaqtni qoldiring.</p>
+            </article>
+            <article class="step">
+              <span class="step__num">03</span>
+              <h3 data-i18n="step3Title">Oling yoki yetkazing</h3>
+              <p data-i18n="step3Text">Buyurtmani do'kondan olib ketasiz yoki haydovchi bilan qo'ng'iroq qilib, yetkazishni kelishasiz.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-function formatMoney(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+    <section class="section delivery" id="delivery">
+      <div class="container delivery__in">
+        <div class="delivery__copy">
+          <p class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="deliveryKicker">Yetkazib berish</span></p>
+          <h2 data-i18n="deliveryTitle">Haydovchilar bilan kelishasiz</h2>
+          <p class="delivery__sub" data-i18n="deliverySub">Buyurtma bergach, haydovchiga qo'ng'iroq qilib vaqt, manzil va narxni kelishib oling. Do'kon yetkazishni o'zi tashkil qilmaydi.</p>
+          <div class="delivery__note">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle></svg>
+            <span data-i18n="deliveryNote">Yetkazib berish narxi buyurtma summasiga kirmaydi. Uni haydovchi bilan kelishasiz.</span>
+          </div>
+          <a class="btn btn--primary" id="deliveryStorePhoneLink" href="tel:+998901234567">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>
+            <span data-i18n="deliveryStoreCall">Do'konga qo'ng'iroq qilish</span>
+          </a>
+        </div>
+        <div class="delivery__drivers">
+          <div class="delivery__drivers-head">
+            <h3 data-i18n="deliveryDriversTitle">Haydovchilar</h3>
+            <span id="driverCount"></span>
+          </div>
+          <div class="driver-list" id="driverList" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
 
-setLang(currentLang);
-listenOrders();
-</script>
+    <section class="service-band" id="serviceBand">
+      <div class="container service-band__in">
+        <div class="service-band__copy">
+          <p class="eyebrow eyebrow--ink"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="serviceKicker">Qo'shimcha xizmat</span></p>
+          <h2 data-i18n="serviceTitle">O'lcham muhimmi? Biz kesamiz.</h2>
+          <p data-i18n="serviceText">Rover stanogida plitka, profil va list materiallarni aniq o'lchamda kesamiz. Kesish narxi — ish hajmidan kelib chiqib.</p>
+          <button type="button" class="btn btn--dark" data-filter-category="xizmat">
+            <span data-i18n="serviceCta">Kesish xizmatini ko‘rish</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div class="service-band__art" aria-hidden="true">
+          <img src="/assets/img/service.svg" alt="" width="640" height="480">
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about__grid">
+        <div class="about__visual reveal">
+          <img src="/assets/img/store.svg" alt="Al Baraka qurilish mollari do'koni" width="900" height="760">
+          <div class="about__badge">
+            <span class="about__badge-mark">AB</span>
+            <div>
+              <strong>AL BARAKA</strong>
+              <span>QURILISH MOLLARI</span>
+            </div>
+          </div>
+        </div>
+        <div class="about__copy reveal">
+          <p class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="aboutKicker">Do'kon haqida</span></p>
+          <h2 data-i18n="aboutTitle">Al Baraka — ishonchli poydevor</h2>
+          <p data-i18n="aboutText1">Chilonzorda joylashgan qurilish mollari do'koni. Sement, gips, bo'yoq, santexnika va elektrotexnika — qurilishning barcha asosiy bosqichlari uchun.</p>
+          <p data-i18n="aboutText2">Biz onlayn katalog va real vaqtdagi qoldiqlar bilan ishlaymiz: nima borligini oldindan bilasiz, navbatda kutib qolmaysiz.</p>
+
+          <div class="contact-grid">
+            <a class="contact-card" id="aboutPhoneCard" href="tel:+998901234567">
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>
+              </span>
+              <span class="contact-card__label" data-i18n="aboutPhone">Telefon</span>
+              <strong id="aboutPhone">+998 90 123 45 67</strong>
+            </a>
+            <div class="contact-card">
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+              </span>
+              <span class="contact-card__label" data-i18n="aboutAddress">Manzil</span>
+              <strong id="aboutAddress">Toshkent sh., Chilonzor tumani</strong>
+            </div>
+            <div class="contact-card">
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3 2"></path></svg>
+              </span>
+              <span class="contact-card__label" data-i18n="aboutHours">Ish vaqti</span>
+              <strong id="aboutHours">Dushanba–Shanba, 08:00–19:00</strong>
+            </div>
+            <div class="contact-card contact-card--accent">
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle></svg>
+              </span>
+              <span class="contact-card__label" data-i18n="aboutPickup">Yetkazib berish</span>
+              <strong data-i18n="aboutPickupValue">Haydovchi bilan kelishiladi</strong>
+            </div>
+          </div>
+          <a class="btn btn--primary about__cta" href="#catalog">
+            <span data-i18n="aboutCta">Buyurtma berish</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a class="brand brand--light" href="/">
+            <span class="brand__mark" aria-hidden="true">A</span>
+            <span class="brand__text">
+              <strong>AL BARAKA</strong>
+              <small data-i18n="brandTagline">Qurilish mollari</small>
+            </span>
+          </a>
+          <p data-i18n="footTagline">Poydevordan tomgacha — bitta manzilda.</p>
+          <div class="footer__pickup">
+            <span class="footer__pickup-dot" aria-hidden="true"></span>
+            <span data-i18n="footPickupOnly">Olib ketish + yetkazish</span>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h3 data-i18n="footCatalog">Katalog</h3>
+          <div id="footerCategories"></div>
+        </div>
+
+        <div class="footer__col">
+          <h3 data-i18n="footHelp">Ma’lumot</h3>
+          <a href="#how" data-i18n="navPickup">Qanday ishlaydi</a>
+          <a href="#delivery" data-i18n="navDelivery">Yetkazish</a>
+          <a href="#about" data-i18n="navAbout">Do'kon haqida</a>
+          <button type="button" class="footer__link" data-open-track data-i18n="trackOrder">Buyurtmani tekshirish</button>
+          <a href="/admin" data-i18n="footAdmin">Sotuvchi paneli</a>
+        </div>
+
+        <div class="footer__col footer__col--contact">
+          <h3 data-i18n="footContacts">Aloqa</h3>
+          <a id="footerPhone" href="tel:+998901234567">+998 90 123 45 67</a>
+          <a id="footerPhone2" href="tel:+998712004040">+998 71 200 40 40</a>
+          <p id="footerAddress">Toshkent sh., Chilonzor tumani</p>
+          <p id="footerHours">Dushanba–Shanba, 08:00–19:00</p>
+        </div>
+      </div>
+
+      <div class="footer__bar">
+        <span data-i18n="footRights">© 2026 Al Baraka. Barcha huquqlar himoyalangan.</span>
+        <a href="/admin" data-i18n="footAdmin">Sotuvchi paneli</a>
+      </div>
+    </div>
+    <div class="footer__ghost" aria-hidden="true">AL BARAKA</div>
+  </footer>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+    <div class="cart-drawer__head">
+      <div>
+        <p class="drawer-kicker" data-i18n="cartItems">Mahsulotlar</p>
+        <h2 id="cartTitle"><span data-i18n="cartTitle">Savat</span> <span class="cart-drawer__count" id="cartCountInline">0</span></h2>
+      </div>
+      <button type="button" class="icon-button" id="cartClose" aria-label="Yopish">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+    </div>
+    <div class="cart-drawer__body" id="cartItems"></div>
+    <div class="cart-drawer__foot" id="cartFoot">
+      <div class="cart-drawer__pickup">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle></svg>
+        <span data-i18n="cartPickup">Olib ketish yoki haydovchi orqali yetkazish</span>
+      </div>
+      <div class="cart-drawer__total">
+        <span data-i18n="cartSubtotal">Jami</span>
+        <strong id="cartTotal">0 so'm</strong>
+      </div>
+      <button type="button" class="btn btn--primary btn--wide" id="checkoutBtn" data-i18n="cartCheckout">Buyurtma berish</button>
+    </div>
+  </aside>
+
+  <dialog class="modal" id="checkoutModal" aria-labelledby="coTitle">
+    <div class="modal__card modal__card--checkout">
+      <button type="button" class="modal__close" data-close-dialog aria-label="Yopish">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <div class="checkout__main">
+        <p class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="coKicker">Buyurtmani tasdiqlash</span></p>
+        <h2 id="coTitle" data-i18n="coTitle">Buyurtma berish</h2>
+        <p class="modal__sub" data-i18n="coSub">Buyurtmani do'kondan olib ketasiz yoki haydovchi bilan kelishib yetkazasiz.</p>
+
+        <form id="checkoutForm" novalidate>
+          <fieldset class="fulfillment">
+            <legend class="field__label" data-i18n="fulfillmentTitle">Qanday olasiz?</legend>
+            <div class="fulfillment__options">
+              <label class="fulfillment-option">
+                <input type="radio" name="fulfillment" id="coFulfillmentPickup" value="pickup" checked>
+                <span class="fulfillment-option__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 9h16v10H4z"></path><path d="M8 9V6a4 4 0 0 1 8 0v3"></path></svg>
+                </span>
+                <span class="fulfillment-option__text">
+                  <strong data-i18n="fulfillmentPickup">Olib ketaman</strong>
+                  <small data-i18n="fulfillmentPickupSub">Do'kondan o'zim olib ketaman</small>
+                </span>
+              </label>
+              <label class="fulfillment-option" id="coDeliveryOption">
+                <input type="radio" name="fulfillment" id="coFulfillmentDelivery" value="delivery">
+                <span class="fulfillment-option__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle></svg>
+                </span>
+                <span class="fulfillment-option__text">
+                  <strong data-i18n="fulfillmentDelivery">Haydovchi orqali</strong>
+                  <small id="coDeliverySub" data-i18n="fulfillmentDeliverySub">Haydovchi bilan telefon orqali kelishaman</small>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="delivery-panel" id="deliveryPanel" hidden>
+            <div class="delivery-panel__head">
+              <strong data-i18n="coDeliveryTitle">Haydovchini tanlang</strong>
+              <span data-i18n="coDeliveryFee">Yetkazish narxi haydovchi bilan kelishiladi va buyurtma summasiga kirmaydi.</span>
+            </div>
+            <p class="delivery-panel__text" data-i18n="coDeliveryText">Buyurtmani yuborishdan oldin haydovchiga qo'ng'iroq qiling va vaqt, manzil hamda narxni kelishib oling.</p>
+            <div class="co-driver-list" id="coDriverList"></div>
+            <p class="delivery-panel__empty" id="coDeliveryNoDrivers" data-i18n="coDeliveryNoDrivers" hidden>Hozircha faol haydovchilar yo'q. Iltimos, olib ketishni tanlang.</p>
+            <label class="field">
+              <span class="field__label" data-i18n="coDriverLabel">Kelishilgan haydovchi (ixtiyoriy)</span>
+              <select id="coDriver"></select>
+            </label>
+            <p class="delivery-panel__phone" id="coDriverPhoneRow" hidden>
+              <span data-i18n="coDriverPhone">Haydovchi telefoni</span>
+              <a id="coDriverPhone" href="tel:"></a>
+            </p>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span class="field__label" data-i18n="coName">Ismingiz</span>
+              <input type="text" id="coName" name="name" autocomplete="name" data-i18n-placeholder="coNamePh" placeholder="Masalan, Aziz Karimov" required maxlength="80">
+            </label>
+            <label class="field">
+              <span class="field__label" data-i18n="coPhone">Telefon raqamingiz</span>
+              <input type="tel" id="coPhone" name="phone" autocomplete="tel" data-i18n-placeholder="coPhonePh" placeholder="+998 90 123 45 67" required maxlength="30">
+            </label>
+            <label class="field field--full">
+              <span class="field__label" id="coAddressLabel" data-i18n="coAddress">Manzil / tuman</span>
+              <input type="text" id="coAddress" name="address" autocomplete="address-level2" data-i18n-placeholder="coAddressPh" placeholder="Tuman yoki manzil" required maxlength="180">
+              <span class="field__hint" id="coAddressHint" data-i18n="coAddressHint">Sotuvchi sizni tanashi uchun. Yetkazishda manzilni haydovchi bilan aniqlashtirasiz.</span>
+            </label>
+            <label class="field field--full">
+              <span class="field__label" id="coPickupLabel" data-i18n="coPickup">Olib ketish vaqti</span>
+              <input type="datetime-local" id="coPickup" name="pickupAt" required>
+              <span class="field__hint" id="pickupHoursHint" data-i18n="coPickupHint">Do‘kon ish vaqti: {hours}</span>
+            </label>
+            <label class="field field--full">
+              <span class="field__label" data-i18n="coNote">Izoh (ixtiyoriy)</span>
+              <textarea id="coNote" name="note" rows="2" maxlength="400" data-i18n-placeholder="coNotePh" placeholder="Masalan: 20 qop sement, yuklashda yordam kerak..."></textarea>
+            </label>
+          </div>
+          <div class="form-error" id="coError" hidden></div>
+          <div class="checkout__inline-total">
+            <span data-i18n="coTotal">Jami</span>
+            <strong id="coTotalInline">0 so'm</strong>
+          </div>
+          <button type="submit" class="btn btn--primary btn--wide" id="coSubmit">
+            <span data-i18n="coSubmit">Buyurtmani yuborish</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+          </button>
+          <p class="form-note">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11v9H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="18.5" r="1.8"></circle><circle cx="18" cy="18.5" r="1.8"></circle></svg>
+            <span data-i18n="coAgree">Buyurtma do'kondan olib ketiladi yoki haydovchi orqali yetkaziladi.</span>
+          </p>
+        </form>
+      </div>
+
+      <aside class="checkout__summary">
+        <div class="checkout__summary-head">
+          <h3 data-i18n="coSummary">Buyurtmangiz</h3>
+          <span id="coItemCount"></span>
+        </div>
+        <div class="checkout__items" id="checkoutItems"></div>
+        <div class="checkout__method">
+          <div>
+            <span data-i18n="coSummaryMethod">Qabul qilish</span>
+            <strong id="coSummaryMethod">Olib ketish</strong>
+          </div>
+          <div id="coSummaryDriverRow" hidden>
+            <span data-i18n="coSummaryDriver">Haydovchi</span>
+            <strong id="coSummaryDriver">—</strong>
+          </div>
+        </div>
+        <div class="checkout__total">
+          <span data-i18n="coTotal">Jami</span>
+          <strong id="coTotal">0 so'm</strong>
+        </div>
+        <div class="checkout__pickup-note">
+          <span class="checkout__pickup-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+          </span>
+          <div>
+            <strong id="summaryAddress">Toshkent, Chilonzor</strong>
+            <span id="summaryHours">08:00–19:00</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="successModal" aria-labelledby="okTitle">
+    <div class="modal__card modal__card--success">
+      <button type="button" class="modal__close" data-close-dialog aria-label="Yopish">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <div class="success__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+      </div>
+      <p class="eyebrow eyebrow--center"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="okKicker">Rahmat!</span></p>
+      <h2 id="okTitle" data-i18n="okTitle">Buyurtma qabul qilindi</h2>
+      <p class="modal__sub" data-i18n="okText">Sotuvchi tez orada buyurtmani tasdiqlaydi. Holatni buyurtma raqami orqali kuzatishingiz mumkin.</p>
+
+      <div class="success__code">
+        <span data-i18n="okCode">Buyurtma raqami</span>
+        <strong id="okCode">AB-1001</strong>
+      </div>
+      <div class="success__grid">
+        <div class="success__cell">
+          <span id="okPickupLabel" data-i18n="okPickup">Kutilayotgan vaqt</span>
+          <strong id="okPickup">—</strong>
+        </div>
+        <div class="success__cell">
+          <span data-i18n="okTotal">Jami</span>
+          <strong id="okTotal">—</strong>
+        </div>
+      </div>
+      <p class="success__method" id="okMethod"></p>
+      <p class="success__hint" data-i18n="okKeep">Raqamni saqlab qo'ying yoki ekranni suratga oling.</p>
+      <div class="success__actions">
+        <button type="button" class="btn btn--primary" id="okTrackBtn" data-i18n="okTrack">Buyurtmani kuzatish</button>
+        <button type="button" class="btn btn--ghost" data-close-dialog data-i18n="okClose">Xaridni davom ettirish</button>
+      </div>
+      <p class="success__phone">
+        <span data-i18n="okPhone">Savollar bo'lsa, do'konga qo'ng'iroq qiling.</span>
+        <a id="okPhoneLink" href="tel:+998901234567">+998 90 123 45 67</a>
+      </p>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="trackModal" aria-labelledby="trTitle">
+    <div class="modal__card modal__card--track">
+      <button type="button" class="modal__close" data-close-dialog aria-label="Yopish">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <p class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span><span data-i18n="trackOrder">Buyurtmani tekshirish</span></p>
+      <h2 id="trTitle" data-i18n="trTitle">Buyurtma holati</h2>
+      <p class="modal__sub" data-i18n="trSub">Buyurtma raqami va telefon raqamingizni kiriting.</p>
+
+      <form class="track-form" id="trackForm" novalidate>
+        <label class="field">
+          <span class="field__label" data-i18n="trCode">Buyurtma raqami</span>
+          <input type="text" id="trackCode" name="code" placeholder="AB-1001" autocomplete="off" required maxlength="30">
+        </label>
+        <label class="field">
+          <span class="field__label" data-i18n="trPhone">Telefon</span>
+          <input type="tel" id="trackPhone" name="phone" placeholder="+998 90 123 45 67" autocomplete="tel" required maxlength="30">
+        </label>
+        <button type="submit" class="btn btn--primary" id="trackSubmit">
+          <span data-i18n="trSubmit">Tekshirish</span>
+        </button>
+      </form>
+      <div class="form-error" id="trackError" hidden></div>
+      <div class="track-result" id="trackResult" hidden></div>
+    </div>
+  </dialog>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <noscript>
+    <div class="noscript">Sayt to‘liq ishlashi uchun brauzerda JavaScript yoqilgan bo‘lishi kerak.</div>
+  </noscript>
 </body>
 </html>

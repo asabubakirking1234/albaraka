@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Grunt Beton-kontakt 5 litr">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe8da"/>
+      <stop offset="1" stop-color="#dbd1be"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="can" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c74a17"/>
+      <stop offset=".35" stop-color="#ef7a43"/>
+      <stop offset=".7" stop-color="#e7622a"/>
+      <stop offset="1" stop-color="#b74113"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="200%">
+      <feDropShadow dx="0" dy="20" stdDeviation="15" flood-color="#2a2114" flood-opacity=".3"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="15"/></filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="640" cy="140" r="150" fill="#1d2922" opacity=".06"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">PRIMER / 5 L</text>
+
+  <!-- concrete blocks -->
+  <g opacity=".55">
+    <rect x="94" y="436" width="240" height="82" rx="4" fill="#bdb3a3"/>
+    <rect x="94" y="436" width="240" height="82" rx="4" fill="none" stroke="#9d9281" stroke-width="2"/>
+    <circle cx="126" cy="462" r="4" fill="#a39785"/><circle cx="172" cy="490" r="3" fill="#a39785"/>
+    <circle cx="248" cy="458" r="5" fill="#a39785"/><circle cx="292" cy="486" r="3" fill="#a39785"/>
+    <rect x="352" y="458" width="200" height="70" rx="4" fill="#c4baaa"/>
+    <rect x="352" y="458" width="200" height="70" rx="4" fill="none" stroke="#9d9281" stroke-width="2"/>
+  </g>
+
+  <ellipse cx="408" cy="506" rx="230" ry="30" fill="#7d6d54" opacity=".24" filter="url(#blur)"/>
+
+  <!-- roller -->
+  <g transform="translate(518 250) rotate(24)" filter="url(#shadow)">
+    <rect x="0" y="0" width="152" height="34" rx="17" fill="#8c958b"/>
+    <rect x="0" y="0" width="152" height="34" rx="17" fill="#c0c6bc" opacity=".4"/>
+    <rect x="140" y="9" width="110" height="12" rx="6" fill="#b7bdb4"/>
+    <rect x="228" y="2" width="86" height="28" rx="8" fill="#e7622a"/>
+    <rect x="286" y="8" width="58" height="16" rx="8" fill="#1d2922"/>
+  </g>
+
+  <!-- jerrycan -->
+  <g transform="translate(266 208)" filter="url(#shadow)">
+    <ellipse cx="132" cy="300" rx="144" ry="26" fill="#7d6d54" opacity=".26" filter="url(#blur)"/>
+    <path d="M34 66q0-18 18-18h30l12-18h58v0h24q18 0 18 18v216q0 22-22 22H56q-22 0-22-22Z" fill="url(#can)"/>
+    <path d="M34 66q0-18 18-18h30l12-18h38v274H56q-22 0-22-22Z" fill="#f08a54" opacity=".18"/>
+    <rect x="182" y="28" width="30" height="26" rx="4" fill="#1d2922"/>
+    <path d="M188 20h20v12h-20z" fill="#4d584f"/>
+    <path d="M204 32h34q10 0 10 10v28q0 8-8 8h-6" fill="none" stroke="#1d2922" stroke-width="7" stroke-linecap="round"/>
+    <path d="M52 82h166" stroke="#1d2922" stroke-opacity=".25"/>
+    <rect x="54" y="104" width="164" height="128" rx="3" fill="#f8f3e8"/>
+    <text x="68" y="128" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="2.2">AL BARAKA</text>
+    <text x="68" y="158" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800" letter-spacing="-.5">BETON-</text>
+    <text x="68" y="184" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800" letter-spacing="-.5">KONTAKT</text>
+    <path d="M68 194h134" stroke="#1d2922" stroke-opacity=".15"/>
+    <text x="68" y="210" fill="#4d584f" font-family="Arial,Helvetica,sans-serif" font-size="7.5" letter-spacing="1.2">DEEP PRIMER · 5 L</text>
+    <text x="68" y="222" fill="#7b847b" font-family="Arial,Helvetica,sans-serif" font-size="6.5" letter-spacing="1">CONCRETE / OLD PAINT</text>
+    <path d="M52 246h166" stroke="#1d2922" stroke-opacity=".2" stroke-dasharray="3 4"/>
+    <text x="134" y="266" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.6" text-anchor="middle">EXTRA GRIP</text>
+    <rect x="88" y="277" width="88" height="12" rx="6" fill="#1d2922" opacity=".75"/>
+  </g>
+
+  <g transform="translate(600 402) rotate(5)">
+    <rect x="0" y="0" width="126" height="94" rx="3" fill="#fffdf8" opacity=".9"/>
+    <text x="13" y="21" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">BEFORE PAINT</text>
+    <text x="13" y="46" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="800">1 LAYER</text>
+    <path d="M13 56h100" stroke="#d9d1c2"/>
+    <text x="13" y="70" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">BETTER ADHESION</text>
+    <text x="13" y="84" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" letter-spacing="1">INTERIOR / EXTERIOR</text>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="170" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5">5 L · BETON-KONTAKT</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">PRIMER / 01</text>
+</svg>

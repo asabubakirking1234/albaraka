@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" width="900" height="760" role="img" aria-label="Al Baraka qurilish mollari do'koni">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4efe5"/>
+      <stop offset="1" stop-color="#e3d9c8"/>
+    </linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0v34" fill="none" stroke="#1d2922" stroke-opacity=".055"/>
+    </pattern>
+    <linearGradient id="inside" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2d3f33"/>
+      <stop offset="1" stop-color="#17221b"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cfd9cd" stop-opacity=".55"/>
+      <stop offset=".5" stop-color="#f8f3e8" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#8fa091" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="awning" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f07a40"/>
+      <stop offset="1" stop-color="#d6541c"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="190%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#2a2114" flood-opacity=".24"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+
+  <rect width="900" height="760" fill="url(#sky)"/>
+  <rect width="900" height="760" fill="url(#grid)"/>
+  <circle cx="752" cy="142" r="106" fill="#e7622a" opacity=".16"/>
+  <circle cx="752" cy="142" r="68" fill="#e7622a" opacity=".14"/>
+
+  <!-- ground -->
+  <rect x="0" y="624" width="900" height="136" fill="#d8cebc"/>
+  <g stroke="#c1b6a3" stroke-width="1.2">
+    <path d="M0 654h900M0 690h900M0 728h900"/>
+    <path d="M90 624v136M230 624v136M370 624v136M510 624v136M650 624v136M790 624v136"/>
+  </g>
+  <ellipse cx="450" cy="650" rx="390" ry="36" fill="#8d7d64" opacity=".22" filter="url(#soft)"/>
+
+  <!-- building shell -->
+  <g filter="url(#shadow)">
+    <rect x="118" y="132" width="664" height="500" rx="3" fill="#f6f0e3"/>
+    <rect x="118" y="132" width="664" height="500" rx="3" fill="none" stroke="#1d2922" stroke-width="2"/>
+  </g>
+
+  <!-- sign fascia -->
+  <rect x="118" y="132" width="664" height="126" fill="#1d2922"/>
+  <path d="M118 132h664" stroke="#3c4a40"/>
+  <text x="148" y="188" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="800" letter-spacing="4">AL BARAKA</text>
+  <text x="150" y="216" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="5.4">QURILISH MOLLARI · TOSHKENT</text>
+  <g transform="translate(686 158)">
+    <rect x="0" y="0" width="58" height="58" rx="9" fill="#e7622a"/>
+    <text x="29" y="40" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" text-anchor="middle">A</text>
+  </g>
+
+  <!-- awning -->
+  <g>
+    <path d="M118 258h664v54H118Z" fill="url(#awning)"/>
+    <g fill="#f0b08e" opacity=".55">
+      <path d="M118 258h54v54h-54zM226 258h54v54h-54zM334 258h54v54h-54zM442 258h54v54h-54zM550 258h54v54h-54zM658 258h54v54h-54zM766 258h16v54h-16z"/>
+    </g>
+    <path d="M118 312h664" stroke="#1d2922" stroke-width="2"/>
+    <g fill="#d6541c">
+      <path d="M118 312h56l-28 26zM174 312h56l-28 26zM230 312h56l-28 26zM286 312h56l-28 26zM342 312h56l-28 26zM398 312h56l-28 26zM454 312h56l-28 26zM510 312h56l-28 26zM566 312h56l-28 26zM622 312h56l-28 26zM678 312h56l-28 26zM734 312h48l-24 26z"/>
+    </g>
+  </g>
+
+  <!-- shop window -->
+  <rect x="150" y="334" width="446" height="242" fill="url(#inside)"/>
+  <rect x="150" y="334" width="446" height="242" fill="none" stroke="#1d2922" stroke-width="2"/>
+  <rect x="150" y="334" width="446" height="242" fill="none" stroke="#f6f0e3" stroke-width="10"/>
+  <rect x="150" y="334" width="446" height="242" fill="url(#glass)"/>
+
+  <!-- interior light -->
+  <ellipse cx="376" cy="386" rx="184" ry="68" fill="#ffd990" opacity=".18"/>
+  <g stroke="#ffd990" stroke-width="2" opacity=".5">
+    <path d="M292 334v-14M460 334v-14"/>
+    <circle cx="292" cy="316" r="5" fill="#ffd990" stroke="none"/>
+    <circle cx="460" cy="316" r="5" fill="#ffd990" stroke="none"/>
+  </g>
+
+  <!-- shelves -->
+  <g stroke="#6d7c6f" stroke-width="2">
+    <path d="M176 442h394M176 520h394"/>
+    <path d="M222 334v196M314 334v196M406 334v196M498 334v196M570 334v196"/>
+  </g>
+
+  <!-- interior sacks -->
+  <g>
+    <path d="M184 474 254 468l6 46-70 5z" fill="#c6ab84"/>
+    <path d="M184 474l70-6 2 12-70 6z" fill="#dcc8a9"/>
+    <rect x="196" y="484" width="40" height="16" fill="#1d2922"/>
+    <text x="200" y="495" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700">M400</text>
+    <path d="m258 478 66-5 5 42-66 5z" fill="#b99d78"/>
+    <path d="m258 478 66-5 2 11-66 5z" fill="#d5c1a1"/>
+    <rect x="270" y="488" width="38" height="14" fill="#e7622a"/>
+  </g>
+
+  <!-- interior buckets -->
+  <g>
+    <path d="M336 488v-52q0-6 6-6h44q6 0 6 6v52z" fill="#e7622a"/>
+    <ellipse cx="364" cy="436" rx="28" ry="8" fill="#f08a54"/>
+    <rect x="344" y="450" width="40" height="24" fill="#f8f3e8"/>
+    <text x="364" y="466" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" text-anchor="middle">10L</text>
+    <path d="M402 488v-42q0-5 5-5h38q5 0 5 5v42z" fill="#f8f3e8"/>
+    <ellipse cx="426" cy="446" rx="24" ry="7" fill="#d9d1c2"/>
+    <rect x="410" y="458" width="32" height="18" fill="#1d2922"/>
+  </g>
+
+  <!-- interior pipes -->
+  <g transform="translate(480 480) rotate(-16)">
+    <rect x="0" y="0" width="120" height="12" rx="6" fill="#bfcdb7"/>
+    <rect x="0" y="16" width="120" height="12" rx="6" fill="#dfe7d7"/>
+    <rect x="0" y="32" width="120" height="12" rx="6" fill="#a9b9a0"/>
+  </g>
+
+  <!-- window lettering -->
+  <g transform="translate(172 356)">
+    <rect x="0" y="0" width="172" height="30" fill="#1d2922" opacity=".85"/>
+    <text x="10" y="20" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="2">SEMENT · BO‘YOQ · ELEKTRO</text>
+  </g>
+  <g transform="translate(478 534)">
+    <rect x="0" y="0" width="102" height="26" rx="3" fill="#e7622a"/>
+    <text x="51" y="17" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="7.5" font-weight="700" letter-spacing="1.2" text-anchor="middle">OLIB KETISH</text>
+  </g>
+
+  <!-- door -->
+  <rect x="614" y="334" width="140" height="242" fill="url(#inside)"/>
+  <rect x="614" y="334" width="140" height="242" fill="url(#glass)"/>
+  <rect x="614" y="334" width="140" height="242" fill="none" stroke="#1d2922" stroke-width="2"/>
+  <rect x="614" y="334" width="140" height="242" fill="none" stroke="#f6f0e3" stroke-width="10"/>
+  <path d="M684 344v222" stroke="#1d2922" stroke-width="3"/>
+  <rect x="700" y="430" width="5" height="40" rx="2.5" fill="#e7622a"/>
+  <g transform="translate(638 360)">
+    <text x="0" y="0" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" letter-spacing="1.8">OPEN</text>
+    <text x="0" y="16" fill="#c9c1b2" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">08:00 — 19:00</text>
+  </g>
+
+  <!-- base -->
+  <rect x="118" y="576" width="664" height="56" fill="#e6dccb"/>
+  <rect x="118" y="576" width="664" height="56" fill="none" stroke="#1d2922" stroke-width="2"/>
+  <g stroke="#c8bca8" stroke-width="1">
+    <path d="M178 576v56M238 576v56M298 576v56M358 576v56M418 576v56M478 576v56M538 576v56M598 576v56M658 576v56M718 576v56"/>
+  </g>
+
+  <!-- outside cement bags -->
+  <g filter="url(#shadow)">
+    <g transform="translate(64 532) rotate(-4)">
+      <path d="M14 26 158 14l10 78q1 12-12 13L28 112q-13 1-14-12Z" fill="#cdb28d"/>
+      <path d="m14 26 144-12 3 20L12 46Z" fill="#e1cfb3"/>
+      <rect x="34" y="52" width="98" height="36" fill="#1d2922"/>
+      <text x="44" y="78" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="800">M400</text>
+    </g>
+    <g transform="translate(52 590) rotate(3)">
+      <path d="M14 26 168 14l10 78q1 12-12 13L28 112q-13 1-14-12Z" fill="#c0a47e"/>
+      <path d="m14 26 154-12 3 20L12 46Z" fill="#d8c3a2"/>
+      <rect x="34" y="52" width="108" height="36" fill="#1d2922"/>
+      <text x="44" y="78" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="800">M400</text>
+    </g>
+  </g>
+
+  <!-- paint buckets outside -->
+  <g filter="url(#shadow)">
+    <g transform="translate(760 538)">
+      <path d="M10 22v62q0 8 8 9h58q8-1 8-9V22z" fill="#e7622a"/>
+      <ellipse cx="47" cy="22" rx="37" ry="10" fill="#f08a54"/>
+      <rect x="24" y="36" width="46" height="28" fill="#f8f3e8"/>
+      <text x="47" y="55" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="700" text-anchor="middle">10L</text>
+    </g>
+    <g transform="translate(794 582)">
+      <path d="M10 22v56q0 8 8 9h52q8-1 8-9V22z" fill="#1d2922"/>
+      <ellipse cx="44" cy="22" rx="34" ry="9" fill="#3b4b40"/>
+      <rect x="22" y="34" width="42" height="26" fill="#f8f3e8"/>
+      <text x="43" y="52" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" text-anchor="middle">10L</text>
+    </g>
+  </g>
+
+  <!-- sandwich board -->
+  <g transform="translate(690 610) rotate(-2)" filter="url(#shadow)">
+    <path d="M0 26 64 0l10 88H10Z" fill="#fffdf8"/>
+    <path d="M0 26 64 0l4 22L2 46Z" fill="#e7622a"/>
+    <text x="16" y="56" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1">PICKUP</text>
+    <text x="16" y="68" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="6" letter-spacing="1">ONLY</text>
+    <path d="m22 74 30-10" stroke="#e7622a" stroke-width="2"/>
+  </g>
+
+  <!-- plant -->
+  <g transform="translate(806 564)">
+    <path d="M0 58h54l-8 40H8Z" fill="#1d2922"/>
+    <g fill="#6e826a">
+      <path d="M27 58C8 40 8 14 27 10c19 4 19 30 0 48Z"/>
+      <path d="M27 54C10 46 4 26 20 16c16 2 22 22 7 38Z"/>
+      <path d="M27 54c17-8 23-28 7-38-16 2-22 22-7 38Z"/>
+    </g>
+    <path d="M27 58V18" stroke="#4b5d4a" stroke-width="2"/>
+  </g>
+
+  <!-- foreground vignette -->
+  <rect y="700" width="900" height="60" fill="#cbbfaa" opacity=".32"/>
+  <text x="58" y="728" fill="#6f6a5f" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="2.4">CHILONZOR · TOSHKENT · OLIB KETISH</text>
+  <text x="842" y="728" fill="#6f6a5f" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2.4" text-anchor="end">EST. 2016</text>
+</svg>

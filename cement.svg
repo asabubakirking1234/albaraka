@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Sement M400 50 kg qopi">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe8da"/>
+      <stop offset="1" stop-color="#ded4c2"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="kraft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dcc7a6"/>
+      <stop offset=".55" stop-color="#cbb18c"/>
+      <stop offset="1" stop-color="#b69973"/>
+    </linearGradient>
+    <linearGradient id="kraft2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ead9bc"/>
+      <stop offset="1" stop-color="#d2ba96"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="190%">
+      <feDropShadow dx="0" dy="20" stdDeviation="14" flood-color="#2a2114" flood-opacity=".28"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="638" cy="150" r="170" fill="#f8f3e8" opacity=".55"/>
+  <path d="M468 150a170 170 0 0 1 340 0" fill="none" stroke="#e7622a" stroke-width="2" opacity=".5"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">CEMENT / M400</text>
+
+  <ellipse cx="400" cy="514" rx="272" ry="34" fill="#7d6d54" opacity=".25" filter="url(#blur)"/>
+
+  <g transform="translate(122 300) rotate(-5)" filter="url(#shadow)">
+    <path d="M20 44 274 18l18 165q2 22-21 25L42 226q-25 2-27-22Z" fill="url(#kraft2)"/>
+    <path d="m20 44 254-26 4 36L18 80Z" fill="#e2ceaf"/>
+    <path d="M23 62 272 36" stroke="#a88d69" stroke-width="2" stroke-dasharray="7 7" opacity=".55"/>
+    <rect x="47" y="86" width="198" height="92" rx="3" fill="#1d2922"/>
+    <text x="63" y="130" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="45" font-weight="800" letter-spacing="-1">M400</text>
+    <text x="63" y="153" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" letter-spacing="2.2">PORTLAND CEMENT</text>
+    <text x="63" y="168" fill="#c5bdae" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.3">50 KG · AL BARAKA</text>
+  </g>
+
+  <g transform="translate(278 376) rotate(3)" filter="url(#shadow)">
+    <path d="M18 40 286 16l18 162q2 22-20 24L40 222q-24 2-26-22Z" fill="url(#kraft)"/>
+    <path d="m18 40 268-24 4 36L16 75Z" fill="#d9c3a2"/>
+    <path d="M20 58 283 34" stroke="#a88d69" stroke-width="2" stroke-dasharray="7 7" opacity=".6"/>
+    <rect x="46" y="82" width="210" height="96" rx="3" fill="#1d2922"/>
+    <text x="62" y="128" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="800" letter-spacing="-1">M400</text>
+    <text x="62" y="151" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" letter-spacing="2.2">PORTLAND CEMENT</text>
+    <text x="62" y="167" fill="#c5bdae" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.3">50 KG · AL BARAKA</text>
+    <path d="M46 194h210" stroke="#f8f3e8" stroke-opacity=".18"/>
+  </g>
+
+  <g fill="#b89e79">
+    <circle cx="120" cy="518" r="3"/><circle cx="146" cy="530" r="2"/><circle cx="174" cy="518" r="2.5"/>
+    <circle cx="202" cy="532" r="2"/><circle cx="620" cy="514" r="3"/><circle cx="648" cy="526" r="2"/>
+    <circle cx="676" cy="510" r="2.5"/><circle cx="704" cy="526" r="1.8"/>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="172" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">M400 · 50 KG · PORTLAND</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">STOCK / 01</text>
+</svg>

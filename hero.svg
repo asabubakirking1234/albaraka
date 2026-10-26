@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1060" width="900" height="1060" role="img" aria-labelledby="title desc">
+  <title id="title">Al Baraka qurilish mollari</title>
+  <desc id="desc">Sement qoplari, bo'yoq chelagi, trubalar va qurilish asboblari tasviri</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#24342a"/>
+      <stop offset="1" stop-color="#141d18"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#e7622a" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#e7622a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0v42" fill="none" stroke="#f8f3e8" stroke-opacity=".055" stroke-width="1"/>
+    </pattern>
+    <filter id="bagShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="22" stdDeviation="16" flood-color="#0c120e" flood-opacity=".4"/>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <linearGradient id="kraft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d8c2a1"/>
+      <stop offset=".55" stop-color="#c9b08c"/>
+      <stop offset="1" stop-color="#b99c76"/>
+    </linearGradient>
+    <linearGradient id="kraft2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e1cfb2"/>
+      <stop offset="1" stop-color="#c7ae8a"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9e5db"/>
+      <stop offset=".45" stop-color="#c3c8c1"/>
+      <stop offset=".65" stop-color="#eef1e9"/>
+      <stop offset="1" stop-color="#9fa89f"/>
+    </linearGradient>
+    <linearGradient id="bucket" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5eee1"/>
+      <stop offset=".45" stop-color="#fffdf7"/>
+      <stop offset="1" stop-color="#e2d8c7"/>
+    </linearGradient>
+    <linearGradient id="pipe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dbe4d4"/>
+      <stop offset=".5" stop-color="#aebda6"/>
+      <stop offset="1" stop-color="#87977e"/>
+    </linearGradient>
+    <linearGradient id="level" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6d16d"/>
+      <stop offset="1" stop-color="#e3ad32"/>
+    </linearGradient>
+    <clipPath id="frameClip">
+      <rect x="34" y="34" width="832" height="992" rx="8"/>
+    </clipPath>
+  </defs>
+
+  <rect width="900" height="1060" fill="url(#bg)"/>
+  <rect width="900" height="1060" fill="url(#grid)"/>
+  <circle cx="700" cy="250" r="330" fill="url(#glow)" opacity=".34"/>
+  <circle cx="700" cy="255" r="192" fill="#e7622a" opacity=".9"/>
+  <path d="M700 63a192 192 0 0 1 0 384" fill="none" stroke="#f8f3e8" stroke-opacity=".13" stroke-width="1.4" stroke-dasharray="5 9"/>
+
+  <g clip-path="url(#frameClip)">
+    <g opacity=".22" fill="none" stroke="#f8f3e8" stroke-width="1.2">
+      <path d="M0 830h900M0 906h900"/>
+      <path d="M58 760v240M842 760v240"/>
+    </g>
+
+    <!-- pipes behind -->
+    <g transform="rotate(-29 590 430)">
+      <rect x="315" y="330" width="590" height="42" rx="21" fill="url(#pipe)" filter="url(#bagShadow)"/>
+      <rect x="315" y="386" width="590" height="42" rx="21" fill="#c9d3c1" opacity=".85"/>
+      <rect x="315" y="442" width="590" height="42" rx="21" fill="#e6ded0" opacity=".75"/>
+      <ellipse cx="905" cy="351" rx="13" ry="21" fill="#71836a"/>
+      <ellipse cx="905" cy="407" rx="13" ry="21" fill="#9ba994"/>
+      <ellipse cx="905" cy="463" rx="13" ry="21" fill="#c9c2b4"/>
+      <rect x="330" y="330" width="34" height="42" rx="12" fill="#e7622a"/>
+      <rect x="330" y="386" width="34" height="42" rx="12" fill="#d8551f"/>
+    </g>
+
+    <!-- cement bag back -->
+    <g transform="translate(92 560) rotate(-4)" filter="url(#bagShadow)">
+      <path d="M22 42 282 18l20 168q2 22-20 24L44 224q-24 2-26-22Z" fill="url(#kraft2)"/>
+      <path d="m22 42 260-24 4 34L20 76Z" fill="#d3b995"/>
+      <path d="M24 58 280 34" stroke="#a88d69" stroke-width="2" stroke-dasharray="7 7" opacity=".65"/>
+      <rect x="53" y="86" width="196" height="94" rx="3" fill="#1d2922"/>
+      <text x="68" y="129" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="800" letter-spacing="-1">M400</text>
+      <text x="68" y="153" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="9.5" font-weight="700" letter-spacing="2.6">PORTLAND CEMENT</text>
+      <text x="68" y="169" fill="#c9c1b2" font-family="Arial,Helvetica,sans-serif" font-size="9" letter-spacing="1.4">50 KG · AL BARAKA</text>
+      <path d="M53 190h196" stroke="#f8f3e8" stroke-opacity=".22"/>
+    </g>
+
+    <!-- cement bag front -->
+    <g transform="translate(132 700) rotate(2)" filter="url(#bagShadow)">
+      <ellipse cx="155" cy="204" rx="150" ry="22" fill="#0b110d" opacity=".42" filter="url(#soft)"/>
+      <path d="M18 46 286 20l18 170q2 23-21 25L42 230q-25 2-27-23Z" fill="url(#kraft)"/>
+      <path d="m18 46 268-26 4 37L16 82Z" fill="#dcc8a9"/>
+      <path d="M20 64 286 38" stroke="#a88d69" stroke-width="2" stroke-dasharray="7 7" opacity=".6"/>
+      <rect x="48" y="92" width="206" height="100" rx="3" fill="#1d2922"/>
+      <text x="64" y="139" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="800" letter-spacing="-1">M400</text>
+      <text x="64" y="162" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="9.5" font-weight="700" letter-spacing="2.6">PORTLAND CEMENT</text>
+      <text x="64" y="178" fill="#c9c1b2" font-family="Arial,Helvetica,sans-serif" font-size="9" letter-spacing="1.4">50 KG · AL BARAKA</text>
+      <path d="M48 201h206" stroke="#f8f3e8" stroke-opacity=".2"/>
+      <path d="m46 221 220-2" stroke="#a88d69" stroke-width="1.4" stroke-dasharray="4 6" opacity=".5"/>
+    </g>
+
+    <!-- paint bucket -->
+    <g transform="translate(520 548)" filter="url(#bagShadow)">
+      <ellipse cx="112" cy="240" rx="124" ry="25" fill="#0b110d" opacity=".46" filter="url(#soft)"/>
+      <path d="M22 56v176q0 20 20 23l140 0q20-3 20-23V56Z" fill="url(#bucket)"/>
+      <path d="M22 56v176q0 20 20 23l36 0V56Z" fill="#e8dfd0" opacity=".6"/>
+      <ellipse cx="112" cy="56" rx="90" ry="23" fill="#c74a17"/>
+      <ellipse cx="112" cy="56" rx="76" ry="16" fill="#f08a54"/>
+      <ellipse cx="112" cy="56" rx="56" ry="10" fill="#e7622a"/>
+      <path d="M26 72q86 22 172 0" fill="none" stroke="#b8ac99" stroke-width="2" opacity=".5"/>
+      <rect x="50" y="102" width="124" height="96" rx="2" fill="#1d2922"/>
+      <text x="63" y="132" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="2.2">AL BARAKA</text>
+      <text x="63" y="164" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="800">10 L</text>
+      <text x="63" y="184" fill="#c9c1b2" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.4">INTERIOR · WHITE</text>
+      <path d="M64 106v88" stroke="#f8f3e8" stroke-opacity=".15"/>
+      <path d="M38 58q74-86 148 0" fill="none" stroke="#b9c0b7" stroke-width="5" stroke-linecap="round"/>
+      <path d="M198 98q15 16 0 29" fill="none" stroke="#e7622a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+
+    <!-- level -->
+    <g transform="translate(82 858) rotate(-1)">
+      <rect x="0" y="0" width="720" height="54" rx="9" fill="url(#level)"/>
+      <rect x="0" y="0" width="60" height="54" rx="8" fill="#1d2922"/>
+      <rect x="660" y="0" width="60" height="54" rx="8" fill="#1d2922"/>
+      <rect x="12" y="13" width="36" height="28" rx="3" fill="#f8f3e8" opacity=".2"/>
+      <rect x="672" y="13" width="36" height="28" rx="3" fill="#f8f3e8" opacity=".2"/>
+      <rect x="270" y="10" width="180" height="34" rx="17" fill="#1d2922" opacity=".9"/>
+      <rect x="290" y="16" width="140" height="22" rx="11" fill="#d8e7c7"/>
+      <circle cx="386" cy="27" r="7" fill="#8dbb6c"/>
+      <path d="M120 27h100M500 27h100" stroke="#1d2922" stroke-opacity=".35" stroke-width="2"/>
+    </g>
+
+    <!-- trowel -->
+    <g transform="translate(608 892) rotate(26)">
+      <path d="M0 30 124 0l18 44L18 76Z" fill="url(#metal)"/>
+      <path d="M18 76 142 44l8 12L26 88Z" fill="#9aa39b" opacity=".5"/>
+      <rect x="124" y="8" width="74" height="18" rx="9" fill="#e7622a" transform="rotate(-14 124 8)"/>
+      <rect x="188" y="-4" width="94" height="14" rx="7" fill="#1d2922" transform="rotate(-14 188 -4)"/>
+    </g>
+
+    <g opacity=".9">
+      <text x="70" y="112" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" letter-spacing="4.5">AL BARAKA</text>
+      <text x="72" y="137" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="9.5" font-weight="700" letter-spacing="4.2">QURILISH MOLLARI · TOSHKENT</text>
+    </g>
+
+    <g opacity=".7">
+      <path d="M70 956h760" stroke="#f8f3e8" stroke-opacity=".2"/>
+      <text x="70" y="984" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="9" letter-spacing="2.2" opacity=".66">M400 · ROTBAND · SANTEXNIKA · ELEKTRO</text>
+      <text x="830" y="984" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="9" letter-spacing="2.2" text-anchor="end" opacity=".4">EST. 2016</text>
+    </g>
+  </g>
+
+  <rect x="34" y="34" width="832" height="992" rx="8" fill="none" stroke="#f8f3e8" stroke-opacity=".16" stroke-dasharray="3 8"/>
+  <rect width="900" height="1060" filter="url(#grain)" opacity=".055"/>
+</svg>

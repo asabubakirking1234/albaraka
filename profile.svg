@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Profil CD-60 3 metr">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eee8dc"/>
+      <stop offset="1" stop-color="#dbd2c0"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f6f1"/>
+      <stop offset=".25" stop-color="#cdd4cc"/>
+      <stop offset=".5" stop-color="#eef1ea"/>
+      <stop offset=".75" stop-color="#aab4aa"/>
+      <stop offset="1" stop-color="#dfe5dd"/>
+    </linearGradient>
+    <linearGradient id="metal2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dfe5dc"/>
+      <stop offset=".5" stop-color="#b5bfb4"/>
+      <stop offset="1" stop-color="#87948a"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-40%" width="170%" height="220%">
+      <feDropShadow dx="0" dy="20" stdDeviation="13" flood-color="#2a2114" flood-opacity=".24"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="640" cy="152" r="160" fill="#e7622a" opacity=".08"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">PROFILE / CD-60</text>
+  <ellipse cx="410" cy="500" rx="280" ry="30" fill="#7d6d54" opacity=".2" filter="url(#blur)"/>
+
+  <g transform="translate(92 238) rotate(-4)">
+    <g filter="url(#shadow)">
+      <path d="M0 48 520 0l12 52-520 48Z" fill="url(#metal2)"/>
+      <path d="M12 100 532 52l6 18-520 48Z" fill="#8c998e"/>
+      <path d="M76 22 86 70M180 12l10 48M284 2l10 48M388 -8l10 48M492 -18l10 48" stroke="#7e8b81" stroke-width="2" opacity=".5"/>
+    </g>
+    <g transform="translate(18 92)" filter="url(#shadow)">
+      <path d="M0 48 520 0l12 52-520 48Z" fill="url(#metal)"/>
+      <path d="M12 100 532 52l6 18-520 48Z" fill="#8c998e"/>
+      <path d="M76 22 86 70M180 12l10 48M284 2l10 48M388 -8l10 48M492 -18l10 48" stroke="#7e8b81" stroke-width="2" opacity=".45"/>
+    </g>
+    <g transform="translate(38 182)" filter="url(#shadow)">
+      <path d="M0 48 520 0l12 52-520 48Z" fill="url(#metal)"/>
+      <path d="M12 100 532 52l6 18-520 48Z" fill="#8c998e"/>
+      <path d="M76 22 86 70M180 12l10 48M284 2l10 48M388 -8l10 48M492 -18l10 48" stroke="#7e8b81" stroke-width="2" opacity=".45"/>
+      <rect x="0" y="48" width="16" height="52" fill="#e7622a"/>
+    </g>
+  </g>
+
+  <g transform="translate(548 408) rotate(4)">
+    <path d="M0 0h134l-14 36H28Z" fill="#1d2922"/>
+    <text x="67" y="24" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" letter-spacing="1.6" text-anchor="middle">CD-60 · 3 M</text>
+  </g>
+
+  <g transform="translate(74 96)">
+    <rect x="0" y="0" width="146" height="84" rx="3" fill="#fffdf8" opacity=".9"/>
+    <text x="13" y="20" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">GALVANISED STEEL</text>
+    <text x="13" y="46" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="800">CD-60</text>
+    <path d="M13 56h122" stroke="#d9d1c2"/>
+    <text x="13" y="71" fill="#4d584f" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">3 M · 0.5 MM</text>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="170" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5">PROFILE CD-60 · 3 METRE</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">GYPSUM / 03</text>
+</svg>

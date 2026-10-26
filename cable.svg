@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Kabel VVG 3x2,5">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe9dc"/>
+      <stop offset="1" stop-color="#dbd1bf"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="coil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f08a54"/>
+      <stop offset=".45" stop-color="#e7622a"/>
+      <stop offset="1" stop-color="#b74113"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2c9a1"/>
+      <stop offset=".5" stop-color="#c97e46"/>
+      <stop offset="1" stop-color="#8a5228"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="200%">
+      <feDropShadow dx="0" dy="20" stdDeviation="15" flood-color="#2a2114" flood-opacity=".3"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="15"/></filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="628" cy="150" r="164" fill="#e7622a" opacity=".09"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">ELECTRICAL / CABLE</text>
+
+  <ellipse cx="400" cy="500" rx="238" ry="30" fill="#7d6d54" opacity=".24" filter="url(#blur)"/>
+
+  <g transform="translate(182 172)" filter="url(#shadow)">
+    <circle cx="218" cy="220" r="196" fill="none" stroke="#a94414" stroke-width="74"/>
+    <circle cx="218" cy="220" r="196" fill="none" stroke="url(#coil)" stroke-width="62"/>
+    <circle cx="218" cy="220" r="196" fill="none" stroke="#f08a54" stroke-opacity=".35" stroke-width="14" stroke-dasharray="70 60"/>
+    <circle cx="218" cy="220" r="156" fill="#e5dccb"/>
+    <circle cx="218" cy="220" r="156" fill="none" stroke="#c7bba7" stroke-width="2"/>
+    <circle cx="218" cy="220" r="58" fill="#f8f3e8"/>
+    <circle cx="218" cy="220" r="58" fill="none" stroke="#d7ccba"/>
+    <text x="218" y="208" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="800" text-anchor="middle">3×2.5</text>
+    <text x="218" y="228" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.5" text-anchor="middle">VVG · 1 M</text>
+    <text x="218" y="244" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.4" text-anchor="middle">COPPER</text>
+    <path d="M218 220 355 74" stroke="#f8f3e8" stroke-width="1" opacity=".3" stroke-dasharray="4 6"/>
+  </g>
+
+  <!-- cable end -->
+  <g transform="translate(510 354) rotate(-10)">
+    <path d="M0 22q34-34 74-12" fill="none" stroke="#e7622a" stroke-width="18" stroke-linecap="round"/>
+    <rect x="58" y="0" width="86" height="44" rx="8" fill="#1d2922"/>
+    <path d="M144 6h34v8h-34zM144 20h34v8h-34zM144 34h34v8h-34z" fill="url(#copper)"/>
+    <path d="M178 10h18M178 24h18M178 38h18" stroke="#f2c9a1" stroke-width="2" stroke-linecap="round"/>
+    <text x="76" y="80" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.5">3 × 2.5 MM²</text>
+  </g>
+
+  <g transform="translate(74 96)">
+    <rect x="0" y="0" width="152" height="86" rx="3" fill="#fffdf8" opacity=".9"/>
+    <text x="13" y="20" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">COPPER CONDUCTOR</text>
+    <text x="13" y="48" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="800">VVG 3×2.5</text>
+    <path d="M13 58h124" stroke="#d9d1c2"/>
+    <text x="13" y="73" fill="#4d584f" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">CUT TO LENGTH</text>
+  </g>
+
+  <g transform="translate(556 148) rotate(5)">
+    <rect x="0" y="0" width="134" height="72" rx="3" fill="#1d2922"/>
+    <text x="12" y="20" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.5">FOR SOCKETS</text>
+    <text x="12" y="46" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="800">16 A</text>
+    <text x="12" y="61" fill="#c9c1b2" font-family="Arial,Helvetica,sans-serif" font-size="6.5" letter-spacing="1">220 V / 50 HZ</text>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="180" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5">VVG 3×2.5 · COPPER · PER M</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">ELECTRICAL / 01</text>
+</svg>

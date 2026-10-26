@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Ichki bo'yoq 10 litr, oq">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1eadc"/>
+      <stop offset="1" stop-color="#ded4c1"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#1d2922" stroke-opacity=".05"/>
+    </pattern>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e7ddcc"/>
+      <stop offset=".4" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#d8cdb9"/>
+    </linearGradient>
+    <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#e5ddcf"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="190%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#2a2114" flood-opacity=".26"/>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <circle cx="620" cy="152" r="162" fill="#e7622a" opacity=".1"/>
+  <path d="M44 50h84M44 50v84M756 550h-84M756 550v-84" fill="none" stroke="#1d2922" stroke-opacity=".22"/>
+  <text x="46" y="43" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.8">AL BARAKA</text>
+  <text x="754" y="43" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="2" text-anchor="end">PAINT / INTERIOR 10 L</text>
+
+  <!-- paint swatch -->
+  <path d="M180 520q66-26 148-18 78 8 146-6 68-14 148 6 46 12 52 30H152q-8-6 28-12Z" fill="url(#paint)"/>
+  <ellipse cx="410" cy="512" rx="262" ry="30" fill="#7d6d54" opacity=".2" filter="url(#blur)"/>
+
+  <!-- brush -->
+  <g transform="translate(124 252) rotate(-18)" filter="url(#shadow)">
+    <rect x="0" y="0" width="38" height="182" rx="19" fill="#a8794f"/>
+    <rect x="0" y="0" width="38" height="182" rx="19" fill="#c99a6d" opacity=".45"/>
+    <rect x="-4" y="174" width="46" height="44" rx="3" fill="#b9c0b6"/>
+    <path d="M-12 214h62v22q0 18-16 30l-14 8-18-12q-14-12-14-30Z" fill="#f8f3e8"/>
+    <path d="M-12 230h62v18q0 12-12 22H0q-12-10-12-22Z" fill="#fffdf8"/>
+    <path d="M-2 258h42v10q0 8-8 12H6q-8-4-8-12Z" fill="#e6ded0"/>
+  </g>
+
+  <!-- bucket -->
+  <g transform="translate(368 210)" filter="url(#shadow)">
+    <ellipse cx="128" cy="286" rx="140" ry="28" fill="#7d6d54" opacity=".25" filter="url(#blur)"/>
+    <path d="M22 58v186q0 22 22 25l156 0q22-3 22-25V58Z" fill="url(#body)"/>
+    <path d="M22 58v186q0 22 22 25l36 0V58Z" fill="#d8cdb9" opacity=".55"/>
+    <ellipse cx="128" cy="58" rx="106" ry="26" fill="#c74a17"/>
+    <ellipse cx="128" cy="58" rx="91" ry="19" fill="#e7622a"/>
+    <ellipse cx="128" cy="58" rx="64" ry="12" fill="#f08a54"/>
+    <path d="M24 78q104 24 208 0" fill="none" stroke="#b9ae9b" stroke-width="2" opacity=".5"/>
+    <rect x="52" y="108" width="152" height="116" rx="2" fill="#1d2922"/>
+    <text x="67" y="132" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="2.4">AL BARAKA</text>
+    <text x="67" y="174" fill="#f8f3e8" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="800" letter-spacing="-1">10 L</text>
+    <path d="M67 185h122" stroke="#f8f3e8" stroke-opacity=".22"/>
+    <text x="67" y="202" fill="#c9c1b2" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.5">INTERIOR · MATT · WHITE</text>
+    <text x="67" y="215" fill="#8e978e" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1.2">WASHABLE / ACRYLIC</text>
+    <path d="M38 60q90-92 180 0" fill="none" stroke="#aab2a8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M226 112q14 18-3 30" fill="none" stroke="#e7622a" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="228" cy="160" r="5" fill="#e7622a"/>
+    <circle cx="234" cy="190" r="3" fill="#e7622a"/>
+  </g>
+
+  <g transform="translate(588 376) rotate(6)">
+    <rect x="0" y="0" width="134" height="96" rx="3" fill="#fffdf8" opacity=".9"/>
+    <text x="13" y="21" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">COVERAGE</text>
+    <text x="13" y="50" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800">10–12</text>
+    <text x="13" y="65" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="7" letter-spacing="1">M² / LAYER</text>
+    <path d="M13 76h108" stroke="#d9d1c2"/>
+    <text x="13" y="89" fill="#e7622a" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" letter-spacing="1">2 LAYERS</text>
+  </g>
+
+  <g transform="translate(46 540)">
+    <rect x="0" y="0" width="186" height="26" rx="2" fill="#fffdf8" opacity=".8"/>
+    <text x="12" y="17" fill="#1d2922" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5">10 L · INTERIOR · MATT WHITE</text>
+  </g>
+  <text x="754" y="558" fill="#6f776e" font-family="Arial,Helvetica,sans-serif" font-size="8" letter-spacing="1.8" text-anchor="end">PAINT / 01</text>
+</svg>
