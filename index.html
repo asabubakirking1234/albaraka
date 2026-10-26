@@ -384,7 +384,7 @@ body::before {
   </div>
 </div>
 
-<!-- FIREBASE SDK (O'zgartirmang) -->
+<!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -405,8 +405,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 // =========================================================
 
-// Versiya nazorati
-const APP_VERSION = "15.1"; 
+const APP_VERSION = "15.2"; 
 if (localStorage.getItem('app_version') !== APP_VERSION) {
     localStorage.removeItem('albaraka_products'); 
     localStorage.removeItem('albaraka_categories'); 
@@ -565,12 +564,18 @@ let currentClientSearch = '';
 let currentSellerSearch = '';
 let currentOpenProductId = null;
 
+// ==========================================
+// FIREBASE DAN BUYURTMALARNI TINGLASH (Indekssiz va xatosiz)
+// ==========================================
 function listenOrders() {
-  db.collection("orders").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+  db.collection("orders").onSnapshot((snapshot) => {
     allOrders = [];
     snapshot.forEach((doc) => {
       allOrders.push({ firebaseId: doc.id, ...doc.data() });
     });
+    
+    // JavaScript da tartiblash (eng yangisi birinchi)
+    allOrders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
     
     if (isSeller) {
       loadSellerOrders();
@@ -584,6 +589,10 @@ function listenOrders() {
     }
   }, (error) => {
     console.error("Firebase xatoligi:", error);
+    // Agar ruxsat berilmagan bo'lsa, konsolga yozamiz
+    if(error.code === 'permission-denied') {
+      alert("Diqqat! Firebase bazasida xavfsizlik qoidalari (Rules) noto'g'ri sozlangan. Iltimos, rasmda ko'rsatilgandek 'allow read, write: if true;' qilib 'Publish' qiling.");
+    }
   });
 }
 
@@ -1218,7 +1227,7 @@ function submitOrder() {
     items, 
     total,
     status: 'new',
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    timestamp: Date.now() // Server vaqti o'rniga oddiy vaqt ishlatildi
   };
   
   db.collection("orders").add(newOrder).then((docRef) => {
